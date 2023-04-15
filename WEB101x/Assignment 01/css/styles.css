@@ -71,11 +71,16 @@ body {
   width: 200px;
   font-weight: bold;
   float: left;
-  padding-bottom: 10px;
+  margin-bottom: auto;
 }
 .date-value {
-  margin-left: 280px;
+  width: 600px;
+  margin-left: 200px;
+  line-height: 5px;
 }
 .div-info {
   border-bottom: 1px solid rgb(199, 197, 197);
+}
+.clear {
+  clear: both;
 }
