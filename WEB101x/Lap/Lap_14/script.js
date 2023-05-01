@@ -8,3 +8,4 @@ polulation = 100000000 + ' people';
 console.log('Country: ' + country);
 console.log('Continet: ' + continent);
 console.log('polulation: ' + polulation);
+
