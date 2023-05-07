@@ -22,19 +22,17 @@
 // }
 
 //Lap16.3
-console.log('')
-console.log('Lap 16.3');
-let country = prompt('What is the country you choose?')
-let language = prompt('What is the language in this country??');
-let population = prompt('What is the population of the country in millions?');
-let isIsland = prompt('What is the population of this country?(yes/no)');
-if(language == 'english' && population < 50 && isIsland == 'no'){
-    console.log('You should live in ' + country);
-}else{
-    console.log(country + ' does not meet your criteria ');
-}
-
-
+// console.log('')
+// console.log('Lap 16.3');
+// let country = prompt('What is the country you choose?')
+// let language = prompt('What is the language in this country??');
+// let population = prompt('What is the population of the country in millions?');
+// let isIsland = prompt('What is the population of this country?(yes/no)');
+// if(language == 'english' && population < 50 && isIsland == 'no'){
+//     console.log('You should live in ' + country);
+// }else{
+//     console.log(country + ' does not meet your criteria ');
+// }
 
 //Lap16.4
 // console.log('')
@@ -59,3 +57,40 @@ if(language == 'english' && population < 50 && isIsland == 'no'){
 //     default:
 //         console.log('Great language too :D');
 // }
+
+//Lap16.5
+// console.log('')
+// console.log('Lap 16.5');
+// let population = 30;
+// population > 33? console.log(`Portugal's population is above average`) : console.log(`Portugal's population is below average`);
+
+//Lap16.6
+console.log('')
+console.log('Lap 16.6');
+console.log('Lap 16.6.1');
+let GPADolphins;
+let GPAKoalas;
+
+// GPADolphins = (96 + 108 + 89)/3;
+// GPAKoalas = ( 81 + 91 + 110)/3;
+
+// GPADolphins = (97 + 112 + 101)/3;
+// GPAKoalas = ( 109 + 95 + 123)/3;
+
+GPADolphins = (97 + 112 + 101)/3;
+GPAKoalas = ( 109 + 95 + 106)/3;
+if(GPADolphins >= 100 & GPAKoalas >= 100){
+    if(GPADolphins > GPAKoalas) { 
+        console.log('Dolphins team win!');
+    }else if(GPADolphins < GPAKoalas) { 
+        console.log('Koalas team win!');
+    }else{
+        console.log('Koalas draw Dolphins!');
+    }
+}else if(GPADolphins < 100 & GPAKoalas >= 100){
+    console.log('Koalas team win!');
+}else if(GPADolphins >= 100 & GPAKoalas < 100){
+    console.log('Dolphins team win!');
+}else{
+    console.log('No team wins!');
+}
