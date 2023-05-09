@@ -65,11 +65,11 @@
 // population > 33? console.log(`Portugal's population is above average`) : console.log(`Portugal's population is below average`);
 
 //Lap16.6
-console.log('')
-console.log('Lap 16.6');
-console.log('Lap 16.6.1');
-let GPADolphins;
-let GPAKoalas;
+// console.log('')
+// console.log('Lap 16.6');
+// console.log('Lap 16.6.1');
+// let GPADolphins;
+// let GPAKoalas;
 
 // GPADolphins = (96 + 108 + 89)/3;
 // GPAKoalas = ( 81 + 91 + 110)/3;
@@ -77,20 +77,30 @@ let GPAKoalas;
 // GPADolphins = (97 + 112 + 101)/3;
 // GPAKoalas = ( 109 + 95 + 123)/3;
 
-GPADolphins = (97 + 112 + 101)/3;
-GPAKoalas = ( 109 + 95 + 106)/3;
-if(GPADolphins >= 100 & GPAKoalas >= 100){
-    if(GPADolphins > GPAKoalas) { 
-        console.log('Dolphins team win!');
-    }else if(GPADolphins < GPAKoalas) { 
-        console.log('Koalas team win!');
-    }else{
-        console.log('Koalas draw Dolphins!');
-    }
-}else if(GPADolphins < 100 & GPAKoalas >= 100){
-    console.log('Koalas team win!');
-}else if(GPADolphins >= 100 & GPAKoalas < 100){
-    console.log('Dolphins team win!');
-}else{
-    console.log('No team wins!');
-}
+// GPADolphins = (97 + 112 + 101)/3;
+// GPAKoalas = ( 109 + 95 + 106)/3;
+// if(GPADolphins >= 100 & GPAKoalas >= 100){
+//     if(GPADolphins > GPAKoalas) { 
+//         console.log('Dolphins team win!');
+//     }else if(GPADolphins < GPAKoalas) { 
+//         console.log('Koalas team win!');
+//     }else{
+//         console.log('Koalas draw Dolphins!');
+//     }
+// }else if(GPADolphins < 100 & GPAKoalas >= 100){
+//     console.log('Koalas team win!');
+// }else if(GPADolphins >= 100 & GPAKoalas < 100){
+//     console.log('Dolphins team win!');
+// }else{
+//     console.log('No team wins!');
+// }
+
+//16.6.2
+console.log('Lap 16.6.2');
+let tip;
+let bill;
+// bill = 275;
+bill = 40;
+// bill = 430;
+(bill >= 50 && bill <= 300)? tip = bill*0.15: tip = bill*0.2;
+console.log('The bill was '+ bill + ', the tip was ' + tip + ', and the total value ' + (bill + tip));
