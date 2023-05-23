@@ -12,3 +12,20 @@ const usa = describeCountry('USA', 100, 'washington DC');
 console.log(finland);
 console.log(vietNam);
 console.log(usa);
+
+//Lap17.2
+console.log('Lap 17.2');
+function percentageOfWorld1(population){
+    const percent = (population/7.9)*100 + '%';
+    return percent
+}
+
+const china = percentageOfWorld1(1.441);
+const vietnam = percentageOfWorld1(0.1);
+console.log(china);
+console.log(vietnam);
+const percentageOfWorld2 = function (population){
+    return ((population/7.9)*100 + '%');
+}
+const india = percentageOfWorld2(1);
+console.log(india);
