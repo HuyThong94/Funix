@@ -21,3 +21,4 @@ myCountry['population'] = myCountry['population'] - 2;
 console.log(myCountry['population']);
 myCountry['describe'] = 'Finland has 6 million finnish-speaking people, 3 neighbouring countries and a capital called Helsinki';
 console.log(myCountry['describe']);
+myCountry.checkIsland
