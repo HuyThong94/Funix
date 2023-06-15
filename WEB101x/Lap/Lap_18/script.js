@@ -11,6 +11,7 @@ const myCountry = {
 }
 console.log(myCountry);
 
+//Lap18.2
 console.log('Lap 18.2');
 const vietNam = myCountry['country'] + ' has ' + myCountry.population + ' million ' + myCountry.language +'-speaking people, ' + myCountry['neighbours'].length + ' neighbours coutries and capital called ' + myCountry['capital'];
 console.log(vietNam);
