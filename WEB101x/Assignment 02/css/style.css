@@ -19,7 +19,6 @@ section > .container{
 }
 #text-banner {
     font-family: arial;
-    font-weight: 100;
     position: absolute;
     color: white;
     text-align: center;
