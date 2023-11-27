@@ -1,0 +1,59 @@
+@startuml sequence_sample
+skinparam SequenceMessageAlignment center
+actor Customer
+boundary DetailOrderPage
+boundary OrderListPage
+control OrderRenderController
+control PaymentRenderController
+entity OrderService
+entity PaymentService
+entity MailService
+participant VNPAY_System
+participant Mail_System
+Customer ++
+' autonumber 1
+Customer -> Mail_System ++: [1] Click the link in the email attachment
+' autonumber 2
+Mail_System -> OrderRenderController --++: [2] Call
+OrderRenderController -> OrderService ++: [3] Call
+OrderService -> OrderService: [4] updateOrderDao
+OrderService -> OrderService ++ #DarkSalmon: [5] sendMail
+OrderService -> MailService ++: [6] Call
+note right
+    Send emails to sellers
+    and order information to buyers
+end note
+MailService -> Mail_System ++: [7] Call
+Mail_System --> MailService --: [8] Return
+MailService --> OrderService --: [9] Return
+deactivate OrderService
+OrderService -> OrderRenderController --: [10] Return
+OrderRenderController -> DetailOrderPage --++: [11] Redirect to
+DetailOrderPage -> DetailOrderPage: [12] showPopupPayment
+DetailOrderPage --> Customer --: [13] Return detail order page
+|||
+Customer -> DetailOrderPage ++: [14] Input and click payment
+DetailOrderPage -> PaymentRenderController --++: [15] Call
+PaymentRenderController -> PaymentService ++: [16] getGenerateUrl
+PaymentService -> PaymentService: [17] generateUrl
+PaymentService --> PaymentRenderController --: [18] Return
+PaymentRenderController -> VNPAY_System --++: [19] Redirect to
+VNPAY_System -> PaymentRenderController --++: [20] Call
+PaymentRenderController -> PaymentService ++: [21] getResponse
+PaymentService -> PaymentService: [22] updateOrder \n+ update PDF \n+ saveHisPayment
+PaymentService -> PaymentService ++ #DarkSalmon: [23] sendEmail
+PaymentService -> MailService ++: [24] sendMail
+note right
+    Send emails to sellers
+    and order information to buyers
+    (status payment)
+end note
+MailService -> Mail_System ++: [25] Call
+Mail_System --> MailService --: [26] Return
+MailService --> PaymentService --: [27] Return
+deactivate PaymentService
+PaymentService --> PaymentRenderController --: [28] Return
+PaymentRenderController -> OrderListPage --++: [29] Redirect to
+OrderListPage -> OrderListPage: [30] getListOrder
+OrderListPage --> Customer --: [31] Return order list page
+@enduml

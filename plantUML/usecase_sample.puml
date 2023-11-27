@@ -1,0 +1,57 @@
+@startuml usecase_sample
+
+' skinparam linetype ortho
+
+:Khách hàng: as KhachHang
+:Nhà cung cấp: as NhaCungCap
+:System Management: as Admin
+KhachHang <|-- NhaCungCap
+NhaCungCap <|-- Admin
+
+usecase "Đăng nhập" as SYS01
+
+package Customer {
+    usecase "Xem thông tin sản phẩm" as CUS01
+    usecase "Đặt hàng" as CUS02
+    usecase "Tìm kiếm" as CUS03
+    usecase "Bình luận" as CUS04
+    CUS04 .> CUS01: extends
+    CUS01 .> CUS03: include
+}
+
+KhachHang --> CUS01
+KhachHang --> CUS02
+KhachHang --> CUS04
+
+
+
+package Seller {
+    usecase "Quản lý sản phẩm" as SEL01
+    usecase "Quản lý đơn hàng" as SEL02
+    usecase "Xem thống kê" as SEL03
+
+    SEL01 .> SYS01: extends
+    SEL02 .> SYS01: extends
+    SEL03 .> SYS01: extends
+}
+
+NhaCungCap --> SYS01
+NhaCungCap --> SEL01
+NhaCungCap --> SEL02
+NhaCungCap --> SEL03
+
+Admin --> SYS01
+
+package System {
+    usecase "Menu Mng" as SYS02
+    usecase "User Mng" as SYS03
+
+    SYS02 .> SYS01: extends
+    SYS03 .> SYS01: extends
+}
+
+Admin --> SYS02
+Admin --> SYS03
+
+
+@enduml

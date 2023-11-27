@@ -1,0 +1,17 @@
+@startuml usecase_sample
+skin rose
+' skinparam linetype ortho
+    ' left to right direction
+    Actor : Admin : as Admin<<Actor>>
+    usecase "CommCd Management" as CommCd
+    usecase "Create CommCd" as Cre
+    usecase "Edit CommCd" as Edit
+    usecase "Delete CommCd" as Del
+
+    Admin   -down-> CommCd
+    Del     -up..>  CommCd : extends
+    Cre     -up..>  CommCd : extends
+    Edit    -up..>  CommCd : extends
+
+
+@enduml
