@@ -76,3 +76,12 @@ section > .container{
     background-color: #04AA6D;
     color: white;
 }
+#target {
+    grid: 50%;
+}
+#presional-info {
+    grid: 50%;
+}
+#container-about {
+    display: grid;
+}
