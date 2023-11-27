@@ -1,0 +1,17 @@
+@startuml usecase_sample
+skin rose
+' skinparam linetype ortho
+    ' left to right direction
+    Actor : Admin : as Admin<<Actor>>
+    usecase "User Management" as User
+    usecase "Create User" as Cre
+    usecase "Edit User" as Edit
+    usecase "Delete User" as Del
+
+    Admin   -down->  User
+    Del     -up..>  User : extends
+    Cre     -up..>  User : extends
+    Edit    -up..>  User : extends
+
+
+@enduml

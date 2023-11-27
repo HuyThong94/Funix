@@ -1,0 +1,67 @@
+@startuml entity_relationship
+
+skinparam linetype ortho
+
+entity vsm_category {
+    *id: number <<generated>>
+    *name_en: text
+    *name_kr: text
+    delete_yn: text
+    created_by: text
+    created_date: date
+    category_id: number <<fk>>
+}
+
+entity vsm_product {
+    *id: number <<generated>>
+    *code: text
+    *name: text
+    description: text
+    delete_yn: text
+    created_by: text
+    created_date: date
+    category_id: number <<fk>>
+}
+
+entity vsm_order {
+    *id: number <<generated>>
+    *code: text
+    full_name: text
+    phone: text
+    address: text
+    email: text
+    note: text
+    order_date: date
+}
+
+entity vsm_order_item {
+    *id: number <<generated>>
+    product_id: number <<fk>>
+    order_id: number <<fk>>
+    price: number
+    quantity: number
+    sale: number
+}
+
+vsm_category ||..o{ vsm_category
+vsm_category ||..o{ vsm_product
+vsm_order_item }o..|| vsm_product
+vsm_order_item }o..|| vsm_order
+
+entity vsm_user {
+    *user_uid: text <<pk>>
+    *user_id: text
+    *pwd: text
+    *status: text
+}
+
+entity vsm_user_info {
+    *user_uid: text <<pk, fk>>
+    full_name: text
+    gender: bit
+    address: text
+}
+
+vsm_user ||..|| vsm_user_info
+
+@enduml

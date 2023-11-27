@@ -1,0 +1,17 @@
+@startuml usecase_sample
+skin rose
+' skinparam linetype ortho
+    ' left to right direction
+    Actor : Admin : as Admin<<Actor>>
+    usecase "Notification Management" as Notifi
+    usecase "Create Notification" as Cre
+    usecase "Edit Notification" as Edit
+    usecase "Delete Notification" as Del
+
+    Admin   -down-> Notifi
+    Del     -up..>  Notifi : extends
+    Cre     -up..>  Notifi : extends
+    Edit    -up..>  Notifi : extends
+
+
+@enduml

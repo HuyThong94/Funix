@@ -1,0 +1,18 @@
+@startuml usecase_sample
+skin rose
+' skinparam linetype ortho
+    ' left to right direction
+    Actor : Admin : as Admin<<Actor>>
+    usecase "Login" as Login
+    usecase "Menu Management" as Menu
+    usecase "Role Management" as Role
+    usecase "User Management" as User
+    usecase "Notification Management" as Notifi
+
+    Admin   -down-> Login
+    Menu     -up..>  Login : extends
+    Role     -up..>  Login : extends
+    User    -up..>  Login : extends
+    Notifi    -up..>  Login : extends
+
+@enduml
