@@ -1,59 +1,22 @@
 @startuml sequence_sample
 skinparam SequenceMessageAlignment center
 actor Admin
-boundary ListMenu as Foo
-boundary FormMenu as Foo1
-control MenuController as Foo2
-control PaymentRenderController as Foo3
-entity OrderService as Foo4
-entity PaymentService as Foo5
-entity MailService as Foo6
-participant VNPAY_System as Foo7
-participant Mail_System as Foo8
+boundary FormMenu as Foo
+control MenuController as Foo1
+entity MenuService as Foo2
+' participant Database as Foo3
+database Database as Foo3
 Admin ++
 autonumber 1
-Admin -> Foo8 ++: [1] Click the link in the email attachment
-' autonumber 2
-Foo8 -> Foo2 --++: [2] Call
-Foo2 -> Foo4 ++: [3] Call
-Foo4 -> Foo4: [4] updateOrderDao
-Foo4 -> Foo4 ++ #DarkSalmon: [5] sendMail
-Foo4 -> Foo6 ++: [6] Call
-note right
-    Send emails to sellers
-    and order information to buyers
-end note
-Foo6 -> Foo8 ++: [7] Call
-Foo8 --> Foo6 --: [8] Return
-Foo6 --> Foo4 --: [9] Return
-deactivate Foo4
-Foo4 -> Foo2 --: [10] Return
-Foo2 -> Foo --++: [11] Redirect to
-Foo -> Foo: [12] showPopupPayment
-Foo --> Admin --: [13] Return detail order page
-|||
-Admin -> Foo ++: [14] Input and click payment
-Foo -> Foo3 --++: [15] Call
-Foo3 -> Foo5 ++: [16] getGenerateUrl
-Foo5 -> Foo5: [17] generateUrl
-Foo5 --> Foo3 --: [18] Return
-Foo3 -> Foo7 --++: [19] Redirect to
-Foo7 -> Foo3 --++: [20] Call
-Foo3 -> Foo5 ++: [21] getResponse
-Foo5 -> Foo5: [22] updateOrder \n+ update PDF \n+ saveHisPayment
-Foo5 -> Foo5 ++ #DarkSalmon: [23] sendEmail
-Foo5 -> Foo6 ++: [24] sendMail
-note right
-    Send emails to sellers
-    and order information to buyers
-    (status payment)
-end note
-Foo6 -> Foo8 ++: [25] Call
-Foo8 --> Foo6 --: [26] Return
-Foo6 --> Foo5 --: [27] Return
-deactivate Foo5
-Foo5 --> Foo3 --: [28] Return
-Foo3 -> Foo1 --++: [29] Redirect to
-Foo1 -> Foo1: [30] getListOrder
-Foo1 --> Admin --: [31] Return order list page
+Admin -> Foo ++: Enter info
+Admin -> Foo : Click button "Save"
+Foo -> Foo : check Validate
+Foo -> Foo1 ++: SaveMenu()
+Foo1 -> Foo1 : check infomation
+Foo1 -> Foo2 ++: saveMenu()
+Foo2 -> Foo3 ++: Load(sql)
+Foo3  --> Foo2 --:
+Foo2 --> Foo1 --: Return
+Foo1 --> Foo --: Return Notification
+Foo --> Admin --: Notification
 @enduml
