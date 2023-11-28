@@ -1,0 +1,18 @@
+@startuml sequence_menu_create
+skinparam SequenceMessageAlignment center
+actor Admin
+boundary ListMenu as Foo
+control MenuController as Foo1
+entity MenuService as Foo2
+Admin ++
+autonumber 1
+Admin -> Foo ++: Click button "delete" 
+Foo -> Foo1 ++: delete()
+Foo1 -> Foo2 ++: saveMenu()
+Foo3 -> Foo3 : check infomation
+Foo3 -> Foo3 : insertMenu()
+Foo3 --> Foo2 --: Return
+Foo2 --> Foo1 --: Return Notification
+Foo1 --> Foo --: Notification
+Foo --> Admin --: Notification
+@enduml

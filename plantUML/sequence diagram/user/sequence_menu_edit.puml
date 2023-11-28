@@ -1,0 +1,27 @@
+@startuml sequence_menu_edit
+skinparam SequenceMessageAlignment center
+actor Admin
+boundary ListMenu as Foo
+boundary FormMenu as Foo1
+control MenuController as Foo2
+entity MenuService as Foo3
+Admin ++
+autonumber 1
+Admin -> Foo ++: click button "edit" 
+Foo -> Foo1 ++: call
+Foo1 -> Foo2 ++: getMenuById()
+Foo2 -> Foo3 ++: getMenubyId()
+Foo3 --> Foo2 --: return
+Foo2 --> Foo1 --: return
+Admin -> Foo1 : Enter info
+Admin -> Foo1 : click button "Save"
+Foo1 -> Foo1 : check Validate
+Foo1 -> Foo2 ++: saveMenu()
+Foo2 -> Foo3 ++: saveMenu()
+Foo3 -> Foo3 : check infomation
+Foo3 -> Foo3 : insertMenu()
+Foo3 --> Foo2 --: return
+Foo2 --> Foo1 --: return Notification
+Foo1 --> Foo --: notification
+Foo --> Admin --: notification
+@enduml
