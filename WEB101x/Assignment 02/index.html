@@ -1,109 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./css/style.css">
-	<link rel="stylesheet" href="./css/font.css">
-	<title>Assignment 02</title>
-</head>
-<body>
-	<div id="banner" >
-		<img id="img-banner" src="./images/banner.jpg" alt="banner">
-		<div id="text-banner">
-			<h1 style=" font-weight: 500; font-size: 50px;">Nguyễn Văn A</h1>
-			<span>Full Stack Developer</span>
-		</div>
-	</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/font.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <title>Assignment 02</title>
+  </head>
+  <body>
+    <div id="banner">
+      <img id="img-banner" src="./images/banner.jpg" alt="banner" />
+      <div id="text-banner">
+        <h1 style="font-weight: 500; font-size: 50px">Nguyễn Văn A</h1>
+        <span>Full Stack Developer</span>
+      </div>
+    </div>
 
-	<section id="nav-bar">
-		<nav class="container" id="nav-info">
-			<a href="#"><i class="icon-user"></i>Thông tin</a>
-			<a href="#"><i class="icon-doc-text-inv"></i>Lý lịch</a>
-			<a href="">
-				<div id="text-nav">
-					<h1 style="font-weight: 500; font-size: 25px;">Nguyễn Văn A</h1>
-					<span>Full Stack Developer</span>
-				</div>
-			</a>
-			<a href="#"><i class="icon-mail-alt"></i>Chứng chỉ</a>
-			<a href="#"><i class="icon-star-1"></i>Dự Án</a>
-		</nav>
-	</section>
+    <section id="nav-bar">
+      <nav class="container" id="nav-info">
+        <a href="#"><i class="icon-user"></i>Thông tin</a>
+        <a href="#"><i class="icon-doc-text-inv"></i>Lý lịch</a>
+        <a href="">
+          <div id="text-nav">
+            <h1 style="font-weight: 500; font-size: 25px">Nguyễn Văn A</h1>
+            <span>Full Stack Developer</span>
+          </div>
+        </a>
+        <a href="#"><i class="icon-mail-alt"></i>Chứng chỉ</a>
+        <a href="#"><i class="icon-star-1"></i>Dự Án</a>
+      </nav>
+    </section>
 
-	<section id="about" class="bg-grey">
-		<div class="container" id="container-about">
-			<div id="target">
-				<h1 class="section-title">Mục tiêu nghề nghiệp</h1>
-				<p>
-					Là một sinh viên đã hoàn thành chương trình chứng chỉ Doanh
-					Nghiệp của FUNiX. Em mong muốn mình sẽ được làm việc với vị
-					trí <b>Fullstack Developer</b>, có thể vận dụng những kiến
-					thức đã được trau dồi và không ngừng học hỏi để phát triển
-					bản thân, cũng như hoàn thành tốt nhất công việc được giao.
-				</p>
-			</div>
-			<div id="personal-info" style="margin-top: 20px">
-				<h1 class="section-title">Thông tin cá nhân</h1>
-				<ul class="mt-40 info">
-					<li><span>Giới tính</span> : Nam</li>
-					<li><span>Ngày sinh</span> : 19/05/2000</li>
-					<li><span>Điện thoại</span> : (+84) 912398xxx</li>
-					<li><span>Email</span> : sinhvien@funix.edu.vn</li>
-					<li><span>Địa chỉ</span> : Số 10, đường 10, Hà Nội</li>
-					<li><span>Website</span> : https://abc.tech</li>
-				</ul>
-			</div>
-		</div>
-	</section>
+    <section id="about" class="bg-grey">
+      <div class="container" id="container-about">
+        <div class="grid-item-about" id="target">
+          <h1 class="section-title">Mục tiêu nghề nghiệp</h1>
+          <p>
+            Là một sinh viên đã hoàn thành chương trình chứng chỉ Doanh Nghiệp
+            của FUNiX. Em mong muốn mình sẽ được làm việc với vị trí Fullstack
+            Developer, có thể vận dụng những kiến thức đã được trau dồi và không
+            ngừng học hỏi để phát triển bản thân, cũng như hoàn thành tốt nhất
+            công việc được giao.
+          </p>
+        </div>
+        <div class="grid-item-about" id="personal-info">
+          <h1 class="section-title">Thông tin cá nhân</h1>
+          <ul class="mt-40 info" style="list-style: none">
+            <li><span>Giới tính</span> : Nam</li>
+            <li><span>Ngày sinh</span> : 19/05/2000</li>
+            <li><span>Điện thoại</span> : (+84) 912398xxx</li>
+            <li><span>Email</span> : sinhvien@funix.edu.vn</li>
+            <li><span>Địa chỉ</span> : Số 10, đường 10, Hà Nội</li>
+            <li><span>Website</span> : https://abc.tech</li>
+          </ul>
+          <div class="socials-share">
+            <a class="bg-twitter" href="" target="_blank"
+              ><span class="fa fa-twitter"></span
+            ></a>
+            <a class="bg-facebook" href="" target="_blank"
+              ><span class="fa fa-facebook"></span
+            ></a>
+            <a class="bg-google-plus" href="" target="_blank"
+              ><span class="fa fa-google-plus"></span
+            ></a>
+            <a class="bg-pinterest" href="" target="_blank"
+              ><span class="fa fa-instagram"></span
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-	<section id="job-info">
-		<div class="container">
-			<div style="margin-top: 20px">
-				<h1>Kinh nghiệm</h1>
-			</div>
-			<div style="margin-top: 20px">
-				<h1>Học vấn</h1>
-			</div>
-			<div style="margin-top: 20px">
-				<h1>Hoạt động</h1>
-			</div>
-			<div style="margin-top: 20px">
-				<h1>Sở thích</h1>
-			</div>
-			<div style="margin-top: 20px">
-				<h1>Ngôn ngữ</h1>
-			</div>
-			<div style="margin-top: 20px">
-				<h1>Kỹ năng</h1>
-			</div>
-		</div>
-	</section>
-	<section id="certificate" class="bg-grey">
-		<div class="container">
-			<h1 class="section-title">
-				Chứng chỉ - Giải thưởng
-			</h1>
-		</div>
-	</section>
+    <section id="job-info">
+      <div class="container">
+        <div class="grid-item-job">
+          <h1 class="grid-info">Kinh nghiệm</h1>
+          <!-- <span class="far-solid fa-briefcase"></span> -->
+          <span class="fa fa-briefcase fa-4x grid-icon"></span>
+          <div class="grid-sp">
+            <h3>Công ty X</h3>
+            <span
+              >02/2022 -
+              <span style="background-color: blue; color: white"
+                >Hiện tại</span
+              ></span
+            >
+            <ul style="list-style-type: none">
+              <li>- Full Stack Developer</li>
+              <li>
+                - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
+                sẵn
+              </li>
+              <li>
+                - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="grid-item-job">
+		  <h1 class="grid-info">Học vấn</h1>
+          <!-- <span class="far-solid fa-briefcase"></span> -->
+          <span class="fa fa-pencil fa-4x grid-icon"></span>
+          <div class="grid-sp">
+            <h3>Công ty X</h3>
+            <span
+              >02/2022 -
+              <span style="background-color: blue; color: white"
+                >Hiện tại</span
+              ></span
+            >
+            <ul style="list-style-type: none">
+              <li>- Full Stack Developer</li>
+              <li>
+                - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
+                sẵn
+              </li>
+              <li>
+                - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="grid-item-job">
+		  <h1 class="grid-info">Hoạt động</h1>
+          <!-- <span class="far-solid fa-briefcase"></span> -->
+          <span class="fa fa-network-wired fa-4x grid-icon"></span>
+          <div class="grid-sp">
+            <h3>Công ty X</h3>
+            <span
+              >02/2022 -
+              <span style="background-color: blue; color: white"
+                >Hiện tại</span
+              ></span
+            >
+            <ul style="list-style-type: none">
+              <li>- Full Stack Developer</li>
+              <li>
+                - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
+                sẵn
+              </li>
+              <li>
+                - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="grid-item-job">
+		  <h1 class="grid-info">Sở thích</h1>
+          <!-- <span class="far-solid fa-briefcase"></span> -->
+          <span class="fa-sharp fa-thin fa-telescope fa-4x grid-icon"></span>
+          <div class="grid-sp">
+            <h3>Công ty X</h3>
+            <span
+              >02/2022 -
+              <span style="background-color: blue; color: white"
+                >Hiện tại</span
+              ></span
+            >
+            <ul style="list-style-type: none">
+              <li>- Full Stack Developer</li>
+              <li>
+                - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
+                sẵn
+              </li>
+              <li>
+                - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="grid-item-job">
+		  <h1 class="grid-info">Ngôn ngữ</h1>
+          <!-- <span class="far-solid fa-briefcase"></span> -->
+          <span class="fa fa-voicemail fa-4x grid-icon"></span>
+          <div class="grid-sp">
+            <h3>Công ty X</h3>
+            <span
+              >02/2022 -
+              <span style="background-color: blue; color: white"
+                >Hiện tại</span
+              ></span
+            >
+            <ul style="list-style-type: none">
+              <li>- Full Stack Developer</li>
+              <li>
+                - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
+                sẵn
+              </li>
+              <li>
+                - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="grid-item-job">
+		  <h1 class="grid-info">Kỹ năng</h1>
+          <!-- <span class="far-solid fa-briefcase"></span> -->
+          <span class="fa fa-skiing-nordic fa-4x grid-icon"></span>
+          <div class="grid-sp">
+            <h3>Công ty X</h3>
+            <span
+              >02/2022 -
+              <span style="background-color: blue; color: white"
+                >Hiện tại</span
+              ></span
+            >
+            <ul style="list-style-type: none">
+              <li>- Full Stack Developer</li>
+              <li>
+                - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
+                sẵn
+              </li>
+              <li>
+                - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="certificate" class="bg-grey">
+      <div class="container">
+        <h1 class="section-title">Chứng chỉ - Giải thưởng</h1>
+      </div>
+    </section>
 
-	<section id="project">
-		<div class="container">
-			<h1 class="section-title">
-				Dự án
-			</h1>
-		</div>
-	</section>
+    <section id="project">
+      <div class="container">
+        <h1 class="section-title">Dự án</h1>
+      </div>
+    </section>
 
-	<section id="footer" class="bg-grey">
-		<div class="container">
-			<ul>
-				<li>Facebook</li>
-				<li>Linkedin</li>
-				<li>Github</li>
-			</ul>
-		</div>
-	</section>
-</body>
+    <section id="footer" class="bg-grey">
+      <div class="container">
+        <ul>
+          <li>Facebook</li>
+          <li>Linkedin</li>
+          <li>Github</li>
+        </ul>
+      </div>
+    </section>
+  </body>
 </html>

@@ -8,13 +8,12 @@
     background: #f7f7f7;
 }
 
-section > .container{
+section>.container {
     width: 1170px;
     margin: auto;
     display: block;
-
-    /* padding: 30px 50px; */
 }
+
 #text-banner {
     font-family: arial;
     position: absolute;
@@ -25,25 +24,23 @@ section > .container{
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 #img-banner {
     position: relative;
-    width:100%;
-    /* height: 100%; */
+    width: 100%;
     filter: brightness(50%);
     padding: 0px;
 }
+
 #nav-bar {
     text-align: center;
 }
+
 #text-nav {
     font-family: arial;
-    /* position: relative;  */
     text-align: center;
-    /* line-height: 1.5; */
-    /* top: 22%; */
-    /* left: 50%; */
-    /* transform: translate(-50%, -50%); */
 }
+
 #nav-bar {
     overflow: hidden;
     background-color: #fff;
@@ -51,11 +48,13 @@ section > .container{
     left: 50%;
     border: rgb(201, 196, 196) 0.5px groove;
 }
+
 #nav-info {
     display: inline-flex;
     justify-content: center;
     text-align: center;
 }
+
 #nav-bar a {
     float: left;
     color: #333;
@@ -76,12 +75,71 @@ section > .container{
     background-color: #04AA6D;
     color: white;
 }
-#target {
-    grid: 50%;
-}
-#presional-info {
-    grid: 50%;
-}
+
 #container-about {
     display: grid;
+    grid-template-columns: 1fr minmax(50%, 50%);
+    grid-column: inherit;
+    width: fit-content;
+}
+
+#target {
+    padding-left: 50px;
+    background-color: rgb(232, 232, 230);
+
+}
+
+#personal-info {
+    background-color: rgb(214, 214, 210);
+}
+
+.grid-item-about {
+    padding: 50px
+}
+
+.grid-item-about h1,ul {
+    padding-bottom: 20px;
+}
+
+/* css social share */
+.socials-share {
+    margin-bottom: 30px;
+}
+
+.socials-share a {
+    padding-right: 14px;
+    color: rgb(85, 172, 238);
+    line-height: 2em;
+    text-decoration: none;
+    border-radius: 2px;
+    white-space: nowrap;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+/* section .job-info */
+#job-info .container {
+    display: grid;
+    column-gap: 20px;
+    row-gap: 30px;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+}
+
+.grid-item-job {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    border: 1px solid rgba(217, 217, 217);
+    padding: 30px;
+}
+.grid-sp {
+    grid-column: 1/span 2;
+    padding-top: 20px;
+}
+.grid-info {
+    grid-column: 1/2;
+    padding-top: 30px;
+}
+.grid-icon{
+    padding-left: 20px;
 }
