@@ -1,18 +1,24 @@
-/* .bg-img1 {
-    background-color: #000;
+.bg-img1 {
     background-size: cover;
     background-image: url("./img/img1.jpg");
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 700px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
 }
 .bg-img2 {
-    background-color: #000;
     background-size: cover;
-    background-image: url(...);
+    background-image: url("./img/img1.jpg");
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 700px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
 }
 .bg-img3 {
-    background-color: #000;
     background-size: cover;
-    background-image: url(...);
-} */
-.carousel-caption{
-    padding-bottom: 10rem;
+    background-image: url("./img/img1.jpg");
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 700px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
 }
