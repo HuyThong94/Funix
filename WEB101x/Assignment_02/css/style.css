@@ -1,0 +1,46 @@
+* {
+    margin: 0px;
+}
+
+.bg-grey {
+    background: #f7f7f7;
+}
+
+section > .container{
+    width: 1170px;
+    margin: auto;
+    display: block;
+
+    padding: 30px 50px;
+}
+
+#nav-bar {
+    text-align: center;
+}
+/* #banner{
+    background-image: url("../images/banner.jpg");
+    background-size: 100%;
+    height: 500px;
+    filter: brightness(50%);
+
+} */
+
+#img-banner {
+    position: relative;
+    width: 100%;
+    /* height: 500px; */
+    filter: brightness(50%);
+    padding: 0px;
+}
+#text-banner {
+    font-family: arial;
+    position: absolute;
+    color: white;
+    text-align: center;
+    line-height: 1.5;
+    top: 22%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: none;
+}
+
