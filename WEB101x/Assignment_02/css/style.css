@@ -108,14 +108,17 @@ section>.container {
 #personal-info {
     background-color: rgb(214, 214, 210);
 }
+
 #personal-info ul {
     line-height: 1.6;
 }
+
 .grid-item-about {
     padding: 50px;
 }
 
-.grid-item-about h1,ul {
+.grid-item-about h1,
+ul {
     padding-bottom: 20px;
     padding-left: 0px;
 }
@@ -134,4 +137,38 @@ section>.container {
     white-space: nowrap;
     display: inline-block;
     margin-bottom: 4px;
+}
+
+/* section .job-info */
+#job-info .container {
+    display: grid;
+    column-gap: 20px;
+    row-gap: 30px;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+}
+
+.grid-item-job {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    border: 1px solid rgba(217, 217, 217);
+    padding: 30px;
+}
+
+.grid-item-job i {
+    font-size: xxx-large;
+}
+
+.grid-sp {
+    grid-column: 1/span 2;
+    padding-top: 20px;
+}
+
+.grid-info {
+    grid-column: 1/2;
+    padding-top: 30px;
+}
+
+.grid-icon {
+    padding-left: 20px;
 }
