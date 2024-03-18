@@ -34,19 +34,16 @@ section>.container {
 
 #nav-bar {
     text-align: center;
-}
-
-#text-nav {
-    font-family: arial;
-    text-align: center;
-}
-
-#nav-bar {
     overflow: hidden;
     background-color: #fff;
     text-align: center;
     left: 50%;
     border: rgb(201, 196, 196) 0.5px groove;
+}
+
+#text-nav {
+    font-family: arial;
+    text-align: center;
 }
 
 #nav-info {

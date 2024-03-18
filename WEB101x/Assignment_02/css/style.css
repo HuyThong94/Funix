@@ -6,41 +6,132 @@
     background: #f7f7f7;
 }
 
-section > .container{
+section>.container {
     width: 1170px;
     margin: auto;
     display: block;
-
     padding: 30px 50px;
 }
 
-#nav-bar {
-    text-align: center;
+#banner {
+    height: 600px;
+    overflow: hidden;
 }
-/* #banner{
-    background-image: url("../images/banner.jpg");
-    background-size: 100%;
-    height: 500px;
-    filter: brightness(50%);
-
-} */
 
 #img-banner {
     position: relative;
     width: 100%;
-    /* height: 500px; */
     filter: brightness(50%);
     padding: 0px;
 }
+
 #text-banner {
     font-family: arial;
     position: absolute;
     color: white;
     text-align: center;
     line-height: 1.5;
-    top: 22%;
+    top: 18%;
     left: 50%;
     transform: translate(-50%, -50%);
     filter: none;
 }
 
+#nav-bar {
+    display: flex;
+    text-align: center;
+    overflow: hidden;
+    background-color: #fff;
+    text-align: center;
+    left: 50%;
+}
+
+#text-nav {
+    font-family: arial;
+    text-align: center;
+    padding: 0px 50px;
+}
+
+#text-nav h1 {
+    font-weight: 500;
+    font-size: 30px;
+}
+
+#nav-info {
+    display: inline-flex;
+    justify-content: center;
+    padding: 0px;
+}
+
+#nav-info a i {
+    color: rgb(22, 125, 173);
+    ;
+}
+
+#nav-bar a {
+    float: left;
+    color: #333;
+    text-align: center;
+    padding: 0px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    border-left: rgb(201, 196, 196) 1px groove;
+    border-right: rgb(201, 196, 196) 1px groove;
+    align-items: center;
+    display: flex;
+}
+
+#nav-bar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+#nav-bar a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+#container-about {
+    display: grid;
+    grid-template-columns: 1fr minmax(50%, 50%);
+    grid-column: inherit;
+    width: fit-content;
+    padding: 0px;
+}
+
+#target {
+    padding-left: 50px;
+    background-color: rgb(232, 232, 230);
+
+}
+
+#personal-info {
+    background-color: rgb(214, 214, 210);
+}
+#personal-info ul {
+    line-height: 1.6;
+}
+.grid-item-about {
+    padding: 50px;
+}
+
+.grid-item-about h1,ul {
+    padding-bottom: 20px;
+    padding-left: 0px;
+}
+
+/* css social share */
+.socials-share {
+    margin-bottom: 30px;
+}
+
+.socials-share a {
+    padding-right: 14px;
+    color: rgb(85, 172, 238);
+    line-height: 2em;
+    text-decoration: none;
+    border-radius: 2px;
+    white-space: nowrap;
+    display: inline-block;
+    margin-bottom: 4px;
+}
