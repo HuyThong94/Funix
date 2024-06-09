@@ -38,7 +38,7 @@ section>.container {
 }
 
 #nav-bar {
-    display: flex;
+    display: block;
     text-align: center;
     overflow: hidden;
     background-color: #fff;
@@ -64,8 +64,6 @@ section>.container {
     padding: 0px 16px;
     text-decoration: none;
     font-size: 17px;
-    /* border-left: rgb(201, 196, 196) 1px groove;
-    border-right: rgb(201, 196, 196) 1px groove; */
     align-items: center;
     display: flex;
 }
