@@ -78,7 +78,15 @@ section>.container {
     color: white;
 }
 
+.a-text-nav {
+    display: none !important;
+    width: 200px;
+    border: 0px !important;
+    padding: 0px !important;
+}
+
 #text-nav {
+    display: flex;
     position: absolute;
     left: 50%;
     top: 97%
@@ -91,12 +99,6 @@ section>.container {
     border: 5px solid #ffffff; /* Viền trắng */
     position: absolute;
     transform: translateX(-50%);
-}
-
-.a-text-nav {
-    width: 200px;
-    border: 0px !important;
-    padding: 0px !important;
 }
 
 #container-about {
