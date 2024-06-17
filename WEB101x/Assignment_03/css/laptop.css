@@ -360,13 +360,3 @@ td {
     color: #199cdb;
     font-size: xx-large;
 }
-@media screen and (max-width: 1000px) {
-    /* @import url('/tablet.css');  */
-.a-text-nav {
-    display: none !important;
-    width: 200px;
-    border: 0px !important;
-    padding: 0px !important;
-}
-
-}
