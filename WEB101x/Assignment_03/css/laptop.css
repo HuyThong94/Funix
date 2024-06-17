@@ -84,7 +84,7 @@ section>.container {
 #text-nav {
     position: absolute;
     left: 50%;
-    top: 97%
+    top: 560px;
 }
 
 #text-nav img {
@@ -246,7 +246,7 @@ ul {
     display: grid;
     column-gap: 20px;
     row-gap: 30px;
-    grid-template-columns: 50% 50%
+    grid-template-columns: 50% 50%;
 }
 
 .grid-item-certificate {
