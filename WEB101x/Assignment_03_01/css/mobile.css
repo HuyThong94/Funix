@@ -1,0 +1,77 @@
+section>.container {
+    width: auto;
+    padding: 20px;
+}
+
+
+#text-nav {
+    display: none;
+}
+
+#nav-info {
+    display: block;
+    justify-content: center;
+    padding: 20px;
+}
+
+#nav-bar {
+    display: block;
+}
+
+#nav-bar a {
+    float: none;
+}
+
+#img-banner {
+    position: relative;
+    width: 100%;
+    filter: brightness(50%);
+    padding: 0px;
+    height: 100%;
+    object-fit: none;
+}
+
+#container-about {
+    display: contents;
+}
+
+#job-info .container {
+    display: contents;
+}
+
+.certificates {
+    display: contents;
+}
+
+.grid-item-certificate {
+    display: block;
+    border-bottom: 3px solid orange;
+    margin-bottom: 30px;
+}
+
+.odd {
+    border-right: none;
+}
+
+.img-certificates {
+    width: 100%;
+    height: auto;
+    padding-right: 0px;
+}
+
+.content-certificate {
+    margin-left: 0px;
+}
+
+.project {
+    display: contents;
+}
+
+.item-project {
+    border: solid 1px rgba(217, 217, 217);
+    margin-bottom: 40px;
+}
+
+.content-certificate ul {
+ padding-left: 0px;
+}
