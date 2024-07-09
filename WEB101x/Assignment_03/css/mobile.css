@@ -3,7 +3,6 @@ section>.container {
     padding: 20px;
 }
 
-
 #text-nav {
     display: none;
 }
@@ -12,6 +11,7 @@ section>.container {
     display: block;
     justify-content: center;
     padding: 20px;
+    line-height: 2.0;
 }
 
 #nav-bar {
