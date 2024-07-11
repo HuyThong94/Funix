@@ -120,6 +120,10 @@ section>.container {
     background-color: rgb(214, 214, 210);
 }
 
+#personal-form {
+    background-color: rgb(214, 214, 210);
+}
+
 #personal-info ul {
     line-height: 1.6;
 }
@@ -215,8 +219,8 @@ ul {
     background: #199cdb;
     display: inline-block;
     height: 3px;
-    margin-right: 10px;
-    width: 50px;
+    margin-right: 2%;
+    width: 22%;
 }
 
 .span-x {
@@ -224,8 +228,8 @@ ul {
     background: rgba(217, 217, 217);
     display: inline-block;
     height: 3px;
-    margin-right: 10px;
-    width: 50px;
+    margin-right: 2%;
+    width: 22%;
 }
 
 .item-type {
@@ -359,4 +363,34 @@ td {
 #footer .container i {
     color: #199cdb;
     font-size: xx-large;
+}
+
+#inputEmail {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: flex;
+}
+#submitEmail {
+    width: 80px;
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 20px 0;
+}
+#submitEmail:hover {
+    border-color: 1px solid #04AA6D;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px 0;
 }
