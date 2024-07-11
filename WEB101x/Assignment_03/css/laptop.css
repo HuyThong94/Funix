@@ -8,14 +8,14 @@
 }
 
 section>.container {
-    width: 1170px;
+    width: 100%;
     margin: auto;
     display: block;
     padding: 30px 50px;
 }
 
 #banner {
-    height: 600px;
+    height: auto;
     overflow: hidden;
 }
 
@@ -166,6 +166,7 @@ ul {
 .grid-item-job {
     border: 1px solid rgba(217, 217, 217);
     padding: 30px;
+    /* height: auto; */
 }
 
 .header-item {
