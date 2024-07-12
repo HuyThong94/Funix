@@ -1,3 +1,11 @@
+
+section>.container {
+    width: 100%;
+    margin: auto;
+    display: block;
+    padding: 30px 50px;
+}
+
 #text-nav {
     display: none ;
 }
