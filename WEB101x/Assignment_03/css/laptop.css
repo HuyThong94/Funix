@@ -8,8 +8,8 @@
 }
 
 section>.container {
-    /* width: 100%; */
-    width: 1170px;
+    width: 100%;
+    /* width: 1170px; */
     margin: auto;
     display: block;
     padding: 30px 50px;
