@@ -1,40 +1,73 @@
+@media screen and (max-width: 992px) {
 
-section>.container {
-    width: 100%;
-    margin: auto;
-    display: block;
-    padding: 30px 50px;
-}
+    section>.container {
+        width: 100%;
+        margin: auto;
+        display: block;
+        padding: 30px 50px;
+    }
 
-#text-nav {
-    display: none ;
-}
-#job-info .container {
-    display: grid;
-    column-gap: 20px;
-    row-gap: 30px;
-    grid-template-columns: 50% 50%;
-    padding: 10px;
-}
+    #text-nav {
+        display: none;
+    }
 
-#job-info {
-    display: flex;
-}
+    #job-info .container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: auto;
+    }
 
-#project {
-    display: flex;
-}
+    #job-info {
+        display: flex;
+    }
 
-.grid-item-certificate {
-    display: flex;
-    flex-direction: column;
-    /* border-bottom: 3px solid orange; */
-    margin-bottom: 30px;
-    align-items: center;
-}
+    #project {
+        display: flex;
+    }
 
-.img-certificates {
-    width: 80%;
-    height: auto;
-    padding-right: 0px;
+    .grid-item-certificate {
+        display: flex;
+        flex-direction: column;
+        /* border-bottom: 3px solid orange; */
+        margin-bottom: 30px;
+        align-items: center;
+    }
+
+    .img-certificates {
+        width: 80%;
+        height: auto;
+        padding-right: 0px;
+    }
+    .experience {
+        grid-column: 1 / 2;
+        grid-row: 1 / 3;
+    }
+    
+    .activities {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+    }
+    
+    .skills {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+    }
+    
+    .education{
+        grid-column: 2 / 3;
+        grid-row: 2 / 4;
+    }
+    
+    .language {
+        grid-column: 1 / 2;
+        grid-row: 4 / 5;
+    }
+    
+    .hobby {
+        grid-column: 2 / 3;
+        grid-row: 4 / 5;
+    }
 }

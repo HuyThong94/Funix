@@ -1,77 +1,82 @@
-section>.container {
-    width: auto;
-    padding: 20px;
-}
+@media screen and(max-width: 576) {
 
-#text-nav {
-    display: none;
-}
 
-#nav-info {
-    display: block;
-    justify-content: center;
-    padding: 20px;
-    line-height: 2.0;
-}
 
-#nav-bar {
-    display: block;
-}
+    section>.container {
+        width: auto;
+        padding: 20px;
+    }
 
-#nav-bar a {
-    float: none;
-}
+    #text-nav {
+        display: none;
+    }
 
-#img-banner {
-    position: relative;
-    width: 100%;
-    filter: brightness(50%);
-    padding: 0px;
-    height: 100%;
-    object-fit: none;
-}
+    #nav-info {
+        display: block;
+        justify-content: center;
+        padding: 20px;
+        line-height: 2.0;
+    }
 
-#container-about {
-    display: contents;
-}
+    #nav-bar {
+        display: block;
+    }
 
-#job-info .container {
-    display: contents;
-}
+    #nav-bar a {
+        float: none;
+    }
 
-.certificates {
-    display: contents;
-}
+    #img-banner {
+        position: relative;
+        width: 100%;
+        filter: brightness(50%);
+        padding: 0px;
+        height: 100%;
+        object-fit: none;
+    }
 
-.grid-item-certificate {
-    display: block;
-    border-bottom: 3px solid orange;
-    margin-bottom: 30px;
-}
+    #container-about {
+        display: contents;
+    }
 
-.odd {
-    border-right: none;
-}
+    #job-info .container {
+        display: contents;
+    }
 
-.img-certificates {
-    width: 100%;
-    height: auto;
-    padding-right: 0px;
-}
+    .certificates {
+        display: contents;
+    }
 
-.content-certificate {
-    margin-left: 0px;
-}
+    .grid-item-certificate {
+        display: block;
+        border-bottom: 3px solid orange;
+        margin-bottom: 30px;
+    }
 
-.project {
-    display: contents;
-}
+    .odd {
+        border-right: none;
+    }
 
-.item-project {
-    border: solid 1px rgba(217, 217, 217);
-    margin-bottom: 40px;
-}
+    .img-certificates {
+        width: 100%;
+        height: auto;
+        padding-right: 0px;
+    }
 
-.content-certificate ul {
- padding-left: 0px;
+    .content-certificate {
+        margin-left: 0px;
+    }
+
+    .project {
+        display: contents;
+    }
+
+    .item-project {
+        border: solid 1px rgba(217, 217, 217);
+        margin-bottom: 40px;
+    }
+
+    .content-certificate ul {
+        padding-left: 0px;
+    }
 }
