@@ -1,17 +1,18 @@
-@media screen and (max-width: 992px) {
+@media screen and (min-width: 577) and (max-width: 992px) {
 
     section>.container {
         width: 100%;
-        margin: auto;
+        /* margin: auto; */
         display: block;
-        padding: 30px 50px;
+        max-width: fit-content;
+        /* padding: 30px 50px; */
     }
 
     #text-nav {
         display: none;
     }
 
-    #job-info .container {
+    .info-list {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
@@ -34,40 +35,55 @@
         /* border-bottom: 3px solid orange; */
         margin-bottom: 30px;
         align-items: center;
+        margin: 40px 0;
     }
 
     .img-certificates {
         width: 80%;
         height: auto;
         padding-right: 0px;
+        margin-bottom: 15px;
     }
+
+    /* 
     .experience {
         grid-column: 1 / 2;
         grid-row: 1 / 2;
     }
-    
+
     .activity {
         grid-column: 2 / 3;
         grid-row: 1 / 2;
     }
-    
+
     .skills {
         grid-column: 1 / 2;
         grid-row: 2 / 4;
     }
-    
-    .education{
+
+    .education {
         grid-column: 2 / 3;
         grid-row: 2 / 3;
     }
-    
+
     .language {
         grid-column: 1 / 2;
         grid-row: 4 / 5;
     }
-    
+
     .hobby {
         grid-column: 2 / 3;
         grid-row: 3 / 4;
+    } */
+
+    .certificate-item {
+        text-align: center;
+        display: inline-block;
+        padding: 15px;
     }
+    
+.content-certificate {
+    margin-left: 0;
+}
+
 }

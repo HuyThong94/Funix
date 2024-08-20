@@ -7,9 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/font.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
   <title>Assignment_031</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <link rel="stylesheet" type="text/css" href="./css/laptop.css" />
   <link rel="stylesheet" type="text/css" href="./css/tablet.css">
   <link rel="stylesheet" type="text/css" href="./css/mobile.css">
@@ -23,7 +25,7 @@
         <img id="img-banner" class="img-fluid" src="./images/banner.jpg" alt="banner" />
         <div class="container" id="text-banner">
           <div class="carousel-caption text-center" id="text-banner">
-            <h1 style="font-weight: 500; font-size: 50px">Lương Huy Thông</h1>
+            <h1>Lương Huy Thông</h1>
             <p>Full Stack Developer</p>
           </div>
         </div>
@@ -41,15 +43,15 @@
 
   <section id="nav-bar">
     <nav class="container" id="nav-info">
-      <a href="#"><i class="icon-user"></i>Thông tin</a>
-      <a href="#"><i class="icon-doc-text-inv"></i>Lý lịch</a>
+      <a href="#" class="mb-2"><i class="icon-user"></i>Thông tin</a>
+      <a href="#" class="mb-2"><i class="icon-doc-text-inv"></i>Lý lịch</a>
       <a href="" class="a-text-nav">
         <div id="text-nav">
           <img src="./images/IMG_0548.JPG" alt="">
         </div>
       </a>
-      <a href="#"><i class="icon-mail-alt"></i>Chứng chỉ</a>
-      <a href="#"><i class="icon-star-1"></i>Dự Án</a>
+      <a href="#" class="mb-2"><i class="icon-mail-alt"></i>Chứng chỉ</a>
+      <a href="#" class="mb-2"><i class="icon-star-1"></i>Dự Án</a>
     </nav>
   </section>
 
@@ -86,8 +88,7 @@
         <h1 class="section-title">Thông tin cá nhân</h1>
         <form>
           <div class="inputEmail mb-2">
-            <input placeholder="Enter email" name="title" id="inputEmail" type="email" class="form-control"
-              required />
+            <input placeholder="Enter email" name="title" id="inputEmail" type="email" class="form-control" required />
           </div>
           <div id="requiredEmail">
             Hãy nhập email để xác thực
@@ -103,181 +104,190 @@
     </div>
   </section>
 
-  <section id="job-info">
+  <section id="info-section">
     <div class="container">
-      <div class="grid-item-job experience">
-        <div class="header-item">
-          <h1 class="grid-info">Kinh nghiệm</h1>
-          <i class="ic-toolbox"></i>
-        </div>
-        <div class="grid-sp">
-          <h3>Công ty Atwom Việt Nam</h3>
-          <span>04/2022 -
-            <span style="background-color: blue; color: white">Hiện tại</span></span>
-          <ul style="list-style-type: none">
-            <li>- Full Stack Developer</li>
-            <li>
-              - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
-              sẵn
-            </li>
-            <li>
-              - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="grid-item-job education">
-        <div class="header-item">
-          <h1 class="grid-info">Học vấn</h1>
-          <i class="ic-pencil"></i>
-        </div>
-        <div class="grid-sp">
-          <h3>FUNiX</h3>
-          <span>04/2023 -
-            <span style="background-color: blue; color: white">Hiện tại</span></span>
-          <ul style="list-style-type: none">
-            <li>- Full Stack Developer</li>
-            <li>
-              - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
-              sẵn
-            </li>
-            <li>
-              - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="grid-item-job activity">
-        <div class="header-item">
-          <h1 class="grid-info">Hoạt động</h1>
-          <i class="ic-toolbox"></i>
-        </div>
-        <div class="grid-sp">
-          <h3>Công ty X</h3>
-          <span>02/2022 -
-            <span style="background-color: blue; color: white">Hiện tại</span></span>
-          <ul style="list-style-type: none">
-            <li>- Full Stack Developer</li>
-            <li>
-              - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
-              sẵn
-            </li>
-            <li>
-              - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="grid-item-job hobby">
-        <div class="header-item">
-          <h1 class="grid-info" style="margin-left: 10px;">Sở thích</h1>
-          <i class="ic-telescope"></i>
-        </div>
-        <div class="grid-item-like">
-          <div>
-            <div class="item-center">
-              <i class="ic-megaphone"></i>
-            </div>
-            <h3>Âm Nhạc</h3>
+      <div class="info-list">
+        <div class="grid-item-job experience">
+          <div class="header-item">
+            <h1 class="grid-info">Kinh nghiệm</h1>
+            <i class="ic-toolbox"></i>
           </div>
-          <div>
-            <div class="item-center">
-              <i class="ic-strategy"></i>
-            </div>
-            <h3>Chơi game</h3>
-          </div>
-          <div>
-            <div class="item-center">
-              <i class="ic-hotairballoon"></i>
-            </div>
-            <h3>Du lịch</h3>
-          </div>
-          <div>
-            <div class="item-center">
-              <i class="ic-basket"></i>
-            </div>
-            <h3>Nấu Ăn</h3>
+          <button class="toggle-btn" onclick="showInfo('content-experience', 'block')"><i class="fa me-1  fa-caret-down"></i>View More</button>
+          <div class="grid-sp" id="content-experience">
+            <h3>Công ty Atwom Việt Nam</h3>
+            <span>04/2022 -
+              <span style="background-color: blue; color: white">Hiện tại</span></span>
+            <ul style="list-style-type: none">
+              <li>- Full Stack Developer</li>
+              <li>
+                - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
+                sẵn
+              </li>
+              <li>
+                - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-      <div class="grid-item-job language">
-        <div class="header-item">
-          <h1 class="grid-info">Ngôn ngữ</h1>
-          <i class="ic-mic" style="padding-left: 20px;"></i>
+        <div class="grid-item-job education">
+          <div class="header-item">
+            <h1 class="grid-info">Học vấn</h1>
+            <i class="ic-pencil"></i>
+          </div>
+          <button class="toggle-btn" onclick="showInfo('content-education', 'block')">View More</button>
+          <div class="grid-sp" id="content-education">
+            <h3>FUNiX</h3>
+            <span>04/2023 -
+              <span style="background-color: blue; color: white">Hiện tại</span></span>
+            <ul style="list-style-type: none">
+              <li>- Full Stack Developer</li>
+              <li>
+                - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
+                sẵn
+              </li>
+              <li>
+                - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="grib-language">
-          <div class="item-type">
-            <h3>English</h3>
+        <div class="grid-item-job activity">
+          <div class="header-item">
+            <h1 class="grid-info">Hoạt động</h1>
+            <i class="ic-toolbox"></i>
+          </div>
+          <button class="toggle-btn" onclick="showInfo('content-activity'), 'block'">View More</button>
+          <div class="grid-sp" id="content-activity">
+            <h3>Công ty X</h3>
+            <span>02/2022 -
+              <span style="background-color: blue; color: white">Hiện tại</span></span>
+            <ul style="list-style-type: none">
+              <li>- Full Stack Developer</li>
+              <li>
+                - Xây dựng pháp triển Website dựa trên thiết kế và yêu cầu có
+                sẵn
+              </li>
+              <li>
+                - Phân tích và thiểt kế Database, sử dụng các hệ quản trị CSDL
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="grid-item-job hobby">
+          <div class="header-item">
+            <h1 class="grid-info" style="margin-left: 10px;">Sở thích</h1>
+            <i class="ic-telescope"></i>
+          </div>
+          <button class="toggle-btn" onclick="showInfo('content-hobby'), 'grid'">View More</button>
+          <div class="grid-item-like grid-sp" id="content-hobby">
             <div>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-x"></span>
+              <div class="item-center">
+                <i class="ic-megaphone"></i>
+              </div>
+              <h3>Âm Nhạc</h3>
+            </div>
+            <div>
+              <div class="item-center">
+                <i class="ic-strategy"></i>
+              </div>
+              <h3>Chơi game</h3>
+            </div>
+            <div>
+              <div class="item-center">
+                <i class="ic-hotairballoon"></i>
+              </div>
+              <h3>Du lịch</h3>
+            </div>
+            <div>
+              <div class="item-center">
+                <i class="ic-basket"></i>
+              </div>
+              <h3>Nấu Ăn</h3>
             </div>
           </div>
         </div>
-      </div>
-      <div class="grid-item-job skills">
-        <div class="header-item">
-          <h1 class="grid-info">Kỹ năng</h1>
-          <i class="ic-tools-2"></i>
-        </div>
-        <div class="grib-language">
-          <div class="item-type">
-            <h3>HTML/CSS: Intermediate</h3>
-            <div>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-x"></span>
-            </div>
+        <div class="grid-item-job language">
+          <div class="header-item">
+            <h1 class="grid-info">Ngôn ngữ</h1>
+            <i class="ic-mic" style="padding-left: 20px;"></i>
           </div>
-          <div class="item-type">
-            <h3>Javascript: Intermediate</h3>
-            <div>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-x"></span>
-            </div>
-          </div>
-          <div class="item-type">
-            <h3>NodeJs: Intermediate</h3>
-            <div>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-x"></span>
-            </div>
-          </div>
-          <div class="item-type">
-            <h3>Angular: Intermediate</h3>
-            <div>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-x"></span>
-            </div>
-          </div>
-          <div class="item-type">
-            <h3>Java: Intermediate</h3>
-            <div>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-x"></span>
-            </div>
-          </div>
-          <div class="item-type">
-            <h3>React: Intermediate</h3>
-            <div>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-y"></span>
-              <span class="span-x"></span>
+          <button class="toggle-btn" onclick="showInfo('content-language', 'block')">View More</button>
+          <div class="grid-language grid-sp" id="content-language">
+            <div class="item-type">
+              <h3>English</h3>
+              <div>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-x"></span>
+              </div>
             </div>
           </div>
         </div>
+        <div class="grid-item-job skills">
+          <div class="header-item">
+            <h1 class="grid-info">Kỹ năng</h1>
+            <i class="ic-tools-2"></i>
+          </div>
+          <button class="toggle-btn" onclick="showInfo('content-skills')">View More</button>
+          <div class="grid-language grid-sp" id="content-skills">
+            <div class="item-type">
+              <h3>HTML/CSS: Intermediate</h3>
+              <div>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-x"></span>
+              </div>
+            </div>
+            <div class="item-type">
+              <h3>Javascript: Intermediate</h3>
+              <div>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-x"></span>
+              </div>
+            </div>
+            <div class="item-type">
+              <h3>NodeJs: Intermediate</h3>
+              <div>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-x"></span>
+              </div>
+            </div>
+            <div class="item-type">
+              <h3>Angular: Intermediate</h3>
+              <div>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-x"></span>
+              </div>
+            </div>
+            <div class="item-type">
+              <h3>Java: Intermediate</h3>
+              <div>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-x"></span>
+              </div>
+            </div>
+            <div class="item-type">
+              <h3>React: Intermediate</h3>
+              <div>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-y"></span>
+                <span class="span-x"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -286,7 +296,7 @@
     <div class="container">
       <h1 class="section-title" style="margin-bottom: 30px;">Chứng chỉ - Giải thưởng</h1>
       <div class="certificates">
-        <div class="grid-item-certificate odd">
+        <div class="certificate-item odd">
           <img class="img-certificates" src="/images/Project Planning - Putting It All Together.jpeg"
             alt="Project Planning: Putting It All Together">
           <div class="content-certificate">
@@ -299,7 +309,7 @@
             </ul>
           </div>
         </div>
-        <div class="grid-item-certificate">
+        <div class="certificate-item">
           <img class="img-certificates" src="/images/Project Initiation - Starting a Successful Project.jpeg"
             alt="Project Initiation: Starting a Successful Project">
           <div class="content-certificate">
@@ -312,7 +322,8 @@
             </ul>
           </div>
         </div>
-        <div class="grid-item-certificate">
+        <div class="divider"></div>
+        <div class="certificate-item">
           <img class="img-certificates" src="/images/Foundations of Project Management.jpeg"
             alt="Foundations of Project Management">
           <div class="content-certificate">
@@ -425,9 +436,9 @@
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-  integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
     crossorigin="anonymous"></script>
-    <script src="./js/script.js"></script>
+  <script src="./js/script.js"></script>
 </body>
 
 </html>

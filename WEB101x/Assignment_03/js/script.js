@@ -24,3 +24,26 @@ document.getElementById("inputEmail").addEventListener("input", function (event)
       document.getElementById("requiredEmail").hidden = true;
     }
   });
+
+  function showInfo(idContent, display){
+    const skillContent = document.getElementById(idContent);
+        if (skillContent.style.display === 'none' || skillContent.style.display === '') {
+            skillContent.style.display = display;
+            this.event.currentTarget.textContent = 'View Less';
+        } else {
+            skillContent.style.display = 'none';
+            this.event.currentTarget.textContent = 'View More';
+        }
+  }
+//   document.querySelectorAll('.toggle-btn').forEach(button => {
+//     button.addEventListener('click', () => {
+//         const skillContent = button.previousElementSibling;
+//         if (skillContent.style.display === 'none' || skillContent.style.display === '') {
+//             skillContent.style.display = 'block';
+//             button.textContent = 'View Less';
+//         } else {
+//             skillContent.style.display = 'none';
+//             button.textContent = 'View More';
+//         }
+//     });
+// });
