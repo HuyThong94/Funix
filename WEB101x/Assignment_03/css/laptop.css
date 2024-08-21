@@ -191,7 +191,7 @@ ul {
     grid-template-columns: 75% 25%;
 }
 
-.grid-item-job i {
+.big_icon {
     font-size: xxx-large;
     color: rgb(139, 139, 141);
 }
@@ -432,7 +432,7 @@ td {
     background-color: #007BFF;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .grid-item-job:hover {
