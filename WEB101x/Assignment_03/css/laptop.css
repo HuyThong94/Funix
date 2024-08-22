@@ -202,7 +202,7 @@ ul {
 }
 
 .grid-item-like {
-    display: grid;
+    display: none;
     text-align: center;
     /* align-items: center; */
     grid-column: 1/span 2;
@@ -255,7 +255,7 @@ ul {
 
 .grid-info {
     grid-column: 1/2;
-    padding-top: 30px;
+    /* padding-top: 30px; */
 }
 
 .grid-icon {
@@ -426,11 +426,11 @@ td {
 
 .toggle-btn {
     display: none;
-    margin-top: 10px;
-    padding: 5px 10px;
+    /* margin-top: 10px;
+    padding: 5px 10px; */
     cursor: pointer;
-    background-color: #007BFF;
-    color: white;
+    background-color: #f5f6bd;
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 20px;
 }

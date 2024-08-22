@@ -109,10 +109,15 @@
       <div class="info-list">
         <div class="grid-item-job experience">
           <div class="header-item">
-            <h1 class="grid-info">Kinh nghiệm</h1>
+            <div style=" grid-column: 1/2;">
+              <h1 class="grid-info">Kinh nghiệm</h1>
+              <button class="toggle-btn" id="click-experience"
+                onclick="showInfo('content-experience', 'block', 'click-experience')"><i
+                  class="fa-solid fa-lg me-1 fa-caret-down"></i>View More</button>
+            </div>
+
             <i class="ic-toolbox big_icon"></i>
           </div>
-          <button class="toggle-btn" onclick="showInfo('content-experience', 'block')"><i class="fa-solid fa-lg me-1 fa-caret-up"></i>View More</button>
           <div class="grid-sp" id="content-experience">
             <h3>Công ty Atwom Việt Nam</h3>
             <span>04/2022 -
@@ -131,10 +136,14 @@
         </div>
         <div class="grid-item-job education">
           <div class="header-item">
-            <h1 class="grid-info">Học vấn</h1>
+            <div style=" grid-column: 1/2;">
+              <h1 class="grid-info">Học vấn</h1>
+              <button class="toggle-btn" id="click-education"
+                onclick="showInfo('content-education', 'block', 'click-education')"><i
+                  class="fa-solid fa-lg me-1 fa-caret-down"></i>View More</button>
+            </div>
             <i class="ic-pencil big_icon"></i>
           </div>
-          <button class="toggle-btn" onclick="showInfo('content-education', 'block')">View More</button>
           <div class="grid-sp" id="content-education">
             <h3>FUNiX</h3>
             <span>04/2023 -
@@ -153,10 +162,14 @@
         </div>
         <div class="grid-item-job activity">
           <div class="header-item">
-            <h1 class="grid-info">Hoạt động</h1>
+            <div style=" grid-column: 1/2;">
+              <h1 class="grid-info">Hoạt động</h1>
+              <button class="toggle-btn" id="click-activity"
+                onclick="showInfo('content-activity', 'block', 'click-activity')"><i
+                  class="fa-solid fa-lg me-1 fa-caret-down"></i>View More</button>
+            </div>
             <i class="ic-toolbox big_icon"></i>
           </div>
-          <button class="toggle-btn" onclick="showInfo('content-activity'), 'block'">View More</button>
           <div class="grid-sp" id="content-activity">
             <h3>Công ty X</h3>
             <span>02/2022 -
@@ -175,10 +188,13 @@
         </div>
         <div class="grid-item-job hobby">
           <div class="header-item">
-            <h1 class="grid-info" style="margin-left: 10px;">Sở thích</h1>
+            <div style=" grid-column: 1/2;">
+              <h1 class="grid-info" style="margin-left: 10px;">Sở thích</h1>
+              <button class="toggle-btn" id="click-hobby" onclick="showInfo('content-hobby', 'grid', 'click-hobby')"><i
+                  class="fa-solid fa-lg me-1 fa-caret-down"></i>View More</button>
+            </div>
             <i class="ic-telescope big_icon"></i>
           </div>
-          <button class="toggle-btn" onclick="showInfo('content-hobby'), 'grid'">View More</button>
           <div class="grid-item-like grid-sp" id="content-hobby">
             <div>
               <div class="item-center">
@@ -208,10 +224,14 @@
         </div>
         <div class="grid-item-job language">
           <div class="header-item">
-            <h1 class="grid-info">Ngôn ngữ</h1>
+            <div style=" grid-column: 1/2;">
+              <h1 class="grid-info">Ngôn ngữ</h1>
+              <button class="toggle-btn" id="click-language"
+                onclick="showInfo('content-language', 'block','click-language')"><i
+                  class="fa-solid fa-lg me-1 fa-caret-down"></i>View More</button>
+            </div>
             <i class="ic-mic big_icon" style="padding-left: 20px;"></i>
           </div>
-          <button class="toggle-btn" onclick="showInfo('content-language', 'block')">View More</button>
           <div class="grid-language grid-sp" id="content-language">
             <div class="item-type">
               <h3>English</h3>
@@ -226,10 +246,14 @@
         </div>
         <div class="grid-item-job skills">
           <div class="header-item">
-            <h1 class="grid-info">Kỹ năng</h1>
+            <div style=" grid-column: 1/2;">
+              <h1 class="grid-info">Kỹ năng</h1>
+              <button class="toggle-btn" id="click-skills"
+                onclick="showInfo('content-skills', 'block', 'click-skills')"><i
+                  class="fa-solid fa-lg me-1 fa-caret-down"></i>View More</button>
+            </div>
             <i class="ic-tools-2 big_icon"></i>
           </div>
-          <button class="toggle-btn" onclick="showInfo('content-skills')">View More</button>
           <div class="grid-language grid-sp" id="content-skills">
             <div class="item-type">
               <h3>HTML/CSS: Intermediate</h3>

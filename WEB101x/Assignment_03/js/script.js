@@ -26,24 +26,15 @@ document.getElementById("inputEmail").addEventListener("input", function (event)
   });
 
   function showInfo(idContent, display){
+    
     const skillContent = document.getElementById(idContent);
         if (skillContent.style.display === 'none' || skillContent.style.display === '') {
             skillContent.style.display = display;
             this.event.currentTarget.textContent = 'View Less';
+            this.event.currentTarget.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-lg me-1 fa-caret-up"></i>');
         } else {
             skillContent.style.display = 'none';
-            this.event.currentTarget.textContent = 'View More';
+            this.event.currentTarget.textContent = 'View more';
+            this.event.currentTarget.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-lg me-1 fa-caret-down"></i>');
         }
   }
-//   document.querySelectorAll('.toggle-btn').forEach(button => {
-//     button.addEventListener('click', () => {
-//         const skillContent = button.previousElementSibling;
-//         if (skillContent.style.display === 'none' || skillContent.style.display === '') {
-//             skillContent.style.display = 'block';
-//             button.textContent = 'View Less';
-//         } else {
-//             skillContent.style.display = 'none';
-//             button.textContent = 'View More';
-//         }
-//     });
-// });

@@ -1,4 +1,4 @@
-@media screen and (min-width: 577) and (max-width: 992px) {
+@media screen and (min-width: 577px) and (max-width: 992px) {
 
     section>.container {
         width: 100%;
@@ -81,9 +81,12 @@
         display: inline-block;
         padding: 15px;
     }
-    
-.content-certificate {
-    margin-left: 0;
-}
 
+    .content-certificate {
+        margin-left: 0;
+    }
+
+    .grid-item-job:hover .toggle-btn {
+        display: inline-block;
+    }
 }

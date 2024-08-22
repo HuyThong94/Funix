@@ -60,8 +60,9 @@
     }
 
     .grid-item-job {
+        pointer-events: all;
         padding: 30px;
-        margin: 20px 0;
+        margin: 20px 1px;
     }
 
     .certificates {
@@ -107,5 +108,9 @@
 
     .content-certificate ul {
         padding-left: 0px;
+    }
+
+    .grid-item-job:hover .toggle-btn {
+        display: inline-block;
     }
 }
