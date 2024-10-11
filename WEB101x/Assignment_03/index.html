@@ -103,7 +103,6 @@
       </div>
     </div>
   </section>
-
   <section id="info-section">
     <div class="container">
       <div class="info-list">
@@ -381,7 +380,7 @@
             </div>
             <table class="des-prj">
               <tr>
-                <td style="width: 120px;">Mô tả</td>
+                <td style="width: 99px;">Mô tả</td>
                 <td>Trang web CV cá nhân online. Gồm các thông tin cá nhân cũng như kỹ năng nghề nghiệp</td>
               </tr>
               <tr>
@@ -408,7 +407,7 @@
             </div>
             <table class="des-prj">
               <tr>
-                <td style="width: 120px;">Mô tả</td>
+                <td style="width: 99px;">Mô tả</td>
                 <td>Ứng dụng giúp quản lý các thông tin của thú cưng như: Cân nặng, giống, tình trạng tiêm chủng, ...
                   Bao
                   gồm các hcuwcs năng thêm / sửa / xoá</td>
@@ -437,7 +436,7 @@
             </div>
             <table class="des-prj">
               <tr>
-                <td style="width: 120px;">Mô tả</td>
+                <td style="width: 99px;">Mô tả</td>
                 <td>Trang Web xem tin tức từ nhiều nguồn khác nhau, người dùng có thể tìm kiếm các tin tức dựa theo các
                   từ
                   khoá</td>
@@ -464,6 +463,31 @@
       <i class="icon-github-circled"></i><span>Github</span>
     </div>
   </section>
+  
+  <script>
+    // Hàm thay đổi kích thước các thẻ div có cùng class
+    function resizeDivsByClassName() {
+      const divs = document.getElementsByClassName("grid-item-job");
+      const width = window.innerWidth;
+
+      // Lặp qua tất cả các thẻ div có class "grid-item-job" và thay đổi kích thước
+      for (let i = 0; i < divs.length; i++) {
+        if(width <= 992){
+          divs[i].style.width = ((width-84)/2) + "px";  // 40% chiều rộng của cửa sổ // 20% chiều cao của cửa sổ
+        }
+        if(width <= 576){
+          divs[i].style.width = (width) + "px";  // 40% chiều rộng của cửa sổ // 20% chiều cao của cửa sổ
+        }
+      }
+    }
+
+    // Lắng nghe sự kiện thay đổi kích thước màn hình
+    window.addEventListener("resize", resizeDivsByClassName);
+
+    // Gọi hàm một lần khi trang được tải
+    resizeDivsByClassName();
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
     crossorigin="anonymous"></script>

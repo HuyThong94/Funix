@@ -16,7 +16,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
-        padding: 20px;
+        padding: 20px 0;
         max-width: 1200px;
         margin: auto;
     }
@@ -86,7 +86,16 @@
         margin-left: 0;
     }
 
-    .grid-item-job:hover .toggle-btn {
+    .toggle-btn {
         display: inline-block;
+        /* margin-top: 10px;
+        padding: 5px 10px; */
+        cursor: pointer;
+        background-color: #f5f6bd;
+        color: rgb(0, 0, 0);
+        border: none;
+        border-radius: 20px;
     }
+
+   
 }

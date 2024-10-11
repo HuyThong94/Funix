@@ -337,14 +337,18 @@ ul {
     border-bottom: 0px;
     border-color: rgba(217, 217, 217);
     border-style: solid;
+    justify-content: center;
+    align-items: center;
 }
 
 .year {
+    display: flex;
     background-color: #199cdb;
     border-radius: 10px;
     width: 50px;
     text-align: center;
     align-items: center;
+    justify-content: center;
 }
 
 .company i {

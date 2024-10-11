@@ -82,7 +82,6 @@
         background-color: orange;
         margin: 20px 0;
     }
-
     .odd {
         border-right: none;
     }
@@ -110,7 +109,15 @@
         padding-left: 0px;
     }
 
-    .grid-item-job:hover .toggle-btn {
+    .toggle-btn {
         display: inline-block;
+        /* margin-top: 10px;
+        padding: 5px 10px; */
+        cursor: pointer;
+        background-color: #f5f6bd;
+        color: rgb(0, 0, 0);
+        border: none;
+        border-radius: 20px;
     }
+
 }
