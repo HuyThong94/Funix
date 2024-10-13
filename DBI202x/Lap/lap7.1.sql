@@ -17,3 +17,12 @@ FROM books;
 SELECT AVG(released_year) AS avg_released_year
 FROM books
 GROUP BY author_lname;
+
+-- Yeu cau 5
+
+SELECT 
+	CONCAT(author_fname, ' ', author_lname) as fullname,
+	max(pages) as pages
+from books
+WHERE pages = (SELECT MAX(pages) FROM books) 
+group by fullname;
