@@ -40,7 +40,7 @@ use book_shop;
     ('Seinfeld', 1989, 'Comedy'),
     ('Stranger Things', 2016, 'Drama');
  
- 
+
 INSERT INTO reviewers (first_name, last_name) VALUES
     ('Thomas', 'Stoneman'),
     ('Wyatt', 'Skaggs'),
@@ -49,8 +49,7 @@ INSERT INTO reviewers (first_name, last_name) VALUES
     ('Colt', 'Steele'),
     ('Pinkie', 'Petit'),
     ('Marlon', 'Crafford');
-    
- 
+     
 INSERT INTO reviews(series_id, reviewer_id, rating) VALUES
     (1,1,8.0),(1,2,7.5),(1,3,8.5),(1,4,7.7),(1,5,8.9),
     (2,1,8.1),(2,4,6.0),(2,3,8.0),(2,6,8.4),(2,5,9.9),
@@ -64,3 +63,85 @@ INSERT INTO reviews(series_id, reviewer_id, rating) VALUES
     (10,5,9.9),
     (13,3,8.0),(13,4,7.2),
     (14,2,8.5),(14,3,8.9),(14,4,8.9);
+
+-- Yeu cau 3
+select * from reviewers;
+
+select * from series;
+
+select * from reviews;
+
+-- Yeu cau 4
+select 
+	s.title,
+	cast(r.rating as decimal(3,1)) as rating
+from series s
+left join reviews r on r.series_id = s.id
+where r.rating is not null
+order by s.title asc;
+
+-- Yeu cau 5
+select 
+	s.title,
+	cast(avg(r.rating) as decimal(7,5)) as avg_rating
+from series s
+left join reviews r on r.series_id = s.id
+where r.rating is not null
+group by s.title
+order by avg_rating asc;
+
+-- Yeu cau 6
+SELECT 
+    s.genre,
+    CAST(AVG(r.rating) AS DECIMAL (7 , 2 )) AS avg_rating
+FROM
+    series s
+        LEFT JOIN
+    reviews r ON r.series_id = s.id
+WHERE
+    r.rating IS NOT NULL
+GROUP BY s.genre
+ORDER BY s.genre ASC;
+
+-- Yeu cau 7
+SELECT 
+    rv.first_name,
+    rv.last_name,
+    cast(r.rating as decimal(3,1)) as rating
+FROM
+    reviewers rv
+        LEFT JOIN
+    reviews r ON r.reviewer_id = rv.id
+WHERE
+    r.rating IS NOT NULL;
+
+-- Yeu cau 8
+SELECT 
+    s.title as unreviewed_series
+FROM
+    series s
+        LEFT JOIN
+    reviews r ON r.series_id = s.id
+WHERE
+    r.rating IS NULL
+GROUP BY s.title
+ORDER BY s.title ASC;
+
+-- Yeu cau 9
+SELECT 
+    rv.first_name,
+    rv.last_name,
+    count(r.rating) as COUNT,
+     CASE 
+     WHEN count(r.rating) > 0 THEN
+     (select cast(avg(r.rating)as decimal(4, 2))
+		from reviews r
+		left join reviewers rw on rw.id = r.reviewer_id
+        where r.reviewer_id = rv.id)
+        ELSE cast(0 as decimal(4, 2))
+        END avg
+FROM
+    reviewers rv
+        LEFT JOIN
+    reviews r ON r.reviewer_id = rv.id
+    group by rv.id;
