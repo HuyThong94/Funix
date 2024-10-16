@@ -74,7 +74,7 @@ select * from reviews;
 -- Yeu cau 4
 select 
 	s.title,
-	cast(r.rating as decimal(3,1)) as rating
+	round(r.rating, 1) as rating
 from series s
 left join reviews r on r.series_id = s.id
 where r.rating is not null
@@ -83,7 +83,7 @@ order by s.title asc;
 -- Yeu cau 5
 select 
 	s.title,
-	cast(avg(r.rating) as decimal(7,5)) as avg_rating
+	round(avg(r.rating),5) as avg_rating
 from series s
 left join reviews r on r.series_id = s.id
 where r.rating is not null
@@ -93,7 +93,7 @@ order by avg_rating asc;
 -- Yeu cau 6
 SELECT 
     s.genre,
-    CAST(AVG(r.rating) AS DECIMAL (7 , 2 )) AS avg_rating
+    round(AVG(r.rating),2) AS avg_rating
 FROM
     series s
         LEFT JOIN
@@ -107,7 +107,7 @@ ORDER BY s.genre ASC;
 SELECT 
     rv.first_name,
     rv.last_name,
-    cast(r.rating as decimal(3,1)) as rating
+    round(r.rating,1) as rating
 FROM
     reviewers rv
         LEFT JOIN
@@ -132,16 +132,24 @@ SELECT
     rv.first_name,
     rv.last_name,
     count(r.rating) as COUNT,
-     CASE 
-     WHEN count(r.rating) > 0 THEN
-     (select cast(avg(r.rating)as decimal(4, 2))
-		from reviews r
-		left join reviewers rw on rw.id = r.reviewer_id
-        where r.reviewer_id = rv.id)
-        ELSE cast(0 as decimal(4, 2))
-        END avg
+    round(IFNULL(min(r.rating), 0),1) as MIN,
+    round(IFNULL(max(r.rating), 0),1) as MAX,
+    round(IFNULL(avg(r.rating), 0),2) as AVG,
+	if(r.rating > 0, "ACTIVE", "INACTIVE") AS STATUS
 FROM
     reviewers rv
-        LEFT JOIN
-    reviews r ON r.reviewer_id = rv.id
-    group by rv.id;
+LEFT JOIN reviews r ON r.reviewer_id = rv.id
+group by rv.id;
+
+-- Yeu cau 10
+SELECT 
+	coalesce(s.title) as title,
+    round(r.rating, 1) as rating,
+    concat(rv.first_name," ", rv.last_name) as reviewer
+FROM
+    reviewers rv
+LEFT JOIN reviews r ON r.reviewer_id = rv.iD
+LEFT JOIN series s on s.id = r.series_id
+where s.title is not null
+order by s.title asc;
+
