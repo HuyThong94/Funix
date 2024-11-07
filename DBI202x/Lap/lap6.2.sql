@@ -1,0 +1,50 @@
+-- Yeu cau 1
+SELECT DISTINCT CITY
+FROM STATION
+WHERE MOD(ID, 2) = 0;
+
+-- Yeu cau 2
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY REGEXP '^[AEIOUaeiou]';
+
+-- Yeu cau 3
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY REGEXP '[AEIOUaeiou]$';
+
+-- Yeu cau 4
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY REGEXP '^[AEIOUaeiou].*[AEIOUaeiou]$';
+
+-- Yeu cau 5
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY NOT REGEXP '^[AEIOUaeiou]';
+  
+-- Yeu cau 6
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY NOT REGEXP '^[AEIOUaeiou].*[AEIOUaeiou]$';
+
+-- Yeu cau 7
+SELECT Name
+FROM STUDENTS
+WHERE Marks > 75
+ORDER BY RIGHT(Name, 3) ASC, ID ASC;
+
+-- Yeu cau 8
+SELECT
+    CASE
+        WHEN A + B <= C OR A + C <= B OR B + C <= A THEN 'Not A Triangle'
+        WHEN A = B AND B = C THEN 'Equilateral'
+        WHEN A = B OR A = C OR B = C THEN 'Isosceles'
+        ELSE 'Scalene'
+    END AS Triangle_Type
+FROM TRIANGLES;
+
+-- Yeu cau 9
+SELECT name
+FROM Employee
+ORDER BY name ASC;
