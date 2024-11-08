@@ -1,0 +1,35 @@
+
+Yêu cầu 1.
+
+Bước 1: Xác định thuộc tính chắc chắn phải có trong Key
+
+	Dựa vào các phụ thuộc hàm, ta thấy rằng V, W, X, Y phụ thuộc lẫn nhau, tức là bất kỳ thuộc tính nào trong 
+{V, W, X, Y} đều có thể suy ra các thuộc tính còn lại trong tập này. Tuy nhiên, không có phụ thuộc hàm nào có thể suy ra 
+Z, nên Z phải có mặt trong mọi khóa chính của quan hệ.
+
+Bước 2: Kết hợp Z với các thuộc tính khác để tìm Key
+
+	Tập đóng VZ: V -> W -> X -> Y
+	VZ+ = {V, W, X, Y, Z} => VZ là 1 key 
+	
+	Tập đóng WZ: W -> X -> Y -> V
+	WZ+ = {V, W, X, Y, Z} => WZ là 1 key 
+	
+	Tập đóng XZ: X -> Y -> V -> W 
+	XZ+ = {V, W, X, Y, Z} => XZ là 1 key 
+	
+	Tập đóng YZ: Y -> V -> W -> X
+	YZ+ = {V, W, X, Y, Z} => YZ là 1 key 
+Vậy các Key của quan hệ R(VWXYZ) là: {VZ},{WZ},{XZ},{YZ}.
+
+Yêu cầu 2.
+
+Bước 1: Dựa vào phụ thuộc hàm ta thấy A chắc chắn phải có mặt trong key
+
+
+	Bao đóng của A+
+	A -> BC, nên B, C thuộc A+
+	B -> D, nên D thuộc A+
+	CD -> E, nên E thuộc A+
+	vậy A+ = {A, B, C, D, E}.
+Vậy key của quan hệ  R(ABCDE) là {A}

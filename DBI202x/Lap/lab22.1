@@ -1,0 +1,59 @@
+
+Yêu cầu 1
+
+Cho quan hệ R(MNOPQ) với các tập phụ thuộc hàm
+	M -> N
+	N -> Q
+	O -> P
+	
+Xác định khóa chính của quan hệ
+	Xét các phụ thuộc hàm để xác định khóa chính:
+		Từ M -> N và N -> Q, ta thấy bao đóng của M là {M,N,Q}.
+		Từ O -> P, bao đóng của O là {O,P}.
+	Tập thuộc tính {M,O} có thể suy ra tất cả các thuộc tính trong R, nên khóa chính của quan hệ là {M,O}.
+
+	Kiểm tra các phụ thuộc hàm có gây vi phạm 2NF hay không:
+		Phụ thuộc M -> N: Đây là phụ thuộc từng phần vì M là một phần của khóa chính {M,O}, vi phạm 2NF.
+		Phụ thuộc N -> Q: Đây là phụ thuộc truyền dẫn và không liên quan đến khóa chính.
+		Phụ thuộc O -> P: Đây cũng là phụ thuộc từng phần, vì O là một phần của khóa chính {M,O}, cũng vi phạm 2NF.
+	Kết luận: Quan hệ R chưa  ở dạng chuẩn NF2
+
+Chuyển đổi về dạng chuẩn 2NF
+
+	Ta sẽ tách các phụ thuộc hàm vi phạm để đưa quan hệ về dạng 2NF:
+		Tạo các quan hệ mới:
+			Tách M -> N: Tạo quan hệ R1(M,N)
+			Tách O -> P: Tạo quan hệ R2(O,P)
+			Tạo quan hệ còn lại R3(M,O,Q) chứa các thuộc tính còn lại.
+	Kết quả phân rã:
+		R1(M,N) với phụ thuộc hàm M -> N
+		R2(O,P) với phụ thuộc hàm O -> P
+		R3(M,O,Q) với phụ thuộc hàm N -> Q
+	Các quan hệ con R1, R2, R3 đều không có phụ thuộc hàm từng phần, nên đã ở dạng chuẩn 2NF.
+	
+Yêu cầu 2
+
+Cho quan hệ R(MNOPQ) với các tập phụ thuộc hàm
+	MN -> O
+	N -> P
+	P -> Q
+
+Xác định khóa chính của quan hệ
+	Xét các phụ thuộc hàn để tìm khóa chunhs:
+		Từ MN -> O, ta cần cả  M và N để suy ra O
+		Từ N -> p và P -> Q, bao đóng của N và M dẽ bao gồm tất cả các thuộc tính. do đó khóa chính của quan hệ là {M, N}
+	Kiểm tra các phụ thuộc hàm có gây vi phạm 3NF hay không:
+		Phụ thuộc MN -> O: đây là pPhụ thuộc hàm phi tầm thường và không vi phạm 3NF
+		Phụ thuộc N -> P: vì N không phải là super key nên đây là phụ thuộc bắc cầu(vì N -> p và P -> Q), vi phạm 3NF
+		Phụ thuốc P -> Q: Đây là phụ thuộc bắc cầu, vi phạm 3NF
+		
+Chuyển đổi về dạng chuẩn 3NF
+	Tạo các quan hệ mới
+		Tách N -> P: tạo quan hệ R1(N, P)
+		Tách P -> Q: tạo quan hẹ R2(P, Q)
+		Tạo quan hệ R3(M, N, O)
+	Két quả phân rã
+		R1(N, P) với phụ thuộc hàm N -> P
+		R2(P, Q) với phụ thuộc hàm P -> Q
+		R3(M, N, O) với phụ thuộc hàm MN -> O
+	

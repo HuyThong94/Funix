@@ -1,0 +1,46 @@
+Yêu cầu 1
+
+Bước 1: Kiểm tra điều kiện phân rã không mất mát thông tin (Lossless Join)
+Sử dụng phép kiểm tra bao đóng của các tập khóa trên các quan hệ con.
+
+Xét giao của các quan hệ con D:
+Quan sát giao giữa các quan hệ D1 = MNO, D2 = MNPQ, và D3 = QR, ta thấy rằng hợp của bao đóng của các khóa trong các quan hệ con có thể sinh ra các thuộc tính trong R,
+đảm bảo tính chất không mất mát thông tin.
+
+Bước 2: Kiểm tra điều kiện bảo toàn thuộc tính
+Tập thuộc tính của R là {M,N,O,P,Q,R}.
+Hợp của tất cả thuộc tính trong các quan hệ con D là {M,N,O,P,Q,R}, khớp với tập thuộc tính của R, 
+do đó thỏa mãn điều kiện bảo toàn thuộc tính.
+
+Bước 3: Kiểm tra điều kiện bảo toàn phụ thuộc hàm
+Kiểm tra xem mỗi phụ thuộc hàm có thể được suy ra từ các quan hệ con hay không:
+
+MN -> O: Phụ thuộc hàm này có thể kiểm tra từ D1 = MNO.
+MO -> N: Phụ thuộc hàm này có thể kiểm tra từ D1 = MNO.
+MP -> Q: Phụ thuộc hàm này có thể kiểm tra từ D2 = MNPQ.
+N -> P: Phụ thuộc hàm này có thể kiểm tra từ D2 = MNPQ.
+NO -> P: Phụ thuộc hàm này có thể kiểm tra từ D2 = MNPQ.
+Q -> R: Phụ thuộc hàm này có thể kiểm tra từ D3 = QR.
+Tất cả các phụ thuộc hàm đều có thể được kiểm tra từ các quan hệ con, do đó thỏa mãn điều kiện bảo toàn phụ thuộc hàm.
+
+Kết luận: Phân rã R(MNOPQR) thành các quan hệ con D(MNO,MNPQ,QR) thỏa mãn tất cả các điều kiện cho phân rã không mất mát, bảo toàn thuộc tính, và bảo toàn phụ thuộc hàm.
+
+=============================
+Yêu cầu 2
+
+Bước 1: Kiểm tra điều kiện phân rã không mất mát thông tin (Lossless Join)
+Sử dụng tiêu chí bao đóng:
+
+Giao giữa các quan hệ con MP và NOP là P.
+Kiểm tra bao đóng của P:
+Từ phụ thuộc P -> M, ta suy ra rằng nếu P tồn tại trong MP, nó có thể đảm bảo tính chất không mất mát thông tin khi kết hợp với NOP.
+
+Bước 2: Kiểm tra điều kiện bảo toàn thuộc tính
+Tập thuộc tính của R là {M,N,O,P}.Hợp của tất cả các thuộc tính trong các quan hệ con là {M,N,O,P}, khớp với tập thuộc tính của R, do đó thỏa mãn điều kiện bảo toàn thuộc tính.
+
+Bước 3: Kiểm tra điều kiện bảo toàn phụ thuộc hàm
+MN -> OP: Phụ thuộc hàm này có thể kiểm tra từ NOP.
+P -> M: Phụ thuộc hàm này có thể kiểm tra từ MP.
+Tất cả các phụ thuộc hàm đều có thể được kiểm tra từ các quan hệ con, nên thỏa mãn điều kiện bảo toàn phụ thuộc hàm.
+
+Kết luận: Phân rã R(MNOP) thành các quan hệ con D(MP,NOP) thỏa mãn tất cả các điều kiện cho phân rã không mất mát, bảo toàn thuộc tính, và bảo toàn phụ thuộc hàm.

@@ -1,0 +1,75 @@
+﻿
+
+Yêu cầu 1: Xác định loại phụ thuộc hàm
+
+
+Cho phụ thuộc hàm X -> Y, hãy xác định loại phụ thuộc hàm của X và Y lần lượt trong các trường hợp sau:
+
+
+1. X = {A, B, C}, Y = {B}
+	Y là một phần tử của X => phụ thuộc hàm tầm thường(Trivial Functional Dependency)
+2. X = {A}, Y = {A}
+	Y trùng với X ⇒ phụ thuộc hàm tầm thường(Trivial Functional Dependency)
+3. X = {A, B, C}, Y = {D}
+	Y không phụ thuộc vào bất kỳ tập con nào của X ⇒ Phụ thuộc hàm phi tầm thường(Non – Trivial Functional Dependency)
+4. X = {A, B, C}, Y = {B, D}
+	Y và X có cùng tập con là {B}, Y không là tập con của X => phụ thuộc hàm bán tầm thường( Semi – Trivial Functional Dependency)
+5. X = {A, B, C, D}, Y = {C, D, E}
+	Y và X có cùng tập con là {C, D}, Y không là tập con của X => phụ thuộc hàm bán tầm thường( Semi – Trivial Functional Dependency)
+6. X = {A, B}, Y = {C}
+	Y không phụ thuộc vào bất kỳ tập con nào của X ⇒ Phụ thuộc hàm phi tầm thường(Non – Trivial Functional Dependency)
+7. X = {A, B}, Y = {C, D}
+	Y không phụ thuộc vào bất kỳ tập con nào của X ⇒ Phụ thuộc hàm phi tầm thường(Non – Trivial Functional Dependency)
+
+
+Yêu cầu 2 : Tìm tập hợp đóng của lược đồ quan hệ R(ABCD) 
+Cho lược đồ quan hệ R(ABCDE) với các tập phụ thuộc sau:
+AB -> C
+C -> D
+B -> E
+AC -> E
+Các bạn hãy tìm tập đóng của (AB)+, (BD)+.
+
+Câu trả lời: 
+	Tập đóng của AB+:
+		AB -> C, nên C thuộc AB+
+		C -> D, nên D thuộc AB+
+		B -> E, nên E thuộc AB+
+	vậy AB+ = {A, B, C, D, E}.
+	Tập đóng BD+
+		B -> E, nên E thuộc BD+
+	vậy BD+ = {B, D, E}.
+
+
+Yêu cầu 3 : Tìm tập hợp đóng của lược đồ quan hệ R(ABCDEFG)
+
+Cho lược đồ quan hệ R(ABCDEFG) với các tập phụ thuộc sau:
+AB -> CD
+AF -> D
+DE -> F
+C -> G
+F -> E
+G -> A
+Các bạn hãy tìm tập đóng của (CF)+, (BG)+, (AF)+, (BA)+.
+
+Câu trả lời: 
+	Tập đóng CF+:
+		C -> G, nên G thuộc CF+
+		G -> A, nên A thuộc CF+
+		AF -> D, nên D thuộc CF+
+		F -> E, nên E thuộc CF+
+	Vậy CF+ = {C, F, G, A, D, E}.
+	Tập đóng BG+:
+		G -> A , nên A thuộc BG+
+		AB -> CD, nên C, D thuộc BG+
+	Vậy BG+ = {B, G, A, C, D}.
+	Tập đóng AF+
+		F -> E, nên E thuộc AF+
+		AF -> D, nên D thuộc AF+
+	Vậy AF+ = {A, F, E, D}.
+	Tập đóng BA+
+		AB -> CD, nên C, D thuộc BA+
+		C -> G, nên G thuộc BA+
+	Vậy BA+ = {A, B, C, D, G}.	
+	
+	
