@@ -12,6 +12,7 @@ use online_shop;
 update customers set name = 'name C' where id = 2;
 -- B4: user1
 select * from customers;
+-- user1 có thể nhin thấy được cập nhật ở b3 do user2 sử dụng read uncommitted, 
 
 -- Yeu cau 3
 -- B1: user1
@@ -21,13 +22,18 @@ start transaction;
 insert into customers(name, email) values('name D', 'A@gmail.com');
 select * from customers;
 
--- Câu insert đã thực hiện thành công, tuy nhiên câu set transaction không thực hiện được do set ở b2 yeu cau 2 chưa kết thúc;
+-- Câu insert đã thực hiện thành công;
 
 -- B2: user2
 use online_shop;
 select * from customers;
+-- user2 không thể nhìn thấy dữ liệu vừa cập nhật của user1 do user1 sử dụng read committed.
 -- B3:  user1
 commit; 
+-- B4: user2
+use online_shop;
+select * from customers;
+-- user 2 có thể nhìn thấy dự liệu vừa cập nhật
 
 -- Yeu cau 4
 -- B1: user1

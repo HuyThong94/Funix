@@ -21,7 +21,7 @@ GROUP BY author_lname;
 -- Yeu cau 5
 
 SELECT 
-	CONCAT(author_fname, ' ', author_lname) as fullname,
+	CONCAT_WS(' ', author_fname, author_lname) as fullname,
 	max(pages) as pages
 from books
 WHERE pages = (SELECT MAX(pages) FROM books) 
