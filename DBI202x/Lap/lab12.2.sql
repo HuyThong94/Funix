@@ -16,4 +16,4 @@ select * from categories;
 rollback to test1;
 select * from categories;
 
--- Khi thực hiện câu truy vấn ở b3, do chưa dùng câu truy vấn savepoint nên khi dùng câu truy vấn rollback ở b4 thì câu truy vấn ở b3 sẽ bị quay lại.
+-- Khi thực hiện câu truy vấn ở b3, do chưa dùng câu truy vấn savepoint nên khi dùng câu truy vấn rollback ở b4 thì câu truy vấn ở b3 sẽ bị quay lạitrạng thái đã lưu bởi saveponit.
