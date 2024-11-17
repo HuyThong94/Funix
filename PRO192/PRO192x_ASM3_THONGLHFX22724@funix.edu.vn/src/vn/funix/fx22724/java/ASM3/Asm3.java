@@ -1,4 +1,4 @@
-package vn.funix.fx22724.java.ASM2;
+package vn.funix.fx22724.java.ASM3;
 
 import vn.funix.fx22724.java.ASM2.models.Account;
 import vn.funix.fx22724.java.ASM2.models.Bank;
@@ -6,7 +6,7 @@ import vn.funix.fx22724.java.ASM2.models.Customer;
 
 import java.util.Scanner;
 
-public class Asm2 {
+public class Asm3 {
     private static final String AUTHOR = "FX22724";
     private static final String VERSION = "v2.0.0";
     private static final Bank bank  = new Bank();
@@ -15,11 +15,11 @@ public class Asm2 {
         getScreen(sc);
     }
     public static void menuScreen(){
-        System.out.println(" 1. Thêm khách hàng");
-        System.out.println(" 2. Thêm tài khoản cho khách hàng");
-        System.out.println(" 3. Hiển thị danh sách khách hàng");
-        System.out.println(" 4. Tìm theo CCCD");
-        System.out.println(" 5. Tìm theo tên khách hàng");
+        System.out.println(" 1. Thông tin tài khoản");
+        System.out.println(" 2. Thêm tài khoản ATM");
+        System.out.println(" 3. Thêm tài khoản tín dụng");
+        System.out.println(" 4. Rút tiền");
+        System.out.println(" 5. Lịch sử giao dịch");
         System.out.println(" 0. Thoát");
         System.out.println("+----------+--------------------+----------+");
         System.out.print("Chọn chức năng: ");
@@ -126,13 +126,13 @@ public class Asm2 {
                 boolean ischeckStk = false;
                 for(int i = 0; i < bank.getCustomers().size(); i++){
                     Customer cus =  bank.getCustomers().get(i);
-                        for(int j = 0; j < cus.getAccounts().size(); j++){
-                            Account acc = cus.getAccounts().get(j);
-                            if (acc.getAccountNumber().equals(stk)) {
-                                ischeckStk = true;
-                                break;
-                            }
+                    for(int j = 0; j < cus.getAccounts().size(); j++){
+                        Account acc = cus.getAccounts().get(j);
+                        if (acc.getAccountNumber().equals(stk)) {
+                            ischeckStk = true;
+                            break;
                         }
+                    }
 
                 }
                 if(!ischeckStk){
