@@ -54,13 +54,13 @@ public class Asm3 {
                 getCustomerInformation();
                 getScreen(sc);
             } else if (choice == 2) {
-                handleAddSavingsAccount(sc);
+                handleAddAccount(sc, "SAVINGS");
                 getScreen(sc);
             } else if (choice == 3) {
-                handleAddLoansAccount(sc);
+                handleAddAccount(sc, "LOAN");
                 getScreen(sc);
             } else if (choice == 4) {
-                handleCustomerByCCCD(sc);
+                handleWithdrawMoney(sc);
                 getScreen(sc);
             } else if (choice == 5) {
                 handleCustomerByName(sc);
@@ -80,8 +80,8 @@ public class Asm3 {
         }
     }
 
-    //chức năng 2
-    private static void handleAddSavingsAccount(Scanner sc) {
+    //chức năng 2, 3
+    private static void handleAddAccount(Scanner sc, String type) {
         Account account = new Account();
         while (true) {
             System.out.print("Nhập mã số tài khoản gồm 6 chữ số: ");
@@ -105,45 +105,12 @@ public class Asm3 {
                     double balance = getBalance(sc);
                     account.setBalance(balance);
                     DigitalCustomer customer = activeBank.getCustomerById(CUSTOMER_ID);
-                    customer.addAccount(new SavingsAccount(stk, balance, "SAVINGS"));
-                    System.out.println("Đã thêm số tài khoản ATM: " + stk + " với số dư là: " + (String.format("%,.0f", balance) + "đ") + " vào danh sách");
-                    break;
-                } else {
-                    System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
-                }
-            } else {
-                System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
-            }
-        }
-    }
-
-    //chức năng 3
-    private static void handleAddLoansAccount(Scanner sc) {
-        Account account = new Account();
-        while (true) {
-            System.out.print("Nhập mã số tài khoản gồm 6 chữ số: ");
-            String stk = sc.nextLine().trim();
-            if (isValidSTK(stk)) {
-                boolean ischeckStk = false;
-                for (int i = 0; i < activeBank.getCustomers().size(); i++) {
-                    Customer cus = activeBank.getCustomers().get(i);
-                    for (int j = 0; j < cus.getAccounts().size(); j++) {
-                        Account acc = cus.getAccounts().get(j);
-                        if (acc.getAccountNumber().equals(stk)) {
-                            ischeckStk = true;
-                            break;
-                        }
+                    if (type == "LOAN") {
+                        customer.addAccount(new LoanAccount(stk, balance, type));
+                    } else {
+                        customer.addAccount(new SavingsAccount(stk, balance, type));
                     }
-
-                }
-                if (!ischeckStk) {
-                    account.setAccountNumber(stk);
-                    System.out.print("Nhập số dư: ");
-                    double balance = getBalance(sc);
-                    account.setBalance(balance);
-                    DigitalCustomer customer = activeBank.getCustomerById(CUSTOMER_ID);
-                    customer.addAccount(new LoanAccount(stk, balance, "LOAN"));
-                    System.out.println("Đã thêm số tài khoản tín dụng: " + stk + " với số dư là: " + (String.format("%,.0f", balance) + "đ") + " vào danh sách");
+                    System.out.println("Đã thêm số tài khoản: " + stk + " với số dư là: " + (String.format("%,.0f", balance) + "đ") + " vào danh sách");
                     break;
                 } else {
                     System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
@@ -155,10 +122,30 @@ public class Asm3 {
     }
 
     //chức năng 4
-    private static void handleCustomerByCCCD(Scanner sc) {
+    private static void handleWithdrawMoney(Scanner sc) {
+        System.out.println(" 1. Rút tiền từ tìa khoản ATM");
+        System.out.println(" 2. Rút tiền từ tài khoản tín dụng");
+        System.out.print("Chọn chức năng: ");
+        int choice = getUserChoice(sc);
         while (true) {
-//            Customer customer = activeBank.getCustomerById();
+            if (choice == 1) {
+                getCustomerInformation();
+                getScreen(sc);
+            } else if (choice == 2) {
+                getScreen(sc);
+            } else {
+                System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
+                getScreen(sc);
+            }
+        }
+    }
 
+    //Chức năng 4.1 ATM
+    private static void handleWithdrawATM(Scanner sc, String type) {
+        while (true) {
+        System.out.println("+----------+--------------------+----------+");
+            System.out.print("Nhập số tiền: ");
+            double balance = sc.nextDouble();
         }
     }
 
