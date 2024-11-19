@@ -20,8 +20,8 @@ public class Asm3 {
     private static final DigitalBank activeBank = new DigitalBank();
     private static final String CUSTOMER_ID = "042094005195";
     private static final String CUSTOMER_NAME = "Luong Huy Thong";
-    private static final List<Account> accounts = new ArrayList<>();
-
+    private static List<Account> accounts = new ArrayList<>();
+    private static DigitalCustomer customer = new DigitalCustomer();
 
     public static void main(String[] args) {
         activeBank.addCustomer(CUSTOMER_ID, CUSTOMER_NAME, accounts);
@@ -46,7 +46,6 @@ public class Asm3 {
         menuScreen();
         int choice = getUserChoice(sc);
         while (true) {
-            Customer customer = new Customer();
             if (choice == 0) {
                 System.out.println("Chương trình kết thúc.");
                 break;
@@ -74,7 +73,7 @@ public class Asm3 {
 
     //Chức năng 1
     private static void getCustomerInformation() {
-        DigitalCustomer customer = activeBank.getCustomerById(CUSTOMER_ID);
+        customer = activeBank.getCustomerById(CUSTOMER_ID);
         if (customer != null) {
             customer.displayInformation();
         }
@@ -123,29 +122,30 @@ public class Asm3 {
 
     //chức năng 4
     private static void handleWithdrawMoney(Scanner sc) {
-        System.out.println(" 1. Rút tiền từ tìa khoản ATM");
-        System.out.println(" 2. Rút tiền từ tài khoản tín dụng");
-        System.out.print("Chọn chức năng: ");
-        int choice = getUserChoice(sc);
         while (true) {
-            if (choice == 1) {
+            customer = activeBank.getCustomerById(CUSTOMER_ID);
+            List<Account> acc = customer.getAccounts();
+            System.out.println("+----------+--------------------+----------+");
+            if(!acc.isEmpty()){
                 getCustomerInformation();
-                getScreen(sc);
-            } else if (choice == 2) {
-                getScreen(sc);
-            } else {
-                System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
-                getScreen(sc);
-            }
-        }
-    }
+                while (true){
+                    System.out.print("Chọn tài khoản: ");
+                    int choice = getUserChoice(sc);
+                    if(choice < acc.size()){
+                        System.out.print("Nhập số tiền: ");
+                        double balance = sc.nextDouble();
 
-    //Chức năng 4.1 ATM
-    private static void handleWithdrawATM(Scanner sc, String type) {
-        while (true) {
-        System.out.println("+----------+--------------------+----------+");
-            System.out.print("Nhập số tiền: ");
-            double balance = sc.nextDouble();
+                    }else{
+                        System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
+                    }
+                }
+            }else{
+                System.out.println("Danh sách tài khoản của trống.");
+                break;
+            }
+
+
+
         }
     }
 

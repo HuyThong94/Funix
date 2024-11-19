@@ -10,6 +10,8 @@ import java.util.List;
 public class DigitalCustomer extends Customer {
     private List<Account> accounts = new ArrayList<>();
 
+    public DigitalCustomer() {}
+
     public DigitalCustomer(String customerId, String name) {
         super(name, customerId);
     }
@@ -17,6 +19,10 @@ public class DigitalCustomer extends Customer {
     public DigitalCustomer(String customerId, String name, List<Account> accounts) {
         super(name, customerId);
         this.accounts = accounts;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
     public void addAccount(Account account) {
@@ -77,7 +83,7 @@ public class DigitalCustomer extends Customer {
         int idx = 1;
         if (!accounts.isEmpty()) {
             for (Account account : accounts) {
-                System.out.printf("%-5s %-5s | %5s %7s | %7s %" + (String.format("%,.0f", getBalance()) + "đ").length() + "s%n", idx, account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.0f", account.getBalance()) + "đ"));
+                System.out.printf("%-5s %-5s | %12s %7s | %9s %" + (String.format("%,.0f", getBalance()) + "đ").length() + "s%n", idx+".", account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.0f", account.getBalance()) + "đ"));
                 idx++;
             }
         }

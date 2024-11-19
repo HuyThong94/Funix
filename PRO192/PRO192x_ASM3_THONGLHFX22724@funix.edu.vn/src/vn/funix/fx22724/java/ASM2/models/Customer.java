@@ -54,7 +54,7 @@ public class Customer extends User {
         System.out.println("Danh sách tài khoản:");
         int idx = 1;
         for (Account account : accounts) {
-            System.out.printf("%-5s %-5s | %32s %"+(String.format("%,.0f", getBalance()) + "đ").length()+"s%n", idx, account.getAccountNumber(), "", (String.format("%,.0f", account.getBalance()) + "đ"));
+            System.out.printf("%-5s %-5s | %20s %7s %"+(String.format("%,.0f", getBalance()) + "đ").length()+"s%n", idx, account.getAccountNumber(), "", "", (String.format("%,.0f", account.getBalance()) + "đ"));
             idx++;
         }
     }
