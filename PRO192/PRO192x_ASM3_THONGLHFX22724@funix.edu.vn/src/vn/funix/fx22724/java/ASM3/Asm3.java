@@ -1,21 +1,35 @@
 package vn.funix.fx22724.java.ASM3;
 
 import vn.funix.fx22724.java.ASM2.models.Account;
-import vn.funix.fx22724.java.ASM2.models.Bank;
 import vn.funix.fx22724.java.ASM2.models.Customer;
+import vn.funix.fx22724.java.ASM3.models.DigitalBank;
+import vn.funix.fx22724.java.ASM3.models.DigitalCustomer;
+import vn.funix.fx22724.java.ASM3.models.LoanAccount;
+import vn.funix.fx22724.java.ASM3.models.SavingsAccount;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Asm3 {
     private static final String AUTHOR = "FX22724";
-    private static final String VERSION = "v2.0.0";
-    private static final Bank bank  = new Bank();
+    private static final String VERSION = "v3.0.0";
+    private static final int EXIT_COMMAND = 0;
+    private static final int EXIT_ERROR_CODE = -1;
+    private static final Scanner sc = new Scanner(System.in);
+    private static final DigitalBank activeBank = new DigitalBank();
+    private static final String CUSTOMER_ID = "042094005195";
+    private static final String CUSTOMER_NAME = "Luong Huy Thong";
+    private static final List<Account> accounts = new ArrayList<>();
+
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        activeBank.addCustomer(CUSTOMER_ID, CUSTOMER_NAME, accounts);
         getScreen(sc);
     }
-    public static void menuScreen(){
-        System.out.println(" 1. Thông tin tài khoản");
+
+    public static void menuScreen() {
+        System.out.println(" 1. Thông tin khách hàng");
         System.out.println(" 2. Thêm tài khoản ATM");
         System.out.println(" 3. Thêm tài khoản tín dụng");
         System.out.println(" 4. Rút tiền");
@@ -24,7 +38,8 @@ public class Asm3 {
         System.out.println("+----------+--------------------+----------+");
         System.out.print("Chọn chức năng: ");
     }
-    public  static void getScreen(Scanner sc) {
+
+    public static void getScreen(Scanner sc) {
         System.out.println("+----------+--------------------+----------+");
         System.out.println("|  NGÂN HÀNG SỐ | " + AUTHOR + "@" + VERSION + "           |");
         System.out.println("+----------+--------------------+----------+");
@@ -36,18 +51,18 @@ public class Asm3 {
                 System.out.println("Chương trình kết thúc.");
                 break;
             } else if (choice == 1) {
-                handleCCCDInput(sc, customer);
+                getCustomerInformation();
                 getScreen(sc);
-            } else if(choice == 2) {
-                handleAccount(sc, customer);
+            } else if (choice == 2) {
+                handleAddSavingsAccount(sc);
                 getScreen(sc);
-            } else if(choice == 3) {
-                handleListCustomer();
+            } else if (choice == 3) {
+                handleAddLoansAccount(sc);
                 getScreen(sc);
-            } else if(choice == 4) {
+            } else if (choice == 4) {
                 handleCustomerByCCCD(sc);
                 getScreen(sc);
-            } else if(choice == 5) {
+            } else if (choice == 5) {
                 handleCustomerByName(sc);
                 getScreen(sc);
             } else {
@@ -58,75 +73,24 @@ public class Asm3 {
     }
 
     //Chức năng 1
-    private static void handleCCCDInput(Scanner scanner, Customer customer) {
-        System.out.print("Nhập tên khách hàng: ");
-        String name = scanner.nextLine();
-        customer.setName(name);
-        // Nhập CCCD
-        while (true) {
-            System.out.print("Nhập số CCCD: ");
-            String cccd = scanner.nextLine().trim();
-
-            if (cccd.equalsIgnoreCase("No")) {
-                System.out.println("Thoát chương trình!");
-                break;
-            }
-
-            if (isValidCCCD(cccd)) {
-                // Nếu CCCD hợp lệ, thực hiện các chức năng tiếp theo
-                boolean ischeckCustomer = false;
-                for(Customer cus : bank.getCustomers()){
-                    if (cus.getCustomerId().equals(cccd)) {
-                        ischeckCustomer = true;
-                        break;
-                    }
-                }
-                if(!ischeckCustomer){
-                    customer.setCustomerId(cccd);
-                    System.out.println("Đã thêm khách hàng " + customer.getCustomerId() + " vào danh sách");
-                    bank.addCustomer(customer);
-                    break;
-                }else{
-                    System.out.println("Số CCCD đã có trong hệ thống. Vui lòng nhập lại hoặc 'No' để thoát:");
-                }
-            } else {
-                System.out.println("Số CCCD không hơp lệ. Vui lòng nhập lại hoặc ‘No’ để thoát:");
-            }
+    private static void getCustomerInformation() {
+        DigitalCustomer customer = activeBank.getCustomerById(CUSTOMER_ID);
+        if (customer != null) {
+            customer.displayInformation();
         }
     }
 
     //chức năng 2
-    private static void handleAccount(Scanner sc, Customer customer) {
-        while(true){
-            System.out.print("Nhập CCCD khách hàng: ");
-            String checkCCCD = sc.nextLine();
-            boolean ischeckCustomer = false;
-            for(Customer cus : bank.getCustomers()){
-                if (cus.getCustomerId().equals(checkCCCD)) {
-                    ischeckCustomer = true;
-                    customer = cus;
-                    break;
-                }
-            }
-            if(ischeckCustomer){
-                handleAccountNumber(sc, customer);
-                break;
-            }else{
-                System.out.println("Số CCCD chưa có trong hệ thống. Vui lòng nhập lại. ");
-            }
-        }
-    }
-
-    private static void handleAccountNumber(Scanner sc, Customer customer) {
+    private static void handleAddSavingsAccount(Scanner sc) {
         Account account = new Account();
-        while(true){
+        while (true) {
             System.out.print("Nhập mã số tài khoản gồm 6 chữ số: ");
             String stk = sc.nextLine().trim();
-            if(isValidSTK(stk)){
+            if (isValidSTK(stk)) {
                 boolean ischeckStk = false;
-                for(int i = 0; i < bank.getCustomers().size(); i++){
-                    Customer cus =  bank.getCustomers().get(i);
-                    for(int j = 0; j < cus.getAccounts().size(); j++){
+                for (int i = 0; i < activeBank.getCustomers().size(); i++) {
+                    Customer cus = activeBank.getCustomers().get(i);
+                    for (int j = 0; j < cus.getAccounts().size(); j++) {
                         Account acc = cus.getAccounts().get(j);
                         if (acc.getAccountNumber().equals(stk)) {
                             ischeckStk = true;
@@ -135,66 +99,76 @@ public class Asm3 {
                     }
 
                 }
-                if(!ischeckStk){
+                if (!ischeckStk) {
                     account.setAccountNumber(stk);
                     System.out.print("Nhập số dư: ");
                     double balance = getBalance(sc);
                     account.setBalance(balance);
-                    customer.addAccount(account);
-                    customer.getBalance();
-                    System.out.println("Đã thêm số tài khoản: " + stk + " với số dư là: " + (String.format("%,.0f", balance) + "đ") + " vào danh sách");
+                    DigitalCustomer customer = activeBank.getCustomerById(CUSTOMER_ID);
+                    customer.addAccount(new SavingsAccount(stk, balance, "SAVINGS"));
+                    System.out.println("Đã thêm số tài khoản ATM: " + stk + " với số dư là: " + (String.format("%,.0f", balance) + "đ") + " vào danh sách");
                     break;
-                }else{
+                } else {
                     System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
                 }
-            }else{
+            } else {
                 System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
             }
         }
     }
 
     //chức năng 3
-    private static void handleListCustomer() {
-        if(!bank.getCustomers().isEmpty()){
-            for(Customer cus : bank.getCustomers()){
-                cus.displayInformation();
-            }
-        }else{
-            System.out.println("Danh sách khách hàng trống!");
-        }
+    private static void handleAddLoansAccount(Scanner sc) {
+        Account account = new Account();
+        while (true) {
+            System.out.print("Nhập mã số tài khoản gồm 6 chữ số: ");
+            String stk = sc.nextLine().trim();
+            if (isValidSTK(stk)) {
+                boolean ischeckStk = false;
+                for (int i = 0; i < activeBank.getCustomers().size(); i++) {
+                    Customer cus = activeBank.getCustomers().get(i);
+                    for (int j = 0; j < cus.getAccounts().size(); j++) {
+                        Account acc = cus.getAccounts().get(j);
+                        if (acc.getAccountNumber().equals(stk)) {
+                            ischeckStk = true;
+                            break;
+                        }
+                    }
 
+                }
+                if (!ischeckStk) {
+                    account.setAccountNumber(stk);
+                    System.out.print("Nhập số dư: ");
+                    double balance = getBalance(sc);
+                    account.setBalance(balance);
+                    DigitalCustomer customer = activeBank.getCustomerById(CUSTOMER_ID);
+                    customer.addAccount(new LoanAccount(stk, balance, "LOAN"));
+                    System.out.println("Đã thêm số tài khoản tín dụng: " + stk + " với số dư là: " + (String.format("%,.0f", balance) + "đ") + " vào danh sách");
+                    break;
+                } else {
+                    System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
+                }
+            } else {
+                System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
+            }
+        }
     }
 
     //chức năng 4
     private static void handleCustomerByCCCD(Scanner sc) {
-        while(true){
-            Customer customer = new Customer();
-            System.out.print("Nhập CCCD khách hàng: ");
-            String checkCCCD = sc.nextLine();
-            boolean ischeckCustomer = false;
-            for(Customer cus : bank.getCustomers()){
-                if (cus.getCustomerId().equals(checkCCCD)) {
-                    ischeckCustomer = true;
-                    customer.displayInformation();
-                    break;
-                }
-            }
-            if(ischeckCustomer){
-                break;
-            }else{
-                System.out.println("Số CCCD chưa có trong hệ thống. Vui lòng nhập lại. ");
-                break;
-            }
+        while (true) {
+//            Customer customer = activeBank.getCustomerById();
+
         }
     }
 
     //chức năng 5
     private static void handleCustomerByName(Scanner sc) {
-        while(true){
+        while (true) {
             System.out.print("Nhập tên khách hàng: ");
             String searchName = sc.nextLine();
             boolean found = false;
-            for (Customer customer : bank.getCustomers()) {
+            for (Customer customer : activeBank.getCustomers()) {
                 if (customer.getName().toLowerCase().contains(searchName.toLowerCase())) {
                     customer.displayInformation();
                     found = true;
@@ -204,7 +178,7 @@ public class Asm3 {
 
             if (found) {
                 break;
-            }else{
+            } else {
                 System.out.println("Không tìm thấy khách hàng phù hợp.");
                 break;
             }
@@ -221,6 +195,7 @@ public class Asm3 {
             }
         }
     }
+
     private static double getBalance(Scanner scanner) {
         while (true) {
             try {

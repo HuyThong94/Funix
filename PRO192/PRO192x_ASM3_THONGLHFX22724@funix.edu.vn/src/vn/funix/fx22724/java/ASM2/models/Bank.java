@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class Bank {
-    private final String id;
-    private final List<Customer> customers;
+    private String id;
+    private List<Customer> customers;
 
     public Bank() {
         // Tạo ID ngẫu nhiên cho ngân hàng
