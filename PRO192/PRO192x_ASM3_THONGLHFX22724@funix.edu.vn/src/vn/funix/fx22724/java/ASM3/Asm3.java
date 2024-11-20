@@ -116,10 +116,10 @@ public class Asm3 {
 
     //chức năng 4
     private static void handleWithdrawMoney(Scanner sc) {
-            boolean isWithdraw;
-            customer = activeBank.getCustomerById(CUSTOMER_ID);
-            List<Account> acc = customer.getAccounts();
-            System.out.println("+----------+--------------------+----------+");
+        boolean isWithdraw;
+        DigitalCustomer digitalCustomer = activeBank.getCustomerById(CUSTOMER_ID);
+        List<Account> acc = digitalCustomer.getAccounts();
+        System.out.println("+----------+--------------------+----------+");
         while (true) {
             if (!acc.isEmpty()) {
                 getCustomerInformation();
@@ -128,10 +128,10 @@ public class Asm3 {
                 if ((idx - 1) < acc.size()) {
                     System.out.print("Nhập số tiền: ");
                     double amount = sc.nextDouble();
-                    isWithdraw = activeBank.withdraw(CUSTOMER_ID, acc.get(idx - 1).getAccountNumber(), amount);
-                    if (isWithdraw) {
+                    activeBank.withdraw(CUSTOMER_ID, acc.get(idx - 1).getAccountNumber(), amount);
+//                    if (isWithdraw) {
                         break;
-                    }
+//                    }
                 } else {
                     System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
                 }
@@ -181,6 +181,7 @@ public class Asm3 {
                 return Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
+                System.out.print("Chọn tài khoản: ");
             }
         }
     }
@@ -191,7 +192,7 @@ public class Asm3 {
                 return Double.parseDouble(scanner.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
-                System.out.print("Chọn chức năng: ");
+                System.out.print("Nhập số tiền: ");
             }
         }
     }

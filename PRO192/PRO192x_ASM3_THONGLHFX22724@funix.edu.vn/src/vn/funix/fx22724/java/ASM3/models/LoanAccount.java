@@ -35,7 +35,7 @@ public class LoanAccount extends Account implements Withdraw, ResportService {
 
     @Override
     public boolean isAccepted(double amount, boolean isPremium) {
-        double fee = isPremium() ? LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE : LOAN_ACCOUNT_WITHDRAW_FEE;
+        double fee = isPremium ? LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE : LOAN_ACCOUNT_WITHDRAW_FEE;
         if (amount % 10000 != 0) {
             System.out.println("Số tiền rút phải là bội số của 10.000đ");
             return false;
@@ -45,16 +45,12 @@ public class LoanAccount extends Account implements Withdraw, ResportService {
             return false;
         }
         double minWithdraw = MIN_WITHDRAW + amount * fee;
-        if (amount <= minWithdraw) {
+        if (amount >= minWithdraw) {
             System.out.println("Số dư trong tài khoản không đủ.");
             return false;
         }
         return true;
     }
-
-     public boolean isPremium() {
-        return getBalance() >= LOAN_ACCOUNT_WITHDRAW_FEE;
-     }
 
     @Override
     public void log(double amount) {
