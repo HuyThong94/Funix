@@ -22,12 +22,13 @@ public class Customer extends User {
 
     public boolean isPremiumCustomer() {
         // Kiểm tra nếu ít nhất một tài khoản của khách hàng là premium
-        for (Account account : accounts) {
-            if (account.isPremiumAccount()) {
-                return true;
+        boolean isPremium = false;
+        for (Account account : getAccounts()) {
+            if (account.isPremium()) {
+                isPremium = true;
             }
         }
-        return false;
+        return isPremium;
     }
 
     public void addAccount(Account newAccount) {

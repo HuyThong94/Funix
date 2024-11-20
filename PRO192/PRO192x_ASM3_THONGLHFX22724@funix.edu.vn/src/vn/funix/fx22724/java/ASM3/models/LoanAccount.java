@@ -1,37 +1,73 @@
 package vn.funix.fx22724.java.ASM3.models;
 
 import vn.funix.fx22724.java.ASM2.models.Account;
+import vn.funix.fx22724.java.ASM3.ResportService;
+import vn.funix.fx22724.java.ASM3.Withdraw;
 
-public class LoanAccount extends Account {
-    private static final double MAX_BALANCE = 100000000;
-    private static final double FEE_NORMAL = 0.05;
-    private static final double FEE_PREMIUM = 0.01;
+
+public class LoanAccount extends Account implements Withdraw, ResportService {
+    private static final double LOAN_ACCOUNT_MAX_BALANCE = 100000000;
+    protected static final double LOAN_ACCOUNT_WITHDRAW_FEE = 0.05;
+    protected static final double LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE = 0.01;
+    private static final double MIN_WITHDRAW = 50000;
 
     public LoanAccount(String accountNumber, double balance, String typeAccount) {
         super(accountNumber, balance, typeAccount);
-        if (balance > MAX_BALANCE) {
-            throw new IllegalArgumentException("Hạn mức không được vượt quá " + MAX_BALANCE);
-        }
     }
 
     @Override
-    public boolean isAccepted(double amount) {
-        double fee = isPremium() ? FEE_PREMIUM : FEE_NORMAL;
-        double total = amount + (amount * fee);
+    public boolean withdraw(double amount, boolean isPremium) {
+        boolean isWithdrawn = false;
+        if (isAccepted(amount, isPremium)) {
+            double fee = isPremium ? LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE : LOAN_ACCOUNT_WITHDRAW_FEE;
+            double withdrawAmount = amount + amount * fee;
+            setBalance(getBalance() - withdrawAmount);
+            getTransactions().add(new Transaction(getAccountNumber(), amount, true));
+            isWithdrawn = true;
+            System.out.println("Rút tiền thành công!");
+            log(amount);
+        } else {
+            System.out.println("Rút tiền thất bại!");
+        }
 
-        if (total > MAX_BALANCE) {
-            System.out.println("Hạn mức không được vượt quá " + MAX_BALANCE);
+        return isWithdrawn;
+    }
+
+    @Override
+    public boolean isAccepted(double amount, boolean isPremium) {
+        double fee = isPremium() ? LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE : LOAN_ACCOUNT_WITHDRAW_FEE;
+        if (amount % 10000 != 0) {
+            System.out.println("Số tiền rút phải là bội số của 10.000đ");
             return false;
         }
-        if (getBalance() - total < 0) {
-            System.out.println("Số dư không đủ để thực hiện giao dịch");
+        if (amount < MIN_WITHDRAW || amount > LOAN_ACCOUNT_MAX_BALANCE) {
+            System.out.println("Số tiền rút phải từ " + MIN_WITHDRAW + " đến " + LOAN_ACCOUNT_MAX_BALANCE);
+            return false;
+        }
+        double minWithdraw = MIN_WITHDRAW + amount * fee;
+        if (amount <= minWithdraw) {
+            System.out.println("Số dư trong tài khoản không đủ.");
             return false;
         }
         return true;
     }
 
-    public boolean isPremium() {
-        return getBalance() >= 50000000; // Giả định tài khoản Premium từ 50 triệu trở lên.
+     public boolean isPremium() {
+        return getBalance() >= LOAN_ACCOUNT_WITHDRAW_FEE;
+     }
+
+    @Override
+    public void log(double amount) {
+        double fee = isPremium() ? LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE : LOAN_ACCOUNT_WITHDRAW_FEE;
+        System.out.println("+----------+--------------------+----------+");
+        System.out.printf("%30s%n", "BIÊN LAI GIAO DICH LOAN");
+        System.out.printf("NGAY G/D: %28s%n", getDateTime());
+        System.out.printf("ATM ID: %30s%n", "DIGITAL-BANK-ATM 2022");
+        System.out.printf("SO TK: %31s%n", getAccountNumber());
+        System.out.printf("SO TIEN: %29s%n", String.format("%,.0f", amount) + "đ");
+        System.out.printf("SO DU: %31s%n", String.format("%,.0f", getBalance()) + "đ");
+        System.out.printf("PHI + VAT: %27s%n", String.format("%,.0f", (amount * fee)) + "đ");
+        System.out.println("+----------+--------------------+----------+");
     }
 }
 

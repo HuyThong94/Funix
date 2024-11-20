@@ -16,15 +16,38 @@ public class Transaction {
         this.accountNumber = accountNumber;
         this.amount = amount;
         this.status = status;
-        this.time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        this.time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
     }
 
-    @Override
-    public String toString() {
-        return "Mã giao dịch: " + id +
-                ", Số tài khoản: " + accountNumber +
-                ", Số tiền: " + amount +
-                ", Thời gian: " + time +
-                ", Trạng thái: " + (status ? "Thành công" : "Thất bại");
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+    public double getAmount() {
+        return amount;
+    }
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+    public String getTime() {
+        return time;
+    }
+    public void setTime(String time) {
+        this.time = time;
+    }
+    public boolean isStatus() {
+        return status;
+    }
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
+

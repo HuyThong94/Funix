@@ -14,13 +14,11 @@ import java.util.Scanner;
 public class Asm3 {
     private static final String AUTHOR = "FX22724";
     private static final String VERSION = "v3.0.0";
-    private static final int EXIT_COMMAND = 0;
-    private static final int EXIT_ERROR_CODE = -1;
     private static final Scanner sc = new Scanner(System.in);
     private static final DigitalBank activeBank = new DigitalBank();
     private static final String CUSTOMER_ID = "042094005195";
     private static final String CUSTOMER_NAME = "Luong Huy Thong";
-    private static List<Account> accounts = new ArrayList<>();
+    private static final List<Account> accounts = new ArrayList<>();
     private static DigitalCustomer customer = new DigitalCustomer();
 
     public static void main(String[] args) {
@@ -81,7 +79,6 @@ public class Asm3 {
 
     //chức năng 2, 3
     private static void handleAddAccount(Scanner sc, String type) {
-        Account account = new Account();
         while (true) {
             System.out.print("Nhập mã số tài khoản gồm 6 chữ số: ");
             String stk = sc.nextLine().trim();
@@ -96,15 +93,12 @@ public class Asm3 {
                             break;
                         }
                     }
-
                 }
                 if (!ischeckStk) {
-                    account.setAccountNumber(stk);
-                    System.out.print("Nhập số dư: ");
+                    System.out.print("Nhập số tiền: ");
                     double balance = getBalance(sc);
-                    account.setBalance(balance);
                     DigitalCustomer customer = activeBank.getCustomerById(CUSTOMER_ID);
-                    if (type == "LOAN") {
+                    if (type.equals("LOAN")) {
                         customer.addAccount(new LoanAccount(stk, balance, type));
                     } else {
                         customer.addAccount(new SavingsAccount(stk, balance, type));
@@ -122,30 +116,28 @@ public class Asm3 {
 
     //chức năng 4
     private static void handleWithdrawMoney(Scanner sc) {
-        while (true) {
+            boolean isWithdraw;
             customer = activeBank.getCustomerById(CUSTOMER_ID);
             List<Account> acc = customer.getAccounts();
             System.out.println("+----------+--------------------+----------+");
-            if(!acc.isEmpty()){
+        while (true) {
+            if (!acc.isEmpty()) {
                 getCustomerInformation();
-                while (true){
-                    System.out.print("Chọn tài khoản: ");
-                    int choice = getUserChoice(sc);
-                    if(choice < acc.size()){
-                        System.out.print("Nhập số tiền: ");
-                        double balance = sc.nextDouble();
-
-                    }else{
-                        System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
+                System.out.print("Chọn tài khoản: ");
+                int idx = getSTK(sc);
+                if ((idx - 1) < acc.size()) {
+                    System.out.print("Nhập số tiền: ");
+                    double amount = sc.nextDouble();
+                    isWithdraw = activeBank.withdraw(CUSTOMER_ID, acc.get(idx - 1).getAccountNumber(), amount);
+                    if (isWithdraw) {
+                        break;
                     }
+                } else {
+                    System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
                 }
-            }else{
+            } else {
                 System.out.println("Danh sách tài khoản của trống.");
-                break;
             }
-
-
-
         }
     }
 
@@ -163,12 +155,12 @@ public class Asm3 {
                 }
             }
 
-            if (found) {
-                break;
-            } else {
+            if (!found) {
                 System.out.println("Không tìm thấy khách hàng phù hợp.");
+            } else {
                 break;
             }
+
         }
     }
 
@@ -183,6 +175,16 @@ public class Asm3 {
         }
     }
 
+    private static int getSTK(Scanner scanner) {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
+            }
+        }
+    }
+
     private static double getBalance(Scanner scanner) {
         while (true) {
             try {
@@ -192,10 +194,6 @@ public class Asm3 {
                 System.out.print("Chọn chức năng: ");
             }
         }
-    }
-
-    private static boolean isValidCCCD(String cccd) {
-        return cccd.length() == 12 && cccd.matches("\\d{12}");
     }
 
     private static boolean isValidSTK(String cccd) {

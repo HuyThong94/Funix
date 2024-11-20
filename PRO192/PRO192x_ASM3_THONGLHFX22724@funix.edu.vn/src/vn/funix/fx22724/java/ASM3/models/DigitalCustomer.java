@@ -10,10 +10,7 @@ import java.util.List;
 public class DigitalCustomer extends Customer {
     private List<Account> accounts = new ArrayList<>();
 
-    public DigitalCustomer() {}
-
-    public DigitalCustomer(String customerId, String name) {
-        super(name, customerId);
+    public DigitalCustomer() {
     }
 
     public DigitalCustomer(String customerId, String name, List<Account> accounts) {
@@ -43,28 +40,23 @@ public class DigitalCustomer extends Customer {
         return null;
     }
 
-    public void withdraw(String accountNumber, double amount) {
+
+
+    public boolean withdraw(String accountNumber, double amount) {
         Account account = getAccountByAccountNumber(accountNumber);
         if (account == null) {
             System.out.println("Tài khoản không tồn tại!");
-            return;
+            return false;
         }
-        if (account.withdraw(amount)) {
-            System.out.println("Rút tiền thành công!");
+        if (account.getTypeAccount().equals("SAVINGS")) {
+            SavingsAccount savingsAccount = (SavingsAccount) account;
+            return savingsAccount.withdraw(amount, isPremiumCustomer());
+
         } else {
-            System.out.println("Rút tiền thất bại!");
+            LoanAccount loanAccount = (LoanAccount) account;
+            return loanAccount.withdraw(amount, isPremiumCustomer());
         }
-    }
 
-    public void displayTransactionHistory() {
-        for (Account account : accounts) {
-//            account.displayTransactionHistory();
-        }
-    }
-
-    @Override
-    public boolean isPremiumCustomer() {
-        return super.isPremiumCustomer();
     }
 
     @Override
@@ -83,7 +75,7 @@ public class DigitalCustomer extends Customer {
         int idx = 1;
         if (!accounts.isEmpty()) {
             for (Account account : accounts) {
-                System.out.printf("%-5s %-5s | %12s %7s | %9s %" + (String.format("%,.0f", getBalance()) + "đ").length() + "s%n", idx+".", account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.0f", account.getBalance()) + "đ"));
+                System.out.printf("%-5s %-5s | %12s %7s | %9s %" + (String.format("%,.0f", getBalance()) + "đ").length() + "s%n", idx + ".", account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.0f", account.getBalance()) + "đ"));
                 idx++;
             }
         }
