@@ -127,7 +127,7 @@ public class Asm3 {
                 int idx = getSTK(sc);
                 if ((idx - 1) < acc.size()) {
                     System.out.print("Nhập số tiền: ");
-                    double amount = sc.nextDouble();
+                    double amount = getBalance(sc);
                     activeBank.withdraw(CUSTOMER_ID, acc.get(idx - 1).getAccountNumber(), amount);
 //                    if (isWithdraw) {
                         break;

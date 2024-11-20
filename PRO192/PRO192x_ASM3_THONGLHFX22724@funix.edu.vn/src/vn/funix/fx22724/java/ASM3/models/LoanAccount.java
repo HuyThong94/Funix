@@ -44,7 +44,7 @@ public class LoanAccount extends Account implements Withdraw, ResportService {
             System.out.println("Số tiền rút phải từ " + MIN_WITHDRAW + " đến " + LOAN_ACCOUNT_MAX_BALANCE);
             return false;
         }
-        double minWithdraw = MIN_WITHDRAW + amount * fee;
+        double minWithdraw = getBalance() + amount * fee;
         if (amount >= minWithdraw) {
             System.out.println("Số dư trong tài khoản không đủ.");
             return false;
