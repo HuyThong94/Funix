@@ -141,7 +141,6 @@ public class Asm2 {
                     double balance = getBalance(sc);
                     account.setBalance(balance);
                     customer.addAccount(account);
-                    customer.getBalance();
                     System.out.println("Đã thêm số tài khoản: " + stk + " với số dư là: " + (String.format("%,.0f", balance) + "đ") + " vào danh sách");
                     break;
                 }else{

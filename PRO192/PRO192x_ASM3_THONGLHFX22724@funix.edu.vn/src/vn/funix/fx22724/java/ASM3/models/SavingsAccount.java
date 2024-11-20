@@ -45,7 +45,7 @@ public class SavingsAccount extends Account implements Withdraw, ResportService 
                 return false;
             }
         }
-        if (amount <= MIN_WITHDRAW) {
+        if (amount >= getBalance()) {
             System.out.println("Số dư trong tài khoản không đủ.");
             return false;
         }

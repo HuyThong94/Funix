@@ -20,15 +20,15 @@ public class Customer extends User {
         return accounts;
     }
 
-    public boolean isPremiumCustomer() {
+    public boolean isCustomerPremium() {
         // Kiểm tra nếu ít nhất một tài khoản của khách hàng là premium
-        boolean isPremium = false;
+        boolean isAccountPremium = false;
         for (Account account : getAccounts()) {
-            if (account.isPremium()) {
-                isPremium = true;
+            if (account.isAccountPremium()) {
+                isAccountPremium = true;
             }
         }
-        return isPremium;
+        return isAccountPremium;
     }
 
     public void addAccount(Account newAccount) {
@@ -42,7 +42,7 @@ public class Customer extends User {
         accounts.add(newAccount);
     }
 
-    public double getBalance() {
+    public double getTotalAccountBalance() {
         double totalBalance = 0;
         for (Account account : accounts) {
             totalBalance += account.getBalance();
@@ -51,11 +51,11 @@ public class Customer extends User {
     }
 
     public void displayInformation() {
-        System.out.printf("%-12s | %20s | %7s | %"+(String.format("%,.0f", getBalance()) + "đ").length()+"s%n", getCustomerId(), getName(), (isPremiumCustomer() ? "Premium":"Normal" ), (String.format("%,.0f", getBalance()) + "đ"));
+        System.out.printf("%-12s | %20s | %7s | %"+(String.format("%,.0f", getTotalAccountBalance()) + "đ").length()+"s%n", getCustomerId(), getName(), (isCustomerPremium() ? "Premium":"Normal" ), (String.format("%,.0f", getTotalAccountBalance()) + "đ"));
         System.out.println("Danh sách tài khoản:");
         int idx = 1;
         for (Account account : accounts) {
-            System.out.printf("%-5s %-5s | %20s %7s %"+(String.format("%,.0f", getBalance()) + "đ").length()+"s%n", idx, account.getAccountNumber(), "", "", (String.format("%,.0f", account.getBalance()) + "đ"));
+            System.out.printf("%-5s %-5s | %20s %7s %"+(String.format("%,.0f", getTotalAccountBalance()) + "đ").length()+"s%n", idx, account.getAccountNumber(), "", "", (String.format("%,.0f", account.getBalance()) + "đ"));
             idx++;
         }
     }

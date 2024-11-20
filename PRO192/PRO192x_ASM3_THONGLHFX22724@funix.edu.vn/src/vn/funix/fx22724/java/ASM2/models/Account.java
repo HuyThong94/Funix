@@ -59,7 +59,7 @@ public class Account {
         this.transactions = transactions;
     }
 
-    public boolean isPremium() {
+    public boolean isAccountPremium() {
         return balance >= 10000000;
     }
 

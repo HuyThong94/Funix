@@ -54,7 +54,7 @@ public class LoanAccount extends Account implements Withdraw, ResportService {
 
     @Override
     public void log(double amount) {
-        double fee = isPremium() ? LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE : LOAN_ACCOUNT_WITHDRAW_FEE;
+        double fee = isAccountPremium() ? LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE : LOAN_ACCOUNT_WITHDRAW_FEE;
         System.out.println("+----------+--------------------+----------+");
         System.out.printf("%30s%n", "BIÊN LAI GIAO DICH LOAN");
         System.out.printf("NGAY G/D: %28s%n", getDateTime());

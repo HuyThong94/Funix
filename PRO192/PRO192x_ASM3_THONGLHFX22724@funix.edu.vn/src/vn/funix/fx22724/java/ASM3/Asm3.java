@@ -60,7 +60,7 @@ public class Asm3 {
                 handleWithdrawMoney(sc);
                 getScreen(sc);
             } else if (choice == 5) {
-                handleCustomerByName(sc);
+                handleTransaction(sc);
                 getScreen(sc);
             } else {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
@@ -81,29 +81,27 @@ public class Asm3 {
     private static void handleAddAccount(Scanner sc, String type) {
         while (true) {
             System.out.print("Nhập mã số tài khoản gồm 6 chữ số: ");
-            String stk = sc.nextLine().trim();
-            if (isValidSTK(stk)) {
-                boolean ischeckStk = false;
-                for (int i = 0; i < activeBank.getCustomers().size(); i++) {
-                    Customer cus = activeBank.getCustomers().get(i);
+            String accountNumber = sc.nextLine().trim();
+            if (validateAccount(accountNumber)) {
+                boolean ischeckAccountNumber = false;
+                    DigitalCustomer cus = activeBank.getCustomerById(CUSTOMER_ID);
                     for (int j = 0; j < cus.getAccounts().size(); j++) {
                         Account acc = cus.getAccounts().get(j);
-                        if (acc.getAccountNumber().equals(stk)) {
-                            ischeckStk = true;
+                        if (acc.getAccountNumber().equals(accountNumber)) {
+                            ischeckAccountNumber = true;
                             break;
                         }
                     }
-                }
-                if (!ischeckStk) {
+                if (!ischeckAccountNumber) {
                     System.out.print("Nhập số tiền: ");
                     double balance = getBalance(sc);
                     DigitalCustomer customer = activeBank.getCustomerById(CUSTOMER_ID);
                     if (type.equals("LOAN")) {
-                        customer.addAccount(new LoanAccount(stk, balance, type));
+                        customer.addAccount(new LoanAccount(accountNumber, balance, type));
                     } else {
-                        customer.addAccount(new SavingsAccount(stk, balance, type));
+                        customer.addAccount(new SavingsAccount(accountNumber, balance, type));
                     }
-                    System.out.println("Đã thêm số tài khoản: " + stk + " với số dư là: " + (String.format("%,.0f", balance) + "đ") + " vào danh sách");
+                    System.out.println("Đã thêm số tài khoản: " + accountNumber + " với số dư là: " + (String.format("%,.0f", balance) + "đ") + " vào danh sách");
                     break;
                 } else {
                     System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
@@ -142,26 +140,15 @@ public class Asm3 {
     }
 
     //chức năng 5
-    private static void handleCustomerByName(Scanner sc) {
-        while (true) {
-            System.out.print("Nhập tên khách hàng: ");
-            String searchName = sc.nextLine();
-            boolean found = false;
-            for (Customer customer : activeBank.getCustomers()) {
-                if (customer.getName().toLowerCase().contains(searchName.toLowerCase())) {
-                    customer.displayInformation();
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                System.out.println("Không tìm thấy khách hàng phù hợp.");
-            } else {
-                break;
-            }
-
+    private static void handleTransaction(Scanner sc) {
+        System.out.println("+----------+--------------------+----------+");
+        customer = activeBank.getCustomerById(CUSTOMER_ID);
+        if (customer != null) {
+            customer.displayInformation();
+            System.out.println();
+            customer.displayTransactions();
         }
+
     }
 
     private static int getUserChoice(Scanner scanner) {
@@ -197,8 +184,8 @@ public class Asm3 {
         }
     }
 
-    private static boolean isValidSTK(String cccd) {
-        return cccd.length() == 6 && cccd.matches("\\d{6}");
+    private static boolean validateAccount(String accountNumber) {
+        return accountNumber.length() == 6 && accountNumber.matches("\\d{6}");
     }
 
 }
