@@ -15,11 +15,15 @@ public class LoanAccount extends Account implements Withdraw, ResportService {
         super(accountNumber, balance, typeAccount);
     }
 
+    public static double getFee(boolean isPremium) {
+        return isPremium ? LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE : LOAN_ACCOUNT_WITHDRAW_FEE;
+    }
+
     @Override
     public boolean withdraw(double amount, boolean isPremium) {
         boolean isWithdrawn = false;
+        double fee = getFee(isPremium);
         if (isAccepted(amount, isPremium)) {
-            double fee = isPremium ? LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE : LOAN_ACCOUNT_WITHDRAW_FEE;
             double withdrawAmount = amount + amount * fee;
             setBalance(getBalance() - withdrawAmount);
             getTransactions().add(new Transaction(getAccountNumber(), amount, true));

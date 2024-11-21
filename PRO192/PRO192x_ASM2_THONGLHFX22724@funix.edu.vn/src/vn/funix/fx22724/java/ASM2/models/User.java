@@ -6,10 +6,6 @@ public class User {
 
     public User(){}
 
-    public User(String name, String customerId) {
-        this.name = name;
-        this.customerId = customerId;
-    }
     public String getName() {
         return name;
     }

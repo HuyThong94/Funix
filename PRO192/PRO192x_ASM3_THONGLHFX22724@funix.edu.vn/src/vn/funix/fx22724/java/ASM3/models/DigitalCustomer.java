@@ -83,13 +83,15 @@ public class DigitalCustomer extends Customer {
             }
         }
     }
+
     public void displayTransactions() {
         int idx = 1;
-        if(!accounts.isEmpty()) {
+        if (!accounts.isEmpty()) {
+            System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", "Account", "Amount", "Time", "Transaction ID");
             for (Account account : accounts) {
                 for (Transaction transaction : account.getTransactions()) {
-                    if(idx<=5){
-                        System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]" , account.getAccountNumber(), String.format("%,.0f", transaction.getAmount()) + "đ", transaction.getTime(), transaction.getId());
+                    if (idx <= 5) {
+                        System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", account.getAccountNumber(), String.format("%,.0f", transaction.getAmount()) + "đ", transaction.getTime(), transaction.getId());
                         idx++;
                     }
                 }

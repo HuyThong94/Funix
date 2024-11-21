@@ -14,10 +14,6 @@ public class Bank {
         this.customers = new ArrayList<>();
     }
 
-    public String getId() {
-        return id;
-    }
-
     public void addCustomer(Customer newCustomer) {
         // Chỉ thêm khách hàng nếu CCCD chưa tồn tại
         if (!isCustomerExisted(newCustomer.getCustomerId())) {

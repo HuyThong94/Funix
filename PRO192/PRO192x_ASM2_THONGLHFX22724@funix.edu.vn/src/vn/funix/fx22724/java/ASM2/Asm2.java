@@ -4,7 +4,6 @@ import vn.funix.fx22724.java.ASM2.models.Account;
 import vn.funix.fx22724.java.ASM2.models.Bank;
 import vn.funix.fx22724.java.ASM2.models.Customer;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Asm2 {
@@ -124,19 +123,7 @@ public class Asm2 {
             System.out.print("Nhập mã số tài khoản gồm 6 chữ số: ");
             String stk = sc.nextLine().trim();
             if(isValidSTK(stk)){
-                boolean ischeckStk = false;
-                for(int i = 0; i < bank.getCustomers().size(); i++){
-                    Customer cus =  bank.getCustomers().get(i);
-                        for(int j = 0; j < cus.getAccounts().size(); j++){
-                            Account acc = cus.getAccounts().get(j);
-                            if (acc.getAccountNumber().equals(stk)) {
-                                ischeckStk = true;
-                                break;
-                            }
-                        }
-
-                }
-                if(!ischeckStk){
+                if(!isIscheckStk(stk)){
                     account.setAccountNumber(stk);
                     System.out.print("Nhập số dư: ");
                     double balance = getBalance(sc);
@@ -152,6 +139,21 @@ public class Asm2 {
                 System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
             }
         }
+    }
+
+    private static boolean isIscheckStk(String stk) {
+        boolean ischeckStk = false;
+        for(int i = 0; i < bank.getCustomers().size(); i++){
+            Customer cus =  bank.getCustomers().get(i);
+                for(int j = 0; j < cus.getAccounts().size(); j++){
+                    Account acc = cus.getAccounts().get(j);
+                    if (acc.getAccountNumber().equals(stk)) {
+                        ischeckStk = true;
+                        break;
+                    }
+                }
+        }
+        return ischeckStk;
     }
 
     //chức năng 3
@@ -184,7 +186,6 @@ public class Asm2 {
                 break;
             }else{
                 System.out.println("Số CCCD chưa có trong hệ thống. Vui lòng nhập lại. ");
-                break;
             }
         }
     }
@@ -207,7 +208,6 @@ public class Asm2 {
                 break;
             }else{
                 System.out.println("Không tìm thấy khách hàng phù hợp.");
-                break;
             }
         }
     }

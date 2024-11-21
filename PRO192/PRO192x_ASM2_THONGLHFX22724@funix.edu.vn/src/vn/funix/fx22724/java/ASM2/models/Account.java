@@ -6,11 +6,6 @@ public class Account {
 
     public Account() {}
 
-    public Account(String accountNumber, double balance) {
-        this.accountNumber = accountNumber;
-        this.balance = balance;
-    }
-
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -32,7 +27,7 @@ public class Account {
         this.balance = balance;
     }
 
-    public boolean isPremiumAccount() {
+    public boolean isAccountPremium() {
         return balance >= 10000000;
     }
 
