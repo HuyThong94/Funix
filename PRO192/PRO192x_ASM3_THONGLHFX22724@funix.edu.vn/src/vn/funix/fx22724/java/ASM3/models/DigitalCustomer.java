@@ -8,17 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DigitalCustomer extends Customer {
-    private List<Account> accounts = new ArrayList<>();
+    private static List<Account> accounts = new ArrayList<>();
 
     public DigitalCustomer() {
     }
 
     public DigitalCustomer(String customerId, String name, List<Account> accounts) {
         super(name, customerId);
-        this.accounts = accounts;
+        DigitalCustomer.accounts = accounts;
     }
 
-    public List<Account> getAccounts() {
+    public static List<Account> getAccounts() {
         return accounts;
     }
 
@@ -40,11 +40,6 @@ public class DigitalCustomer extends Customer {
         return null;
     }
 
-
-    public double getFee(double amount) {
-        return amount;
-    }
-
     public boolean withdraw(String accountNumber, double amount) {
         Account account = getAccountByAccountNumber(accountNumber);
         if (account == null) {
@@ -53,11 +48,11 @@ public class DigitalCustomer extends Customer {
         }
         if (account.getTypeAccount().equals("SAVINGS")) {
             SavingsAccount savingsAccount = (SavingsAccount) account;
-            return savingsAccount.withdraw(amount, isCustomerPremium());
+            return savingsAccount.withdraw(amount);
 
         } else {
             LoanAccount loanAccount = (LoanAccount) account;
-            return loanAccount.withdraw(amount, isCustomerPremium());
+            return loanAccount.withdraw(amount);
         }
 
     }

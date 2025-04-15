@@ -1,6 +1,7 @@
 package vn.funix.fx22724.java.ASM3.models;
 
 import vn.funix.fx22724.java.ASM2.models.Account;
+import vn.funix.fx22724.java.ASM2.models.Customer;
 import vn.funix.fx22724.java.ASM3.service.ResportService;
 import vn.funix.fx22724.java.ASM3.Withdraw;
 
@@ -20,10 +21,10 @@ public class LoanAccount extends Account implements Withdraw, ResportService {
     }
 
     @Override
-    public boolean withdraw(double amount, boolean isPremium) {
+    public boolean withdraw(double amount) {
         boolean isWithdrawn = false;
-        double fee = getFee(isPremium);
-        if (isAccepted(amount, isPremium)) {
+        double fee = getFee(Customer.isCustomerPremium());
+        if (isAccepted(amount)) {
             double withdrawAmount = amount + amount * fee;
             setBalance(getBalance() - withdrawAmount);
             getTransactions().add(new Transaction(getAccountNumber(), amount, true));
@@ -38,8 +39,8 @@ public class LoanAccount extends Account implements Withdraw, ResportService {
     }
 
     @Override
-    public boolean isAccepted(double amount, boolean isPremium) {
-        double fee = isPremium ? LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE : LOAN_ACCOUNT_WITHDRAW_FEE;
+    public boolean isAccepted(double amount) {
+        double fee = Customer.isCustomerPremium() ? LOAN_ACCOUNT_WITHDRAW_PREMIUM_FEE : LOAN_ACCOUNT_WITHDRAW_FEE;
         if (amount % 10000 != 0) {
             System.out.println("Số tiền rút phải là bội số của 10.000đ");
             return false;

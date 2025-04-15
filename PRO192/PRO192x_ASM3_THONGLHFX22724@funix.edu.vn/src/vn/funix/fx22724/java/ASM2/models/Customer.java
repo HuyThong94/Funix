@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Customer extends User {
-    private List<Account> accounts;
+    private static List<Account> accounts;
 
     public Customer() {
         super();
-        this.accounts = new ArrayList<>();
+        accounts = new ArrayList<>();
     }
 
     public Customer(String name, String customerId) {
         super(name, customerId);
-        this.accounts = new ArrayList<>();
+        accounts = new ArrayList<>();
     }
 
-    public List<Account> getAccounts() {
+    public static List<Account> getAccounts() {
         return accounts;
     }
 
-    public boolean isCustomerPremium() {
+    public static boolean isCustomerPremium() {
         // Kiểm tra nếu ít nhất một tài khoản của khách hàng là premium
         boolean isAccountPremium = false;
         for (Account account : getAccounts()) {

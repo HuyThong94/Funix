@@ -1,6 +1,7 @@
 package vn.funix.fx22724.java.ASM3.models;
 
 import vn.funix.fx22724.java.ASM2.models.Account;
+import vn.funix.fx22724.java.ASM2.models.Customer;
 import vn.funix.fx22724.java.ASM3.service.ResportService;
 import vn.funix.fx22724.java.ASM3.Withdraw;
 
@@ -14,9 +15,9 @@ public class SavingsAccount extends Account implements Withdraw, ResportService 
     }
 
     @Override
-    public boolean withdraw(double amount, boolean isPremium) {
+    public boolean withdraw(double amount) {
         boolean isWithdrawn = false;
-        if (isAccepted(amount, isPremium)) {
+        if (isAccepted(amount)) {
             setBalance(getBalance() - amount);
             getTransactions().add(new Transaction(getAccountNumber(), amount, true));
             isWithdrawn = true;
@@ -29,12 +30,12 @@ public class SavingsAccount extends Account implements Withdraw, ResportService 
     }
 
     @Override
-    public boolean isAccepted(double amount, boolean isPremium) {
+    public boolean isAccepted(double amount) {
         if (amount % 10000 != 0) {
             System.out.println("Số tiền rút phải là bội số của 10.000đ");
             return false;
         }
-        if (isPremium) {
+        if (Customer.isCustomerPremium()) {
             if (amount < MIN_WITHDRAW) {
                 System.out.println("Số tiền rút tối thiểu là  " + MIN_WITHDRAW + "đ");
                 return false;

@@ -9,12 +9,14 @@ import java.util.Scanner;
 public class Asm2 {
     private static final String AUTHOR = "FX22724";
     private static final String VERSION = "v2.0.0";
-    private static final Bank bank  = new Bank();
+    private static final Bank bank = new Bank();
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         getScreen(sc);
     }
-    public static void menuScreen(){
+
+    public static void menuScreen() {
         System.out.println(" 1. Thêm khách hàng");
         System.out.println(" 2. Thêm tài khoản cho khách hàng");
         System.out.println(" 3. Hiển thị danh sách khách hàng");
@@ -24,7 +26,8 @@ public class Asm2 {
         System.out.println("+----------+--------------------+----------+");
         System.out.print("Chọn chức năng: ");
     }
-    public  static void getScreen(Scanner sc) {
+
+    public static void getScreen(Scanner sc) {
         System.out.println("+----------+--------------------+----------+");
         System.out.println("|  NGÂN HÀNG SỐ | " + AUTHOR + "@" + VERSION + "           |");
         System.out.println("+----------+--------------------+----------+");
@@ -38,16 +41,16 @@ public class Asm2 {
             } else if (choice == 1) {
                 handleCCCDInput(sc, customer);
                 getScreen(sc);
-            } else if(choice == 2) {
+            } else if (choice == 2) {
                 handleAccount(sc, customer);
                 getScreen(sc);
-            } else if(choice == 3) {
+            } else if (choice == 3) {
                 handleListCustomer();
                 getScreen(sc);
-            } else if(choice == 4) {
+            } else if (choice == 4) {
                 handleCustomerByCCCD(sc);
                 getScreen(sc);
-            } else if(choice == 5) {
+            } else if (choice == 5) {
                 handleCustomerByName(sc);
                 getScreen(sc);
             } else {
@@ -75,18 +78,18 @@ public class Asm2 {
             if (isValidCCCD(cccd)) {
                 // Nếu CCCD hợp lệ, thực hiện các chức năng tiếp theo
                 boolean isCheckCustomer = false;
-                for(Customer cus : bank.getCustomers()){
+                for (Customer cus : bank.getCustomers()) {
                     if (cus.getCustomerId().equals(cccd)) {
                         isCheckCustomer = true;
                         break;
                     }
                 }
-                if(!isCheckCustomer){
+                if (!isCheckCustomer) {
                     customer.setCustomerId(cccd);
                     System.out.println("Đã thêm khách hàng " + customer.getCustomerId() + " vào danh sách");
                     bank.addCustomer(customer);
                     break;
-                }else{
+                } else {
                     System.out.println("Số CCCD đã có trong hệ thống. Vui lòng nhập lại hoặc 'No' để thoát:");
                 }
             } else {
@@ -97,82 +100,83 @@ public class Asm2 {
 
     //chức năng 2
     private static void handleAccount(Scanner sc, Customer customer) {
-        while(true){
+        while (true) {
             System.out.print("Nhập CCCD khách hàng: ");
             String checkCCCD = sc.nextLine();
             boolean isCheckCustomer = false;
-            for(Customer cus : bank.getCustomers()){
+            for (Customer cus : bank.getCustomers()) {
                 if (cus.getCustomerId().equals(checkCCCD)) {
                     isCheckCustomer = true;
                     customer = cus;
                     break;
                 }
             }
-            if(isCheckCustomer){
+            if (isCheckCustomer) {
                 handleAccountNumber(sc, customer);
                 break;
-            }else{
+            } else {
                 System.out.println("Số CCCD chưa có trong hệ thống. Vui lòng nhập lại. ");
             }
         }
     }
 
     private static void handleAccountNumber(Scanner sc, Customer customer) {
-        while(true){
+        while (true) {
             System.out.print("Nhập mã số tài khoản gồm 6 chữ số: ");
             String stk = sc.nextLine().trim();
-            if(isValidSTK(stk)){
-                if(!isIsCheckStk(stk)){
-                   handleEnterMoney(sc, stk, customer);
+            if (isValidSTK(stk)) {
+                if (!isIsCheckStk(stk)) {
+                    handleEnterMoney(sc, stk, customer);
                     break;
-                }else{
+                } else {
                     System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
                 }
-            }else{
+            } else {
                 System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
             }
         }
     }
-    private static void handleEnterMoney(Scanner sc, String stk, Customer customer){
-        while (true){
 
-        Account account = new Account();
-        account.setAccountNumber(stk);
-        System.out.print("Nhập số dư: ");
-        String balance = getBalance(sc);
-        if(isValidMoney(balance)){
-            account.setBalance(Double.parseDouble(balance));
-            bank.addAccount(customer.getCustomerId(), account);
-            customer.getBalance();
-            System.out.println("Đã thêm số tài khoản: " + stk + " với số dư là: " + (String.format("%,.0f", Double.parseDouble(balance)) + "đ") + " vào danh sách");
-            break;
-        }else{
-            System.out.println("Số dư không hơp lệ. Vui lòng nhập lại. ");
-        }
+    private static void handleEnterMoney(Scanner sc, String stk, Customer customer) {
+        while (true) {
+            Account account = new Account();
+            account.setAccountNumber(stk);
+            System.out.print("Nhập số dư: ");
+            String balance = getBalance(sc);
+            if (isValidMoney(balance)) {
+                account.setBalance(Double.parseDouble(balance));
+                bank.addAccount(customer.getCustomerId(), account);
+                customer.getBalance();
+                System.out.println("Đã thêm số tài khoản: " + stk + " với số dư là: " + (String.format("%,.0f", Double.parseDouble(balance)) + "đ") + " vào danh sách");
+                break;
+            } else {
+                System.out.println("Số dư không hơp lệ. Vui lòng nhập lại. ");
+            }
         }
     }
+
     private static boolean isIsCheckStk(String stk) {
         boolean isCheckStk = false;
-        for(int i = 0; i < bank.getCustomers().size(); i++){
-            Customer cus =  bank.getCustomers().get(i);
-                for(int j = 0; j < cus.getAccounts().size(); j++){
-                    Account acc = cus.getAccounts().get(j);
-                    if (acc.getAccountNumber().equals(stk)) {
-                        isCheckStk = true;
-                        break;
-                    }
+        for (int i = 0; i < bank.getCustomers().size(); i++) {
+            Customer cus = bank.getCustomers().get(i);
+            for (int j = 0; j < cus.getAccounts().size(); j++) {
+                Account acc = cus.getAccounts().get(j);
+                if (acc.getAccountNumber().equals(stk)) {
+                    isCheckStk = true;
+                    break;
                 }
+            }
         }
         return isCheckStk;
     }
 
     //chức năng 3
     private static void handleListCustomer() {
-        if(!bank.getCustomers().isEmpty()){
-            for(Customer cus : bank.getCustomers()){
+        if (!bank.getCustomers().isEmpty()) {
+            for (Customer cus : bank.getCustomers()) {
                 cus.displayInformation();
             }
-        }else{
+        } else {
             System.out.println("Danh sách khách hàng trống!");
         }
 
@@ -180,20 +184,20 @@ public class Asm2 {
 
     //chức năng 4
     private static void handleCustomerByCCCD(Scanner sc) {
-        while(true){
+        while (true) {
             System.out.print("Nhập CCCD khách hàng: ");
             String checkCCCD = sc.nextLine();
             boolean isCheckCustomer = false;
-            for(Customer cus : bank.getCustomers()){
+            for (Customer cus : bank.getCustomers()) {
                 if (cus.getCustomerId().equals(checkCCCD)) {
                     isCheckCustomer = true;
                     cus.displayInformation();
                     break;
                 }
             }
-            if(isCheckCustomer){
+            if (isCheckCustomer) {
                 break;
-            }else{
+            } else {
                 System.out.println("Số CCCD chưa có trong hệ thống. Vui lòng nhập lại. ");
             }
         }
@@ -201,7 +205,7 @@ public class Asm2 {
 
     //chức năng 5
     private static void handleCustomerByName(Scanner sc) {
-        while(true){
+        while (true) {
             System.out.print("Nhập tên khách hàng: ");
             String searchName = sc.nextLine();
             boolean found = false;
@@ -215,7 +219,7 @@ public class Asm2 {
 
             if (found) {
                 break;
-            }else{
+            } else {
                 System.out.println("Không tìm thấy khách hàng phù hợp.");
             }
         }
@@ -231,6 +235,7 @@ public class Asm2 {
             }
         }
     }
+
     private static String getBalance(Scanner scanner) {
         while (true) {
             try {
@@ -249,7 +254,8 @@ public class Asm2 {
     private static boolean isValidSTK(String cccd) {
         return cccd.length() == 6 && cccd.matches("\\d{6}");
     }
+
     private static boolean isValidMoney(String money) {
-        return Double.parseDouble(money)>=50000 && money.matches("\\d+");
+        return Double.parseDouble(money) >= 50000 && money.matches("\\d+");
     }
 }
