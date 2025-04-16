@@ -52,7 +52,7 @@ public class Asm4 {
                 handleAddCustomers(sc);
                 getScreen(sc);
             } else if (choice == 3) {
-//                handleAddAccount(sc, "LOAN");
+                handleAddAccount(sc);
                 getScreen(sc);
             } else if (choice == 4) {
 //                handleWithdrawMoney(sc);
@@ -78,12 +78,86 @@ public class Asm4 {
         }
     }
 
+    //chuc nang 2
     private static void handleAddCustomers(Scanner scanner) {
         List<Customer> customers = new ArrayList<>();
         System.out.println("+----------+--------------------+----------+");
         System.out.println("Nhập đường dẫn đến tệp:");
         String fileName = sc.nextLine();
         activeBank.addCustomers(fileName);
+    }
+
+    //chức năng 3
+    private static void handleAddAccount(Scanner sc) {
+        while (true) {
+            List<Customer> lstCustomers = CustomerDao.list();
+            Customer customer = new Customer();
+            System.out.print("Nhập mã số của khách hàng: ");
+            String maKH = sc.nextLine();
+
+            if (isValidCCCD(maKH)) {
+                boolean isCheckCustomer = false;
+                for (Customer cus : lstCustomers) {
+                    if (cus.getCustomerId().equals(maKH)) {
+                        isCheckCustomer = true;
+                        customer = cus;
+                        break;
+                    }
+                }
+                if (isCheckCustomer) {
+                    handleAccountNumber(sc, customer);
+                    break;
+                } else {
+                    System.out.println("Số CCCD chưa có trong hệ thống. Vui lòng nhập lại. ");
+                }
+            } else {
+                System.out.println("Số CCCD không hơp lệ. Vui lòng nhập lại");
+            }
+        }
+    }
+
+    private static void handleAccountNumber(Scanner sc, Customer customer) {
+        while (true) {
+            System.out.print("Nhập số tài khoản gồm 6 chữ số: ");
+            String stk = sc.nextLine().trim();
+            if (isValidSTK(stk)) {
+                if (!isIsCheckStk(stk, customer.getAccounts())) {
+                    handleEnterMoney(sc, stk, customer);
+                    break;
+                } else {
+                    System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
+                }
+            } else {
+                System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
+            }
+        }
+    }
+
+    private static void handleEnterMoney(Scanner sc, String stk, Customer customer) {
+        while (true) {
+            Account account = new Account();
+            account.setAccountNumber(stk);
+            System.out.print("Nhập số dư tài khoản >= 50000đ: ");
+            String balance = getBalance(sc);
+            if (isValidMoney(balance)) {
+                account.setBalance(Double.parseDouble(balance));
+                System.out.println("tạo tài khoản thành công");
+                break;
+            } else {
+                System.out.println("Số dư không hơp lệ. Vui lòng nhập lại. ");
+            }
+        }
+    }
+
+    private static boolean isIsCheckStk(String stk, List<Account> accounts) {
+        boolean isCheckStk = false;
+        for (Account account : accounts) {
+            if (account.getAccountNumber().equals(stk)) {
+                isCheckStk = true;
+                break;
+            }
+        }
+        return isCheckStk;
     }
 
     private static String getBalance(Scanner scanner) {
@@ -97,12 +171,20 @@ public class Asm4 {
         }
     }
 
+    private static boolean isValidCCCD(String cccd) {
+        return cccd.length() == 12 && cccd.matches("\\d{12}");
+    }
+
+    private static boolean isValidSTK(String cccd) {
+        return cccd.length() == 6 && cccd.matches("\\d{6}");
+    }
+
+    private static boolean isValidMoney(String money) {
+        return Double.parseDouble(money) >= 50000 && money.matches("\\d+");
+    }
+
     private static boolean validateAccount(String accountNumber) {
         return accountNumber.length() == 6 && accountNumber.matches("\\d{6}");
     }
 
-    private static boolean isValidMoney(String money) {
-        boolean validMoney = Double.parseDouble(money) >= 50000 && money.matches("\\d+");
-        return validMoney;
-    }
 }

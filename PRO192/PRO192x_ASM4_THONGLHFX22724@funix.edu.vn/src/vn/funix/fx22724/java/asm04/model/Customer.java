@@ -24,6 +24,8 @@ public class Customer extends User implements Serializable {
     }
 
     public List<Account> getAccounts() {
+        List<Account> accounts = new ArrayList<>();
+
         return accounts;
     }
 

@@ -60,11 +60,12 @@ public class DigitalBank extends Bank {
                 System.out.println("Khách hàng " + customerId + " đã tồn tại, thêm khách hàng không thành công");
             } else {
                 Customer customer = new Customer(customerName, customerId);
+                lstCustomers.add(customer); // chỉ lưu KH mới
                 newCustomers.add(customer); // chỉ lưu KH mới
             }
         }
             try {
-                CustomerDao.save(newCustomers);
+                CustomerDao.save(lstCustomers);
                 for (Customer c : newCustomers) {
                     System.out.println("Đã thêm khách hàng " + c.getCustomerId() + " thành công");
                 }
