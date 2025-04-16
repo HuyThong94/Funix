@@ -27,6 +27,7 @@ public class BinaryFileService {
         }
         return objects;
     }
+
     public static <T> void writeFile(String fileName, List<T> objects){
         try(ObjectOutputStream file = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)))){
             for(T object : objects){

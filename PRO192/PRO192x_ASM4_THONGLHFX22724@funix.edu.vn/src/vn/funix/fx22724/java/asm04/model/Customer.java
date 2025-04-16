@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Customer extends User  implements Serializable {
-    private static final long serialVersionUID = 1;
+public class Customer extends User implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<Account> accounts;
 
     public Customer() {

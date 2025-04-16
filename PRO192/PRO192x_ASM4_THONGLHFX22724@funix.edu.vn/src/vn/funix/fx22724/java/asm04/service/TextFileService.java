@@ -22,8 +22,9 @@ public class TextFileService {
                 list.add(customer);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
 
+            System.out.println("Tệp không tồn tại");
         }
             return list;
     }
