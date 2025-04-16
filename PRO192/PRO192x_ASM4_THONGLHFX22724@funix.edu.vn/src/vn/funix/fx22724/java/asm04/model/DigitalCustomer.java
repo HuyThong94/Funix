@@ -14,7 +14,7 @@ public class DigitalCustomer extends Customer {
         DigitalCustomer.accounts = accounts;
     }
 
-    public static List<Account> getAccounts() {
+    public List<Account> getAccounts() {
         return accounts;
     }
 

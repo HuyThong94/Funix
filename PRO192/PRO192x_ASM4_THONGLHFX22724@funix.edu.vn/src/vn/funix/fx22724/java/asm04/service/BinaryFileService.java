@@ -20,7 +20,8 @@ public class BinaryFileService {
         }catch (EOFException e){
             return new ArrayList<>();
         }catch (IOException io){
-            System.out.println("Io Exception" + io.getMessage());
+//            System.out.println("Io Exception" + io.getMessage());
+            System.out.println("Tệp không tồn tại");
         }catch (ClassNotFoundException e){
             System.out.println("ClassNotFoundException" + e.getMessage());
         }

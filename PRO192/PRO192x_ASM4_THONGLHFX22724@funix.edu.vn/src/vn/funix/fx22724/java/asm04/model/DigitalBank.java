@@ -2,22 +2,15 @@ package vn.funix.fx22724.java.asm04.model;
 
 
 import vn.funix.fx22724.java.asm04.dao.CustomerDao;
+import vn.funix.fx22724.java.asm04.service.TextFileService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class DigitalBank extends Bank {
     private final List<DigitalCustomer> customers = new ArrayList<>();
-
-    public void addCustomer(String customerId, String name, List<Account> accounts) {
-        if (getCustomerById(customerId) != null) {
-            System.out.println("Khách hàng đã tồn tại!");
-            return;
-        }
-        customers.add(new DigitalCustomer(customerId, name, accounts));
-        System.out.println("Thêm khách hàng thành công!");
-    }
 
     public DigitalCustomer getCustomerById(String customerId) {
         for (DigitalCustomer customer : customers) {
@@ -39,13 +32,45 @@ public class DigitalBank extends Bank {
 
     public static void showCustomers() {
         List<Customer> lstCustomers = CustomerDao.list();
-        for (Customer customer : lstCustomers) {
-            customer.displayInformation();
+        if (lstCustomers.isEmpty()) {
+            System.out.println("Chưa có khách hàng nào trong danh sách!");
+        } else {
+            for (Customer customer : lstCustomers) {
+                customer.displayInformation();
+            }
         }
     }
 
-    public void addCustomer(String fileName) {
+    public void addCustomers(String fileName) {
+        List<Customer> newCustomers = new ArrayList<>();
+        List<Customer> lstCustomers = CustomerDao.list();
+        List<List<String>> lstCustomer = TextFileService.readFile(fileName);
+        for (List<String> customerTxt : lstCustomer) {
+            String customerId = customerTxt.get(0);
+            String customerName = customerTxt.get(1);
+            boolean isExisted = false;
+            for (Customer cus : lstCustomers) {
+                if (cus.getCustomerId().equals(customerId)) {
+                    isExisted = true;
+                    break;
+                }
+            }
 
+            if (isExisted) {
+                System.out.println("Khách hàng" + customerId + "đã tồn tại, thêm khách hàng không thành công");
+            } else {
+                Customer customer = new Customer(customerName, customerId);
+                newCustomers.add(customer); // chỉ lưu KH mới
+            }
+        }
+            try {
+                CustomerDao.save(newCustomers);
+                for (Customer c : newCustomers) {
+                    System.out.println("Đã thêm khách hàng" + c.getCustomerId() + "thành công");
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
     }
 
     public void addSavingAccount(Scanner sc, String customerId) {

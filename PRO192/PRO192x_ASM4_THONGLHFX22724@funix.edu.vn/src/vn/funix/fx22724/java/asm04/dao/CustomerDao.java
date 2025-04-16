@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class CustomerDao {
-    private static String FILE_PATH = "store/customer.dat";
-    static void save(List<Customer> customers) throws IOException {
+    private static final String FILE_PATH = "store/customers.dat";
+    public static void save(List<Customer> customers) throws IOException {
         BinaryFileService.writeFile(FILE_PATH, customers);
     }
     public static List<Customer> list() {

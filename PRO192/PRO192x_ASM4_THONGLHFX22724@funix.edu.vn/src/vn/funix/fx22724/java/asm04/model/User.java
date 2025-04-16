@@ -10,13 +10,14 @@ public class User {
         this.name = name;
         this.customerId = customerId;
     }
-    public static String getName() {
+    public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
-    public static String getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
     public void setCustomerId(String customerId) {

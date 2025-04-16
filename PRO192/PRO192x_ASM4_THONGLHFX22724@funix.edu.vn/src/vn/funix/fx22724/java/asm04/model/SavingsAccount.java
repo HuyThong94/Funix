@@ -30,26 +30,31 @@ public class SavingsAccount extends Account implements Withdraw, IReport {
     }
 
     @Override
+    public boolean transfers(double amount, Account reveiveAccount) {
+        return false;
+    }
+
+    @Override
     public boolean isAccepted(double amount) {
-        if (amount % 10000 != 0) {
-            System.out.println("Số tiền rút phải là bội số của 10.000đ");
-            return false;
-        }
-        if (Customer.isCustomerPremium()) {
-            if (amount < MIN_WITHDRAW) {
-                System.out.println("Số tiền rút tối thiểu là  " + MIN_WITHDRAW + "đ");
-                return false;
-            }
-        } else {
-            if (amount < MIN_WITHDRAW || amount > MAX_WITHDRAW) {
-                System.out.println("Số tiền rút phải từ " + MIN_WITHDRAW + " đến " + MAX_WITHDRAW);
-                return false;
-            }
-        }
-        if (amount >= getBalance()) {
-            System.out.println("Số dư trong tài khoản không đủ.");
-            return false;
-        }
+//        if (amount % 10000 != 0) {
+//            System.out.println("Số tiền rút phải là bội số của 10.000đ");
+//            return false;
+//        }
+//        if (ustomer.isCustomerPremium()) {
+//            if (amount < MIN_WITHDRAW) {
+//                System.out.println("Số tiền rút tối thiểu là  " + MIN_WITHDRAW + "đ");
+//                return false;
+//            }
+//        } else {
+//            if (amount < MIN_WITHDRAW || amount > MAX_WITHDRAW) {
+//                System.out.println("Số tiền rút phải từ " + MIN_WITHDRAW + " đến " + MAX_WITHDRAW);
+//                return false;
+//            }
+//        }
+//        if (amount >= getBalance()) {
+//            System.out.println("Số dư trong tài khoản không đủ.");
+//            return false;
+//        }
         return true;
     }
 

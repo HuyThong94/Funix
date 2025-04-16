@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class AccountDao {
-    private static String FILE_PATH = "store/accounts.dat";
+    private static final String FILE_PATH = "store/accounts.dat";
     static void save(List<Account> accounts) throws IOException {
         BinaryFileService.writeFile(FILE_PATH, accounts);
     }

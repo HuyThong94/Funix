@@ -1,11 +1,14 @@
 package vn.funix.fx22724.java.asm04;
 
 
-import vn.funix.fx22724.java.asm04.model.Account;
-import vn.funix.fx22724.java.asm04.model.Customer;
-import vn.funix.fx22724.java.asm04.model.DigitalBank;
-import vn.funix.fx22724.java.asm04.model.DigitalCustomer;
+import vn.funix.fx22724.java.asm04.dao.CustomerDao;
+import vn.funix.fx22724.java.asm04.model.*;
+import vn.funix.fx22724.java.asm04.service.BinaryFileService;
+import vn.funix.fx22724.java.asm04.service.TextFileService;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,11 +18,8 @@ public class Asm4 {
     private static final String VERSION = "v3.0.0";
     private static final Scanner sc = new Scanner(System.in);
     private static final DigitalBank activeBank = new DigitalBank();
-    private static final List<Account> accounts = new ArrayList<>();
-    private static DigitalCustomer customer = new DigitalCustomer();
 
     public static void main(String[] args) {
-        activeBank.addCustomer(CUSTOMER_ID, CUSTOMER_NAME, accounts);
         getScreen(sc);
     }
 
@@ -49,110 +49,22 @@ public class Asm4 {
                 DigitalBank.showCustomers();
                 getScreen(sc);
             } else if (choice == 2) {
-                handleAddAccount(sc, "SAVINGS");
+                handleAddCustomers(sc);
                 getScreen(sc);
             } else if (choice == 3) {
-                handleAddAccount(sc, "LOAN");
+//                handleAddAccount(sc, "LOAN");
                 getScreen(sc);
             } else if (choice == 4) {
-                handleWithdrawMoney(sc);
+//                handleWithdrawMoney(sc);
                 getScreen(sc);
             } else if (choice == 5) {
-                handleTransaction(sc);
+//                handleTransaction(sc);
                 getScreen(sc);
             } else {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
                 getScreen(sc);
             }
         }
-    }
-
-
-    //chức năng 2, 3
-    private static void handleAddAccount(Scanner sc, String type) {
-        while (true) {
-            System.out.print("Nhập mã số tài khoản gồm 6 chữ số: ");
-            String accountNumber = sc.nextLine().trim();
-            if (validateAccount(accountNumber)) {
-                boolean ischeckAccountNumber = false;
-                DigitalCustomer cus = activeBank.getCustomerById(CUSTOMER_ID);
-                for (int j = 0; j < cus.getAccounts().size(); j++) {
-                    Account acc = cus.getAccounts().get(j);
-                    if (acc.getAccountNumber().equals(accountNumber)) {
-                        ischeckAccountNumber = true;
-                        break;
-                    }
-                }
-                if (!ischeckAccountNumber) {
-                    handleEnterMoney(sc, accountNumber, type);
-                    break;
-                } else {
-                    System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
-                }
-            } else {
-                System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
-            }
-        }
-    }
-
-    private static void handleEnterMoney(Scanner sc, String accountNumber, String type) {
-        while (true) {
-            DigitalCustomer customer = activeBank.getCustomerById(CUSTOMER_ID);
-            System.out.print("Nhập số tiền: ");
-            String balance = getBalance(sc);
-
-            if (isValidMoney(balance)) {
-                if (type.equals("LOAN")) {
-                    customer.addAccount(new LoanAccount(accountNumber, Double.parseDouble(balance), type));
-                } else {
-                    customer.addAccount(new SavingsAccount(accountNumber, Double.parseDouble(balance), type));
-                }
-                System.out.println("Đã thêm số tài khoản: " + accountNumber + " với số dư là: " + (String.format("%,.0f", Double.parseDouble(balance)) + "đ") + " vào danh sách");
-                break;
-            }else{
-                System.out.println("Số dư không hơp lệ. Vui lòng nhập lại. ");
-            }
-        }
-    }
-
-    //chức năng 4
-    private static void handleWithdrawMoney(Scanner sc) {
-        boolean isWithdraw;
-        DigitalCustomer digitalCustomer = activeBank.getCustomerById(CUSTOMER_ID);
-        List<Account> acc = digitalCustomer.getAccounts();
-        System.out.println("+----------+--------------------+----------+");
-        if (!acc.isEmpty()) {
-            while (true) {
-                showCustomer();
-                System.out.print("Chọn tài khoản: ");
-                int idx = getSTK(sc);
-                if ((idx - 1) < acc.size()) {
-                    System.out.print("Nhập số tiền: ");
-                    double amount = Double.parseDouble(getBalance(sc));
-
-                    activeBank.withdraw(CUSTOMER_ID, acc.get(idx - 1).getAccountNumber(), amount);
-//                    if (isWithdraw) {
-                    break;
-//                    }
-                } else {
-                    System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
-                }
-            }
-        } else {
-            System.out.println("Danh sách tài khoản của trống.");
-        }
-    }
-
-    //chức năng 5
-    private static void handleTransaction(Scanner sc) {
-        System.out.println("+----------+--------------------+----------+");
-        customer = activeBank.getCustomerById(CUSTOMER_ID);
-        if (customer != null) {
-            customer.displayInformation();
-            System.out.println();
-            customer.displayTransactions();
-        }
-
     }
 
     private static int getUserChoice(Scanner scanner) {
@@ -166,15 +78,12 @@ public class Asm4 {
         }
     }
 
-    private static int getSTK(Scanner scanner) {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
-                System.out.print("Chọn tài khoản: ");
-            }
-        }
+    private static void handleAddCustomers(Scanner scanner) {
+        List<Customer> customers = new ArrayList<>();
+        System.out.println("+----------+--------------------+----------+");
+        System.out.println("Nhập đường dẫn đến tệp:");
+        String fileName = sc.nextLine();
+        activeBank.addCustomers(fileName);
     }
 
     private static String getBalance(Scanner scanner) {
@@ -193,7 +102,7 @@ public class Asm4 {
     }
 
     private static boolean isValidMoney(String money) {
-        boolean validMoney = Double.parseDouble(money)>=50000 && money.matches("\\d+");
+        boolean validMoney = Double.parseDouble(money) >= 50000 && money.matches("\\d+");
         return validMoney;
     }
 }
