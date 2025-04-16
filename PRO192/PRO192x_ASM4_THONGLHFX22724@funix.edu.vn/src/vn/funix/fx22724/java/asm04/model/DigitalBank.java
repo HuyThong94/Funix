@@ -50,14 +50,14 @@ public class DigitalBank extends Bank {
             String customerName = customerTxt.get(1);
             boolean isExisted = false;
             for (Customer cus : lstCustomers) {
-                if (cus.getCustomerId().equals(customerId)) {
+                if (cus.getCustomerId()!=null && cus.getCustomerId().equals(customerId)) {
                     isExisted = true;
                     break;
                 }
             }
 
             if (isExisted) {
-                System.out.println("Khách hàng" + customerId + "đã tồn tại, thêm khách hàng không thành công");
+                System.out.println("Khách hàng " + customerId + " đã tồn tại, thêm khách hàng không thành công");
             } else {
                 Customer customer = new Customer(customerName, customerId);
                 newCustomers.add(customer); // chỉ lưu KH mới
@@ -66,7 +66,7 @@ public class DigitalBank extends Bank {
             try {
                 CustomerDao.save(newCustomers);
                 for (Customer c : newCustomers) {
-                    System.out.println("Đã thêm khách hàng" + c.getCustomerId() + "thành công");
+                    System.out.println("Đã thêm khách hàng " + c.getCustomerId() + " thành công");
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
