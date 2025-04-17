@@ -1,6 +1,7 @@
 package vn.funix.fx22724.java.asm04;
 
 
+import vn.funix.fx22724.java.asm04.dao.AccountDao;
 import vn.funix.fx22724.java.asm04.dao.CustomerDao;
 import vn.funix.fx22724.java.asm04.model.*;
 import vn.funix.fx22724.java.asm04.service.BinaryFileService;
@@ -105,7 +106,7 @@ public class Asm4 {
                     }
                 }
                 if (isCheckCustomer) {
-                    handleAccountNumber(sc, customer);
+                    handleAccountNumber(sc, customer, lstCustomers);
                     break;
                 } else {
                     System.out.println("Số CCCD chưa có trong hệ thống. Vui lòng nhập lại. ");
@@ -116,13 +117,13 @@ public class Asm4 {
         }
     }
 
-    private static void handleAccountNumber(Scanner sc, Customer customer) {
+    private static void handleAccountNumber(Scanner sc, Customer customer, List<Customer> lstCustomers) {
         while (true) {
             System.out.print("Nhập số tài khoản gồm 6 chữ số: ");
             String stk = sc.nextLine().trim();
             if (isValidSTK(stk)) {
                 if (!isIsCheckStk(stk, customer.getAccounts())) {
-                    handleEnterMoney(sc, stk, customer);
+                    handleEnterMoney(sc, stk, customer, lstCustomers);
                     break;
                 } else {
                     System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
@@ -133,15 +134,22 @@ public class Asm4 {
         }
     }
 
-    private static void handleEnterMoney(Scanner sc, String stk, Customer customer) {
+    private static void handleEnterMoney(Scanner sc, String stk, Customer customer, List<Customer> lstCustomers) {
         while (true) {
             Account account = new Account();
             account.setAccountNumber(stk);
             System.out.print("Nhập số dư tài khoản >= 50000đ: ");
             String balance = getBalance(sc);
             if (isValidMoney(balance)) {
+                List<Account> lstAccount = AccountDao.list();
                 account.setBalance(Double.parseDouble(balance));
-                System.out.println("tạo tài khoản thành công");
+                lstAccount.add(account);
+                try {
+                    AccountDao.save(lstAccount);
+                    System.out.println("tạo tài khoản thành công");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             } else {
                 System.out.println("Số dư không hơp lệ. Vui lòng nhập lại. ");

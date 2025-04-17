@@ -1,5 +1,7 @@
 package vn.funix.fx22724.java.asm04.model;
 
+import vn.funix.fx22724.java.asm04.dao.AccountDao;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,15 @@ public class Customer extends User implements Serializable {
     }
 
     public List<Account> getAccounts() {
+        List<Account> lstAccount = AccountDao.list();
+        if (!lstAccount.isEmpty()) {
+            for (Account account : lstAccount) {
+                if(account.getCustomerId().equals(this.getCustomerId())) {
+                    accounts.add(account);
+                }
+            }
+        }
         List<Account> accounts = new ArrayList<>();
-
         return accounts;
     }
 

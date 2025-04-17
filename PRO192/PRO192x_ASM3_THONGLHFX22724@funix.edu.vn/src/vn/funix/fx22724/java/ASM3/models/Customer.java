@@ -1,4 +1,4 @@
-package vn.funix.fx22724.java.ASM2.models;
+package vn.funix.fx22724.java.ASM3.models;
 
 import java.util.ArrayList;
 import java.util.List;

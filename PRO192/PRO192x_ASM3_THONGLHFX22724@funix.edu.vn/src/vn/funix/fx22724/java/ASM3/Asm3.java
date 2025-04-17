@@ -1,11 +1,6 @@
 package vn.funix.fx22724.java.ASM3;
 
-import vn.funix.fx22724.java.ASM2.models.Account;
-import vn.funix.fx22724.java.ASM2.models.Customer;
-import vn.funix.fx22724.java.ASM3.models.DigitalBank;
-import vn.funix.fx22724.java.ASM3.models.DigitalCustomer;
-import vn.funix.fx22724.java.ASM3.models.LoanAccount;
-import vn.funix.fx22724.java.ASM3.models.SavingsAccount;
+import vn.funix.fx22724.java.ASM3.models.*;
 
 import java.util.ArrayList;
 import java.util.List;

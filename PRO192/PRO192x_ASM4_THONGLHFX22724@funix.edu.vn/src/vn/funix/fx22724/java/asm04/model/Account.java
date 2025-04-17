@@ -77,5 +77,13 @@ public class Account implements Serializable {
     }
     public void createTransaction(double amount, String time, boolean status, String type){}
     public void input(Scanner scanner){}
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 }
 
