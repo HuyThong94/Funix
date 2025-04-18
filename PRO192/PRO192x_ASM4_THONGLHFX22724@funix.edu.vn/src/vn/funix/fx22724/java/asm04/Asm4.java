@@ -142,6 +142,8 @@ public class Asm4 {
             String balance = getBalance(sc);
             if (isValidMoney(balance)) {
                 List<Account> lstAccount = AccountDao.list();
+                account.setCustomerId(customer.getCustomerId());
+                account.setTypeAccount("SAVING");
                 account.setBalance(Double.parseDouble(balance));
                 lstAccount.add(account);
                 try {

@@ -29,21 +29,23 @@ public class Customer extends User implements Serializable {
         List<Account> lstAccount = AccountDao.list();
         if (!lstAccount.isEmpty()) {
             for (Account account : lstAccount) {
-                if(account.getCustomerId().equals(this.getCustomerId())) {
+                if (account.getCustomerId().equals(this.getCustomerId())) {
                     accounts.add(account);
                 }
             }
         }
-        List<Account> accounts = new ArrayList<>();
         return accounts;
     }
 
     public boolean isCustomerPremium() {
         // Kiểm tra nếu ít nhất một tài khoản của khách hàng là premium
         boolean isAccountPremium = false;
-        for (Account account : getAccounts()) {
-            if (account.isAccountPremium()) {
-                isAccountPremium = true;
+        List<Account> accounts = getAccounts();
+        if (!accounts.isEmpty()) {
+            for (Account account : accounts) {
+                if (account.isAccountPremium()) {
+                    isAccountPremium = true;
+                }
             }
         }
         return isAccountPremium;
@@ -79,10 +81,17 @@ public class Customer extends User implements Serializable {
         }
     }
 
-    public void getAccountByAccountNumber(List<Account> accounts, String accountNumber) {}
-    public void displayTransactionInformation(){}
-    public void withdraw(Scanner sc){}
-    public void tranfers(Scanner sc){}
+    public void getAccountByAccountNumber(List<Account> accounts, String accountNumber) {
+    }
+
+    public void displayTransactionInformation() {
+    }
+
+    public void withdraw(Scanner sc) {
+    }
+
+    public void tranfers(Scanner sc) {
+    }
 
 }
 
