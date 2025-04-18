@@ -66,9 +66,9 @@ public class SavingsAccount extends Account implements Withdraw, IReport {
         System.out.printf("NGAY G/D: %28s%n", getDateTime());
         System.out.printf("ATM ID: %30s%n", "DIGITAL-BANK-ATM 2022");
         System.out.printf("SO TK: %31s%n", getAccountNumber());
-        System.out.printf("SO TIEN: %29s%n", String.format("%,.0f", amount) + "đ");
-        System.out.printf("SO DU: %31s%n", String.format("%,.0f", balance) + "đ");
-        System.out.printf("PHI + VAT: %27s%n", String.format("%,.0f", 0.0f) + "đ");
+        System.out.printf("SO TIEN: %29s%n", String.format("%,.2f", amount) + "đ");
+        System.out.printf("SO DU: %31s%n", String.format("%,.2f", balance) + "đ");
+        System.out.printf("PHI + VAT: %27s%n", String.format("%,.2f", 0.0f) + "đ");
         System.out.println("+----------+--------------------+----------+");
     }
 }

@@ -63,7 +63,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return accountNumber + " | " + String.format("%,.0f", balance) + "đ";
+        return accountNumber + " | " + String.format("%,.2f", balance) + "đ";
     }
 
     public static String getDateTime() {

@@ -25,6 +25,9 @@ public class Customer extends User implements Serializable {
         this(values.get(0), values.get(1));
     }
 
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
     public List<Account> getAccounts() {
         List<Account> lstAccount = AccountDao.list();
         if (!lstAccount.isEmpty()) {
@@ -71,11 +74,11 @@ public class Customer extends User implements Serializable {
     }
 
     public void displayInformation() {
-        System.out.printf("%-12s | %20s | %7s | %" + (String.format("%,.0f", getTotalAccountBalance()) + "đ").length() + "s%n", getCustomerId(), getName(), (isCustomerPremium() ? "Premium" : "Normal"), (String.format("%,.0f", getTotalAccountBalance()) + "đ"));
+        System.out.printf("%-12s | %20s | %7s | %" + (String.format("%,.2f", getTotalAccountBalance()) + "đ").length() + "s%n", getCustomerId(), getName(), (isCustomerPremium() ? "Premium" : "Normal"), (String.format("%,.2f", getTotalAccountBalance()) + "đ"));
         int idx = 1;
         if (!accounts.isEmpty()) {
             for (Account account : accounts) {
-                System.out.printf("%-5s %-5s | %12s %7s | %9s %" + (String.format("%,.0f", getTotalAccountBalance()) + "đ").length() + "s%n", idx + ".", account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.0f", account.getBalance()) + "đ"));
+                System.out.printf("%-5s %-5s | %12s %7s | %9s %" + (String.format("%,.2f", getTotalAccountBalance()) + "đ").length() + "s%n", idx + ".", account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.2f", account.getBalance()) + "đ"));
                 idx++;
             }
         }

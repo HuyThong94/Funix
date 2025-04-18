@@ -15,7 +15,9 @@ public class Customer extends User {
         super(name, customerId);
         accounts = new ArrayList<>();
     }
-
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
     public static List<Account> getAccounts() {
         return accounts;
     }

@@ -4,31 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DigitalCustomer extends Customer {
-    private static List<Account> accounts = new ArrayList<>();
 
     public DigitalCustomer() {
+        super();
     }
 
-    public DigitalCustomer(String customerId, String name, List<Account> accounts) {
+    public DigitalCustomer(String customerId, String name) {
         super(name, customerId);
-        DigitalCustomer.accounts = accounts;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
-    }
 
     public void addAccount(Account account) {
         if (getAccountByAccountNumber(account.getAccountNumber()) != null) {
             System.out.println("Tài khoản đã tồn tại!");
             return;
         }
-        accounts.add(account);
+        List<Account> accountList = new ArrayList<>();
+        setAccounts(accountList);
+
         System.out.println("Thêm tài khoản thành công!");
     }
 
     public Account getAccountByAccountNumber(String accountNumber) {
-        for (Account account : accounts) {
+        for (Account account : getAccounts()) {
             if (account.getAccountNumber().equals(accountNumber)) {
                 return account;
             }
@@ -56,7 +54,7 @@ public class DigitalCustomer extends Customer {
     @Override
     public double getTotalAccountBalance() {
         double totalBalance = 0;
-        for (Account account : accounts) {
+        for (Account account : getAccounts()) {
             totalBalance += account.getBalance();
         }
         return totalBalance;
@@ -64,11 +62,11 @@ public class DigitalCustomer extends Customer {
 
     @Override
     public void displayInformation() {
-        System.out.printf("%-12s | %20s | %7s | %" + (String.format("%,.0f", getTotalAccountBalance()) + "đ").length() + "s%n", getCustomerId(), getName(), (isCustomerPremium() ? "Premium" : "Normal"), (String.format("%,.0f", getTotalAccountBalance()) + "đ"));
+        System.out.printf("%-12s | %20s | %7s | %" + (String.format("%,.2f", getTotalAccountBalance()) + "đ").length() + "s%n", getCustomerId(), getName(), (isCustomerPremium() ? "Premium" : "Normal"), (String.format("%,.2f", getTotalAccountBalance()) + "đ"));
         int idx = 1;
-        if (!accounts.isEmpty()) {
-            for (Account account : accounts) {
-                System.out.printf("%-5s %-5s | %12s %7s | %9s %" + (String.format("%,.0f", getTotalAccountBalance()) + "đ").length() + "s%n", idx + ".", account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.0f", account.getBalance()) + "đ"));
+        if (!getAccounts().isEmpty()) {
+            for (Account account : getAccounts()) {
+                System.out.printf("%-5s %-5s | %12s %7s | %9s %" + (String.format("%,.2f", getTotalAccountBalance()) + "đ").length() + "s%n", idx + ".", account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.2f", account.getBalance()) + "đ"));
                 idx++;
             }
         }
@@ -76,12 +74,12 @@ public class DigitalCustomer extends Customer {
 
     public void displayTransactions() {
         int idx = 1;
-        if (!accounts.isEmpty()) {
+        if (!getAccounts().isEmpty()) {
             System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", "Account", "Amount", "Time", "Transaction ID");
-            for (Account account : accounts) {
+            for (Account account : getAccounts()) {
                 for (Transaction transaction : account.getTransactions()) {
                     if (idx <= 5) {
-                        System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", account.getAccountNumber(), String.format("%,.0f", transaction.getAmount()) + "đ", transaction.getTime(), transaction.getId());
+                        System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", account.getAccountNumber(), String.format("%,.2f", transaction.getAmount()) + "đ", transaction.getTime(), transaction.getId());
                         idx++;
                     }
                 }
