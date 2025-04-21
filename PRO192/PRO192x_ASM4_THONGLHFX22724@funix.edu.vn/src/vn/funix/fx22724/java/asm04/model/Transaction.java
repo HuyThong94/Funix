@@ -14,28 +14,15 @@ public class Transaction implements Serializable {
     private boolean status;
     private String type;
 
-
-    public Transaction(String accountNumber, double amount, boolean status) {
+    public Transaction() {
         this.id = UUID.randomUUID().toString();
-        this.accountNumber = accountNumber;
-        this.amount = amount;
-        this.status = status;
         this.time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
     }
 
-    public String getId() {
-        return id;
-    }
-    public double getAmount() {
-        return amount;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public Transaction(String accountNumber, double amount, boolean status) {
+        this.accountNumber = accountNumber;
+        this.amount = amount;
+        this.status = status;
     }
 
     public String getAccountNumber() {
@@ -57,6 +44,38 @@ public class Transaction implements Serializable {
 
     public String toString() {
         return "";
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
 

@@ -2,10 +2,11 @@ package vn.funix.fx22724.java.asm04.model;
 
 //import
 
-import vn.funix.fx22724.java.asm04.Withdraw;
+import vn.funix.fx22724.java.asm04.service.ITransfer;
+import vn.funix.fx22724.java.asm04.service.Withdraw;
 import vn.funix.fx22724.java.asm04.service.IReport;
 
-public class SavingsAccount extends Account implements Withdraw, IReport {
+public class SavingsAccount extends Account implements Withdraw, IReport, ITransfer {
     private static final double MAX_WITHDRAW = 5000000;
     private static final double MIN_WITHDRAW = 50000;
 
@@ -16,46 +17,61 @@ public class SavingsAccount extends Account implements Withdraw, IReport {
     @Override
     public boolean withdraw(double amount) {
         Account account = new Account();
-        boolean isWithdrawn = false;
+        boolean isWithdraw = false;
         if (isAccepted(amount)) {
             setBalance(getBalance() - amount);
             getTransactions().add(new Transaction(getAccountNumber(), amount, true));
-            isWithdrawn = true;
+            isWithdraw = true;
             System.out.println("Rút tiền thành công!");
             log(amount, "DEPOSIT", account);
         } else {
             System.out.println("Rút tiền thất bại!");
         }
-        return isWithdrawn;
+        return isWithdraw;
     }
 
     @Override
     public boolean transfers(double amount, Account reveiveAccount) {
-        return false;
+        boolean isTransfers = false;
+        if (isAccepted(amount)) {
+            setBalance(getBalance() - amount);
+            getTransactions().add(new Transaction(getAccountNumber(), amount, true));
+            isTransfers = true;
+            System.out.println("Chuyển tiền thành công, biên lai gia dịch");
+            log(amount, "DEPOSIT", reveiveAccount);
+        } else {
+            System.out.println("Chuyển tiền thất bại!");
+        }
+        return isTransfers;
     }
 
     @Override
     public boolean isAccepted(double amount) {
-//        if (amount % 10000 != 0) {
-//            System.out.println("Số tiền rút phải là bội số của 10.000đ");
-//            return false;
-//        }
-//        if (ustomer.isCustomerPremium()) {
-//            if (amount < MIN_WITHDRAW) {
-//                System.out.println("Số tiền rút tối thiểu là  " + MIN_WITHDRAW + "đ");
-//                return false;
-//            }
-//        } else {
-//            if (amount < MIN_WITHDRAW || amount > MAX_WITHDRAW) {
-//                System.out.println("Số tiền rút phải từ " + MIN_WITHDRAW + " đến " + MAX_WITHDRAW);
-//                return false;
-//            }
-//        }
-//        if (amount >= getBalance()) {
-//            System.out.println("Số dư trong tài khoản không đủ.");
-//            return false;
-//        }
+        if (amount % 10000 != 0) {
+            System.out.println("Số tiền rút phải là bội số của 10.000đ");
+            return false;
+        }
+        if (isAccountPremium()) {
+            if (amount < MIN_WITHDRAW) {
+                System.out.println("Số tiền rút tối thiểu là  " + MIN_WITHDRAW + "đ");
+                return false;
+            }
+        } else {
+            if (amount < MIN_WITHDRAW || amount > MAX_WITHDRAW) {
+                System.out.println("Số tiền rút phải từ " + MIN_WITHDRAW + " đến " + MAX_WITHDRAW);
+                return false;
+            }
+        }
+        if (amount >= getBalance()) {
+            System.out.println("Số dư trong tài khoản không đủ.");
+            return false;
+        }
         return true;
+    }
+
+    @Override
+    public boolean isAccountPremium() {
+        return this.getBalance() >= 10000000;
     }
 
     @Override

@@ -15,8 +15,14 @@ public class Customer extends User {
         super(name, customerId);
         accounts = new ArrayList<>();
     }
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+
+    public Customer(String name, String customerId, List<Account> accountLst) {
+        super(name, customerId);
+        accounts = accountLst;
+    }
+
+    public void setAccounts(List<Account> accountLst) {
+        accounts = accountLst;
     }
     public static List<Account> getAccounts() {
         return accounts;

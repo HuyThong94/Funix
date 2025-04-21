@@ -1,14 +1,11 @@
 package vn.funix.fx22724.java.asm04;
 
 
+import vn.funix.fx22724.java.asm04.common.CommonValid;
 import vn.funix.fx22724.java.asm04.dao.AccountDao;
 import vn.funix.fx22724.java.asm04.dao.CustomerDao;
 import vn.funix.fx22724.java.asm04.model.*;
-import vn.funix.fx22724.java.asm04.service.BinaryFileService;
-import vn.funix.fx22724.java.asm04.service.TextFileService;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +53,7 @@ public class Asm4 {
                 handleAddAccount(sc);
                 getScreen(sc);
             } else if (choice == 4) {
-//                handleWithdrawMoney(sc);
+                handleTranfers(sc);
                 getScreen(sc);
             } else if (choice == 5) {
 //                handleTransaction(sc);
@@ -96,7 +93,50 @@ public class Asm4 {
             System.out.print("Nhập mã số của khách hàng: ");
             String maKH = sc.nextLine();
 
-            if (isValidCCCD(maKH)) {
+            if (CommonValid.isValidCustomerId(maKH)) {
+                customer.setCustomerId(maKH);
+                boolean isCheckCustomer = activeBank.isCustomerExisted(lstCustomers, customer);
+                if (isCheckCustomer) {
+                    handleAccountNumber(sc, customer);
+                    break;
+                } else {
+                    System.out.println("Mã số khách hàng chưa có trong hệ thống. Vui lòng nhập lại. ");
+                }
+            } else {
+                System.out.println("Mã số khách hàng không hơp lệ. Vui lòng nhập lại");
+            }
+        }
+    }
+
+    private static void handleAccountNumber(Scanner sc, Customer customer) {
+        while (true) {
+            Account newAccount = new Account();
+            if (activeBank.isAccountExisted(customer.getAccounts(), newAccount)) {
+                List<Account> lstAccount = AccountDao.list();
+                newAccount.setCustomerId(customer.getCustomerId());
+                newAccount.input(sc);
+                lstAccount.add(newAccount);
+                try {
+                    AccountDao.save(lstAccount);
+                    System.out.println("tạo tài khoản thành công");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            } else {
+                System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
+            }
+        }
+    }
+    //Chức năng 4
+    private static void handleTranfers(Scanner sc) {
+        do {
+            List<Customer> lstCustomers = CustomerDao.list();
+            Customer customer = new Customer();
+            System.out.print("Nhập mã số của khách hàng: ");
+            String maKH = sc.nextLine();
+
+            if (CommonValid.isValidCustomerId(maKH)) {
                 boolean isCheckCustomer = false;
                 for (Customer cus : lstCustomers) {
                     if (cus.getCustomerId().equals(maKH)) {
@@ -106,27 +146,29 @@ public class Asm4 {
                     }
                 }
                 if (isCheckCustomer) {
-                    handleAccountNumber(sc, customer, lstCustomers);
+                    activeBank.tranfers(sc, customer.getCustomerId());
                     break;
                 } else {
-                    System.out.println("Số CCCD chưa có trong hệ thống. Vui lòng nhập lại. ");
+                    System.out.println("Mã số khách hàng chưa có trong hệ thống. Vui lòng nhập lại. ");
                 }
             } else {
-                System.out.println("Số CCCD không hơp lệ. Vui lòng nhập lại");
+                System.out.println("Mã số khách hàng không hơp lệ. Vui lòng nhập lại");
             }
-        }
+        } while (true);
     }
 
-    private static void handleAccountNumber(Scanner sc, Customer customer, List<Customer> lstCustomers) {
+    public static void handleEnterAccountNumberSend(Scanner sc, Customer customer) {
         while (true) {
-            System.out.print("Nhập số tài khoản gồm 6 chữ số: ");
+            System.out.print("Nhập số tài khoản: ");
             String stk = sc.nextLine().trim();
-            if (isValidSTK(stk)) {
-                if (!isIsCheckStk(stk, customer.getAccounts())) {
-                    handleEnterMoney(sc, stk, customer, lstCustomers);
+            if (CommonValid.isValidAccountNumber(stk)) {
+                Account newAccount = new Account();
+                newAccount.setAccountNumber(stk);
+                if (activeBank.isAccountExisted(customer.getAccounts(), newAccount)) {
+                    handleEnterRecipientAccountNumber(sc, stk, customer);
                     break;
                 } else {
-                    System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
+                    System.out.println("Số tài khoản chưa có trong hệ thống. Vui lòng nhập lại: ");
                 }
             } else {
                 System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
@@ -134,67 +176,48 @@ public class Asm4 {
         }
     }
 
-    private static void handleEnterMoney(Scanner sc, String stk, Customer customer, List<Customer> lstCustomers) {
+    private static void handleEnterRecipientAccountNumber(Scanner sc, String sendStk, Customer customer) {
         while (true) {
-            Account account = new Account();
-            account.setAccountNumber(stk);
-            System.out.print("Nhập số dư tài khoản >= 50000đ: ");
-            String balance = getBalance(sc);
-            if (isValidMoney(balance)) {
-                List<Account> lstAccount = AccountDao.list();
-                account.setCustomerId(customer.getCustomerId());
-                account.setTypeAccount("SAVING");
-                account.setBalance(Double.parseDouble(balance));
-                lstAccount.add(account);
-                try {
-                    AccountDao.save(lstAccount);
-                    System.out.println("tạo tài khoản thành công");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+            System.out.print("Nhập số tài khoản nhận( exit để thoát): ");
+            String recipientStk = sc.nextLine().trim();
+            if (recipientStk.equalsIgnoreCase("exit")) {
+                System.out.println("Thoát chương trình!");
                 break;
+            }
+
+            if (CommonValid.isValidAccountNumber(recipientStk)) {
+                Account newAccount = new Account();
+                newAccount.setAccountNumber(recipientStk);
+                if (activeBank.isAccountExisted(customer.getAccounts(), newAccount)) {
+                    handleEnterMoneyTranfers(sc, recipientStk, sendStk, customer);
+                    break;
+                } else {
+                    System.out.println("Số tài khoản chưa có trong hệ thống. Vui lòng nhập lại: ");
+                }
+            } else {
+                System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
+            }
+        }
+    }
+
+    private static void handleEnterMoneyTranfers(Scanner sc, String reveiveAccount, String sendStk, Customer customer) {
+        while (true) {
+            System.out.print("Nhập số tiền chuyển ");
+            String amount = sc.nextLine();
+            if (CommonValid.isValidMoneyTranfers(amount)) {
+                System.out.println("Xác nhận thực hiện chuyển " + (String.format("%,.2f", Double.parseDouble(amount)) + "đ") + "từ tài khoản [" + sendStk + "] đến tài khoản [" + reveiveAccount + "] (Y/N): ");
+                String status = sc.nextLine().trim();
+                if (status.equalsIgnoreCase("Y")) {
+//                    boolean isTransfers = activeBank.transfers(customer, reveiveAccount, sendStk, Double.parseDouble(amount));
+                } else if (status.equalsIgnoreCase("N")) {
+                    getScreen(sc);
+                } else {
+                    System.out.println("Dữ liệu không hơp lệ. Vui lòng nhập lại.");
+                }
             } else {
                 System.out.println("Số dư không hơp lệ. Vui lòng nhập lại. ");
             }
         }
-    }
-
-    private static boolean isIsCheckStk(String stk, List<Account> accounts) {
-        boolean isCheckStk = false;
-        for (Account account : accounts) {
-            if (account.getAccountNumber().equals(stk)) {
-                isCheckStk = true;
-                break;
-            }
-        }
-        return isCheckStk;
-    }
-
-    private static String getBalance(Scanner scanner) {
-        while (true) {
-            try {
-                return scanner.nextLine();
-            } catch (NumberFormatException e) {
-                System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
-                System.out.print("Chọn chức năng: ");
-            }
-        }
-    }
-
-    private static boolean isValidCCCD(String cccd) {
-        return cccd.length() == 12 && cccd.matches("\\d{12}");
-    }
-
-    private static boolean isValidSTK(String cccd) {
-        return cccd.length() == 6 && cccd.matches("\\d{6}");
-    }
-
-    private static boolean isValidMoney(String money) {
-        return Double.parseDouble(money) >= 50000 && money.matches("\\d+");
-    }
-
-    private static boolean validateAccount(String accountNumber) {
-        return accountNumber.length() == 6 && accountNumber.matches("\\d{6}");
     }
 
 }

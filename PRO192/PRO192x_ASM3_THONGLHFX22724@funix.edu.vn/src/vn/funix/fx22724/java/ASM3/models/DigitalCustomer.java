@@ -13,8 +13,8 @@ public class DigitalCustomer extends Customer {
         super();
     }
 
-    public DigitalCustomer(String customerId, String name) {
-        super(name, customerId);
+    public DigitalCustomer(String customerId, String name, List<Account> accounts) {
+        super(name, customerId, accounts);
     }
 
     public void addAccount(Account account) {

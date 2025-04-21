@@ -1,5 +1,6 @@
 package vn.funix.fx22724.java.asm04.model;
 
+import vn.funix.fx22724.java.asm04.common.CommonValid;
 import vn.funix.fx22724.java.asm04.dao.AccountDao;
 
 import java.io.Serializable;
@@ -28,6 +29,7 @@ public class Customer extends User implements Serializable {
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
     }
+
     public List<Account> getAccounts() {
         List<Account> lstAccount = AccountDao.list();
         if (!lstAccount.isEmpty()) {
@@ -84,16 +86,95 @@ public class Customer extends User implements Serializable {
         }
     }
 
-    public void getAccountByAccountNumber(List<Account> accounts, String accountNumber) {
+    public Account getAccountByAccountNumber(List<Account> accounts, String accountNumber) {
+        if (!accounts.isEmpty()) {
+            for (Account account : accounts) {
+                if (account.getAccountNumber().equals(accountNumber)) {
+                    return account;
+                }
+            }
+        }
+        return null;
     }
 
-    public void displayTransactionInformation() {
+    public void displayTransactions() {
+        int idx = 1;
+        if (!getAccounts().isEmpty()) {
+            System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", "Account", "Amount", "Time", "Transaction ID");
+            for (Account account : getAccounts()) {
+                for (Transaction transaction : account.getTransactions()) {
+                    if (idx <= 5) {
+                        System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", account.getAccountNumber(), String.format("%,.2f", transaction.getAmount()) + "đ", transaction.getTime(), transaction.getId());
+                        idx++;
+                    }
+                }
+            }
+        }
     }
 
-    public void withdraw(Scanner sc) {
+    public void withdraw(Scanner scanner) {
+        List<Account> accounts = getAccounts();
+        if (!accounts.isEmpty()) {
+            Account account;
+            double amount;
+            do {
+                System.out.println("Nhập số tài khoản: ");
+                account = getAccountByAccountNumber(accounts, scanner.nextLine());
+            } while (account == null);
+            do {
+                System.out.println("Nhập số tiền rút: ");
+                amount = Double.parseDouble(scanner.nextLine());
+            } while (amount <= 0);
+            if (account instanceof SavingsAccount) {
+                ((SavingsAccount) account).withdraw(amount);
+            }
+        } else {
+            System.out.println("Khách hàng không có tài khoản nào, thao tác không thành công");
+        }
     }
 
-    public void tranfers(Scanner sc) {
+    public void transfers(Scanner scanner) {
+        List<Account> accounts = getAccounts();
+        if (!accounts.isEmpty()) {
+            Account accountSend = new Account();
+            Account accountReveive = new Account();
+            double amount;
+            do {
+                System.out.println("Nhập số tài khoản: ");
+
+                String stk = scanner.nextLine();
+                if (CommonValid.isValidAccountNumber(stk)) {
+                    accountSend = getAccountByAccountNumber(accounts, scanner.nextLine());
+                } else {
+                    System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
+                }
+            } while (accountSend.getAccountNumber() == null);
+            do {
+                System.out.println("Nhập số tài khoản nhận( exit để thoát): ");
+
+                String reveiveAccountNumber = scanner.nextLine();
+                if (reveiveAccountNumber.equalsIgnoreCase("exit")) {
+                    System.out.println("Thoát chương trình!");
+                    break;
+                }
+                if (CommonValid.isValidAccountNumber(reveiveAccountNumber)) {
+                    accountReveive = getAccountByAccountNumber(accounts, scanner.nextLine());
+                    Customer customer = getCus;
+                    System.out.println("Gửi tiền đến tài khoản: "+ reveiveAccountNumber+ " | " + accountReveive.getCustomer().get);
+                } else {
+                    System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
+                }
+            } while (accountReveive.getAccountNumber() == null);
+            do {
+                System.out.println("Nhập số tiền chuyển: ");
+                amount = Double.parseDouble(scanner.nextLine());
+            } while (amount <= 0);
+            if (accountSend instanceof SavingsAccount) {
+                ((SavingsAccount) accountSend).withdraw(amount);
+            }
+        } else {
+            System.out.println("Khách hàng không có tài khoản nào, thao tác không thành công");
+        }
     }
 
 }

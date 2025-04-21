@@ -1,6 +1,7 @@
 package vn.funix.fx22724.java.asm04.model;
 
 
+import vn.funix.fx22724.java.asm04.Asm4;
 import vn.funix.fx22724.java.asm04.dao.CustomerDao;
 import vn.funix.fx22724.java.asm04.service.TextFileService;
 
@@ -10,25 +11,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DigitalBank extends Bank {
-    private final List<DigitalCustomer> customers = new ArrayList<>();
-
-    public DigitalCustomer getCustomerById(String customerId) {
-        for (DigitalCustomer customer : customers) {
-            if (customer.getCustomerId().equals(customerId)) {
-                return customer;
-            }
-        }
-        return null;
-    }
-
-    public boolean withdraw(String customerId, String accountNumber, double amount) {
-        DigitalCustomer customer = getCustomerById(customerId);
-        if (customer == null) {
-            System.out.println("Khách hàng không tồn tại!");
-            return false;
-        }
-        return customer.withdraw(accountNumber, amount);
-    }
 
     public static void showCustomers() {
         List<Customer> lstCustomers = CustomerDao.list();
@@ -46,50 +28,85 @@ public class DigitalBank extends Bank {
         List<Customer> lstCustomers = CustomerDao.list();
         List<List<String>> lstCustomer = TextFileService.readFile(fileName);
         for (List<String> customerTxt : lstCustomer) {
-            String customerId = customerTxt.get(0);
-            String customerName = customerTxt.get(1);
+            Customer customer = new Customer(customerTxt);
             boolean isExisted = false;
             for (Customer cus : lstCustomers) {
-                if (cus.getCustomerId()!=null && cus.getCustomerId().equals(customerId)) {
+                if (cus.getCustomerId() != null && cus.getCustomerId().equals(customer.getCustomerId())) {
                     isExisted = true;
                     break;
                 }
             }
 
             if (isExisted) {
-                System.out.println("Khách hàng " + customerId + " đã tồn tại, thêm khách hàng không thành công");
+                System.out.println("Khách hàng " + customer.getCustomerId() + " đã tồn tại, thêm khách hàng không thành công");
             } else {
-                Customer customer = new Customer(customerName, customerId);
                 lstCustomers.add(customer); // chỉ lưu KH mới
                 newCustomers.add(customer); // chỉ lưu KH mới
             }
         }
-            try {
-                CustomerDao.save(lstCustomers);
-                for (Customer c : newCustomers) {
-                    System.out.println("Đã thêm khách hàng " + c.getCustomerId() + " thành công");
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        try {
+            CustomerDao.save(lstCustomers);
+            for (Customer c : newCustomers) {
+                System.out.println("Đã thêm khách hàng " + c.getCustomerId() + " thành công");
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void addSavingAccount(Scanner sc, String customerId) {
 
     }
 
+    public void withdraw(Scanner sc, String customerId) {
+        List<Customer> lstCustomers = CustomerDao.list();
+        Customer customer = getCustomerById(lstCustomers, customerId);
+        if (customer == null) {
+            System.out.println("Khách hàng không tồn tại!");
+        }
+    }
+
     public void tranfers(Scanner sc, String customerId) {
+        List<Customer> lstCustomers = CustomerDao.list();
+        Customer customer = getCustomerById(lstCustomers, customerId);
+        customer.displayInformation();
+        customer.transfers(sc);
+        Asm4.handleEnterAccountNumberSend(sc, customer);
     }
 
     public boolean isAccountExisted(List<Account> accountList, Account newAccount) {
-        return false;
+        String accountNumber = newAccount.getAccountNumber();
+        boolean isCheckStk = true;
+        for (Account account : accountList) {
+            if (account.getAccountNumber().equals(accountNumber)) {
+                isCheckStk = false;
+                break;
+            }
+        }
+        return isCheckStk;
     }
 
-    public boolean isCustomerExisted(List<Customer> customers, Account newAccount) {
-        return false;
+    public static boolean isCustomerExisted(List<Customer> customers, Customer newCustomer) {
+        String customerId = newCustomer.getCustomerId();
+        boolean isCheckCustomer = false;
+
+        for (Customer customer : customers) {
+            if (customer.getCustomerId().equals(customerId)) {
+                isCheckCustomer = true;
+                break;
+            }
+        }
+
+        return isCheckCustomer;
     }
 
-    public void getCustomerById(List<Customer> customers, String customerId) {
+    public Customer getCustomerById(List<Customer> customers, String customerId) {
+        for (Customer customer : customers) {
+            if (customer.getCustomerId().equals(customerId)) {
+                return customer;
+            }
+        }
+        return null;
     }
 }
 

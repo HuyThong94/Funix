@@ -4,16 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DigitalCustomer extends Customer {
-
-    public DigitalCustomer() {
+    public DigitalCustomer(){
         super();
     }
-
-    public DigitalCustomer(String customerId, String name) {
-        super(name, customerId);
-    }
-
-
     public void addAccount(Account account) {
         if (getAccountByAccountNumber(account.getAccountNumber()) != null) {
             System.out.println("Tài khoản đã tồn tại!");
@@ -43,12 +36,23 @@ public class DigitalCustomer extends Customer {
         if (account.getTypeAccount().equals("SAVINGS")) {
             SavingsAccount savingsAccount = (SavingsAccount) account;
             return savingsAccount.withdraw(amount);
-
         } else {
-//            LoanAccount loanAccount = (LoanAccount) account;
             return false;
         }
+    }
 
+    public boolean transfers(String reveiveAccount, double amount) {
+        Account account = getAccountByAccountNumber(reveiveAccount);
+        if (account == null) {
+            System.out.println("Tài khoản không tồn tại!");
+            return false;
+        }
+        if (account.getTypeAccount().equals("SAVINGS")) {
+            SavingsAccount savingsAccount = (SavingsAccount) account;
+            return savingsAccount.transfers(amount, account);
+        } else {
+            return false;
+        }
     }
 
     @Override
