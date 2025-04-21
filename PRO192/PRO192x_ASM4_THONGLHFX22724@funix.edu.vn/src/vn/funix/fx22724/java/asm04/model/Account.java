@@ -75,7 +75,8 @@ public class Account implements Serializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         return LocalDateTime.now().format(formatter);
     }
-    public Customer getCustomer(){
+
+    public Customer getCustomer() {
         List<Customer> lstCustomer = CustomerDao.list();
         for (Customer customer : lstCustomer) {
             if (customer.getCustomerId().equals(customerId)) {
@@ -85,29 +86,51 @@ public class Account implements Serializable {
         return null;
     }
 
-    public List<Transaction> displayTransactionsList(){
+    public void displayTransactions() {
+        int idx = 1;
+        for (Transaction transaction : getTransactions()) {
+            if (idx <= 5) {
+                System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", getAccountNumber(), String.format("%,.2f", transaction.getAmount()) + "đ", transaction.getTime(), transaction.getId());
+                idx++;
+            }
+        }
+    }
+
+    public List<Transaction> displayTransactionsList() {
         return transactions;
     }
-    public void createTransaction(double amount, String time, boolean status, String type){
+
+    public void createTransaction(double amount, String time, boolean status, String type) {
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
         transaction.setTime(time);
         transaction.setStatus(status);
 
     }
-    public void input(Scanner sc){
+
+    public void input(Scanner sc) {
         while (true) {
             System.out.print("Nhập số tài khoản gồm 6 chữ số: ");
             String stk = sc.nextLine().trim();
             if (CommonValid.isValidAccountNumber(stk)) {
-                System.out.print("Nhập số dư tài khoản >= 50000đ: ");
-                String balance = sc.nextLine();
-                if (CommonValid.isValidMoney(balance)) {
-                    setTypeAccount("SAVING");
-                    setBalance(Double.parseDouble(balance));
-                    break;
+
+                        setAccountNumber(stk);
+                DigitalBank activeBank = new DigitalBank();
+                List<Account> lstAccount = AccountDao.list();
+                if (activeBank.isAccountExisted(lstAccount, this)) {
+                    System.out.print("Nhập số dư tài khoản >= 50000đ: ");
+                    String balance = sc.nextLine();
+                    if (CommonValid.isValidMoney(balance)) {
+                        setTypeAccount("SAVING");
+                        setBalance(Double.parseDouble(balance));
+                        break;
+                    } else {
+                        System.out.println("Số dư không hơp lệ. Vui lòng nhập lại. ");
+                    }
+
                 } else {
-                    System.out.println("Số dư không hơp lệ. Vui lòng nhập lại. ");
+                    System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
+                    return;
                 }
             } else {
                 System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");

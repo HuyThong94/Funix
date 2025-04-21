@@ -2,6 +2,7 @@ package vn.funix.fx22724.java.asm04.model;
 
 //import
 
+import vn.funix.fx22724.java.asm04.dao.AccountDao;
 import vn.funix.fx22724.java.asm04.service.ITransfer;
 import vn.funix.fx22724.java.asm04.service.Withdraw;
 import vn.funix.fx22724.java.asm04.service.IReport;
@@ -35,6 +36,9 @@ public class SavingsAccount extends Account implements Withdraw, IReport, ITrans
         boolean isTransfers = false;
         if (isAccepted(amount)) {
             setBalance(getBalance() - amount);
+            reveiveAccount.setBalance(reveiveAccount.getBalance() + amount);
+            AccountDao.update(reveiveAccount);
+            AccountDao.update(this);
             getTransactions().add(new Transaction(getAccountNumber(), amount, true));
             isTransfers = true;
             System.out.println("Chuyển tiền thành công, biên lai gia dịch");
@@ -82,7 +86,13 @@ public class SavingsAccount extends Account implements Withdraw, IReport, ITrans
         System.out.printf("NGAY G/D: %28s%n", getDateTime());
         System.out.printf("ATM ID: %30s%n", "DIGITAL-BANK-ATM 2022");
         System.out.printf("SO TK: %31s%n", getAccountNumber());
-        System.out.printf("SO TIEN: %29s%n", String.format("%,.2f", amount) + "đ");
+        if (type.equals("WITHDRAW")) {
+            System.out.printf("SO TIEN RUT: %29s%n", String.format("%,.2f", amount) + "đ");
+        } else if (type.equals("DEPOSIT")) {
+            System.out.printf("SO TIEN: %29s%n", String.format("%,.2f", amount) + "đ");
+        } else {
+            System.out.printf("SO TIEN CHUYEN: %29s%n", String.format("%,.2f", amount) + "đ");
+        }
         System.out.printf("SO DU: %31s%n", String.format("%,.2f", balance) + "đ");
         System.out.printf("PHI + VAT: %27s%n", String.format("%,.2f", 0.0f) + "đ");
         System.out.println("+----------+--------------------+----------+");

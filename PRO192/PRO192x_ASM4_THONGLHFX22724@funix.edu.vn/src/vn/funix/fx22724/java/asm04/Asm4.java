@@ -78,7 +78,6 @@ public class Asm4 {
 
     //chuc nang 2
     private static void handleAddCustomers(Scanner scanner) {
-        List<Customer> customers = new ArrayList<>();
         System.out.println("+----------+--------------------+----------+");
         System.out.println("Nhập đường dẫn đến tệp:");
         String fileName = sc.nextLine();
@@ -111,7 +110,6 @@ public class Asm4 {
     private static void handleAccountNumber(Scanner sc, Customer customer) {
         while (true) {
             Account newAccount = new Account();
-            if (activeBank.isAccountExisted(customer.getAccounts(), newAccount)) {
                 List<Account> lstAccount = AccountDao.list();
                 newAccount.setCustomerId(customer.getCustomerId());
                 newAccount.input(sc);
@@ -123,9 +121,6 @@ public class Asm4 {
                     throw new RuntimeException(e);
                 }
                 break;
-            } else {
-                System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
-            }
         }
     }
     //Chức năng 4
@@ -137,14 +132,8 @@ public class Asm4 {
             String maKH = sc.nextLine();
 
             if (CommonValid.isValidCustomerId(maKH)) {
-                boolean isCheckCustomer = false;
-                for (Customer cus : lstCustomers) {
-                    if (cus.getCustomerId().equals(maKH)) {
-                        isCheckCustomer = true;
-                        customer = cus;
-                        break;
-                    }
-                }
+                customer.setCustomerId(maKH);
+                boolean isCheckCustomer = activeBank.isCustomerExisted(lstCustomers, customer);
                 if (isCheckCustomer) {
                     activeBank.tranfers(sc, customer.getCustomerId());
                     break;

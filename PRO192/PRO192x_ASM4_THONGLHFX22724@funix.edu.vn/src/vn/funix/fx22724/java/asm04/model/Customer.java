@@ -134,19 +134,18 @@ public class Customer extends User implements Serializable {
     }
 
     public void transfers(Scanner scanner) {
-        List<Account> accounts = getAccounts();
+        List<Account> accounts = AccountDao.list();
         if (!accounts.isEmpty()) {
             Account accountSend = new Account();
             Account accountReveive = new Account();
             double amount;
             do {
                 System.out.println("Nhập số tài khoản: ");
-
                 String stk = scanner.nextLine();
                 if (CommonValid.isValidAccountNumber(stk)) {
-                    accountSend = getAccountByAccountNumber(accounts, scanner.nextLine());
+                    accountSend = getAccountByAccountNumber(accounts, stk);
                 } else {
-                    System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
+                    System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại.");
                 }
             } while (accountSend.getAccountNumber() == null);
             do {
@@ -158,9 +157,9 @@ public class Customer extends User implements Serializable {
                     break;
                 }
                 if (CommonValid.isValidAccountNumber(reveiveAccountNumber)) {
-                    accountReveive = getAccountByAccountNumber(accounts, scanner.nextLine());
-                    Customer customer = getCus;
-                    System.out.println("Gửi tiền đến tài khoản: "+ reveiveAccountNumber+ " | " + accountReveive.getCustomer().get);
+                    accountReveive = getAccountByAccountNumber(accounts, reveiveAccountNumber);
+                    Customer customerReveive = accountReveive.getCustomer();
+                    System.out.println("Gửi tiền đến tài khoản: "+ reveiveAccountNumber+ " | " + customerReveive.getName());
                 } else {
                     System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
                 }
@@ -170,7 +169,7 @@ public class Customer extends User implements Serializable {
                 amount = Double.parseDouble(scanner.nextLine());
             } while (amount <= 0);
             if (accountSend instanceof SavingsAccount) {
-                ((SavingsAccount) accountSend).withdraw(amount);
+                ((SavingsAccount) accountSend).transfers(amount, accountReveive);
             }
         } else {
             System.out.println("Khách hàng không có tài khoản nào, thao tác không thành công");

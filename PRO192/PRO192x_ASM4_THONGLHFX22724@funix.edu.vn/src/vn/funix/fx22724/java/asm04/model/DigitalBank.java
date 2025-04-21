@@ -71,7 +71,6 @@ public class DigitalBank extends Bank {
         Customer customer = getCustomerById(lstCustomers, customerId);
         customer.displayInformation();
         customer.transfers(sc);
-        Asm4.handleEnterAccountNumberSend(sc, customer);
     }
 
     public boolean isAccountExisted(List<Account> accountList, Account newAccount) {
