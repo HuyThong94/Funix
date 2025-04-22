@@ -3,6 +3,7 @@ package vn.funix.fx22724.java.asm04.model;
 import vn.funix.fx22724.java.asm04.common.CommonValid;
 import vn.funix.fx22724.java.asm04.dao.AccountDao;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,13 +59,21 @@ public class Customer extends User implements Serializable {
 
     public void addAccount(Account newAccount) {
         // Kiểm tra nếu tài khoản chưa tồn tại
-        for (Account account : accounts) {
+        List<Account> accountLst = getAccounts();
+        for (Account account : accountLst) {
             if (account.getAccountNumber().equals(newAccount.getAccountNumber())) {
                 System.out.println("Tài khoản đã tồn tại!");
                 return;
             }
         }
-        accounts.add(newAccount);
+        newAccount.setCustomerId(getCustomerId());
+        accountLst.add(newAccount);
+        try {
+            AccountDao.save(accountLst);
+            System.out.println("tạo tài khoản thành công");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public double getTotalAccountBalance() {
@@ -83,7 +92,11 @@ public class Customer extends User implements Serializable {
                 System.out.printf("%-5s %-5s | %12s %7s | %9s %" + (String.format("%,.2f", getTotalAccountBalance()) + "đ").length() + "s%n", idx + ".", account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.2f", account.getBalance()) + "đ"));
                 idx++;
             }
+//            for (Account account : accounts) {
+//                displayTransactionInformation();
+//            }
         }
+
     }
 
     public Account getAccountByAccountNumber(List<Account> accounts, String accountNumber) {
@@ -97,17 +110,11 @@ public class Customer extends User implements Serializable {
         return null;
     }
 
-    public void displayTransactions() {
-        int idx = 1;
+    public void displayTransactionInformation() {
         if (!getAccounts().isEmpty()) {
             System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", "Account", "Amount", "Time", "Transaction ID");
             for (Account account : getAccounts()) {
-                for (Transaction transaction : account.getTransactions()) {
-                    if (idx <= 5) {
-                        System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", account.getAccountNumber(), String.format("%,.2f", transaction.getAmount()) + "đ", transaction.getTime(), transaction.getId());
-                        idx++;
-                    }
-                }
+                account.displayTransactionsList();
             }
         }
     }
@@ -119,7 +126,8 @@ public class Customer extends User implements Serializable {
             double amount;
             do {
                 System.out.println("Nhập số tài khoản: ");
-                account = getAccountByAccountNumber(accounts, scanner.nextLine());
+                String stk = scanner.nextLine();
+                account = getAccountByAccountNumber(accounts, stk);
             } while (account == null);
             do {
                 System.out.println("Nhập số tiền rút: ");
@@ -136,14 +144,19 @@ public class Customer extends User implements Serializable {
     public void transfers(Scanner scanner) {
         List<Account> accounts = AccountDao.list();
         if (!accounts.isEmpty()) {
-            Account accountSend = new Account();
-            Account accountReveive = new Account();
+            Account accountSend = new SavingsAccount();
+            Account accountReveive = new SavingsAccount();
             double amount;
             do {
                 System.out.println("Nhập số tài khoản: ");
                 String stk = scanner.nextLine();
                 if (CommonValid.isValidAccountNumber(stk)) {
-                    accountSend = getAccountByAccountNumber(accounts, stk);
+//                    accountSend = getAccountByAccountNumber(accounts, stk);
+                    Account acc1 = getAccountByAccountNumber(accounts, stk);
+                    accountSend.setAccountNumber(acc1.getAccountNumber());
+                    accountSend.setCustomerId(acc1.getCustomerId());
+                    accountSend.setBalance(acc1.getBalance());
+                    accountSend.setTypeAccount(acc1.getTypeAccount());
                 } else {
                     System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại.");
                 }
@@ -157,9 +170,14 @@ public class Customer extends User implements Serializable {
                     break;
                 }
                 if (CommonValid.isValidAccountNumber(reveiveAccountNumber)) {
-                    accountReveive = getAccountByAccountNumber(accounts, reveiveAccountNumber);
+//                    accountReveive = getAccountByAccountNumber(accounts, reveiveAccountNumber);
+                    Account acc2 = getAccountByAccountNumber(accounts, reveiveAccountNumber);
+                    accountReveive.setAccountNumber(acc2.getAccountNumber());
+                    accountReveive.setCustomerId(acc2.getCustomerId());
+                    accountReveive.setBalance(acc2.getBalance());
+                    accountReveive.setTypeAccount(acc2.getTypeAccount());
                     Customer customerReveive = accountReveive.getCustomer();
-                    System.out.println("Gửi tiền đến tài khoản: "+ reveiveAccountNumber+ " | " + customerReveive.getName());
+                    System.out.println("Gửi tiền đến tài khoản: " + reveiveAccountNumber + " | " + customerReveive.getName());
                 } else {
                     System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
                 }

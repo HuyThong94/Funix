@@ -10,9 +10,11 @@ import java.util.List;
 
 public class AccountDao {
     private static final String FILE_PATH = "store/accounts.dat";
+
     public static void save(List<Account> accounts) throws IOException {
         BinaryFileService.writeFile(FILE_PATH, accounts);
     }
+
     public static List<Account> list() {
         try {
             return BinaryFileService.readFile(FILE_PATH);
@@ -20,23 +22,30 @@ public class AccountDao {
             throw new RuntimeException(e);
         }
     }
+
     public static void update(Account editAccount) {
         List<Account> accounts = list();
-        boolean hasExist = accounts.stream().anyMatch(account-> account.getAccountNumber().equals(editAccount.getAccountNumber()));
+        boolean hasExist = accounts.stream().anyMatch(account -> account.getAccountNumber().equals(editAccount.getAccountNumber()));
 
         List<Account> updatedAccounts;
-        if(hasExist) {
+        if (hasExist) {
+            accounts.removeIf(acc -> acc.getAccountNumber().equals(editAccount.getAccountNumber()));
             updatedAccounts = new ArrayList<>(accounts);
             updatedAccounts.add(editAccount);
-        }else{
+        } else {
             updatedAccounts = new ArrayList<>();
-            for(Account account : accounts) {
-                if(account.getAccountNumber().equals(editAccount.getAccountNumber())) {
+            for (Account account : accounts) {
+                if (account.getAccountNumber().equals(editAccount.getAccountNumber())) {
                     updatedAccounts.add(editAccount);
-                }else {
+                } else {
                     updatedAccounts.add(account);
                 }
             }
+        }
+        try {
+            save(updatedAccounts);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

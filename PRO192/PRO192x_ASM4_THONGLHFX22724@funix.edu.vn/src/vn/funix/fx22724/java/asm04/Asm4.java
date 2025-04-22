@@ -4,10 +4,13 @@ package vn.funix.fx22724.java.asm04;
 import vn.funix.fx22724.java.asm04.common.CommonValid;
 import vn.funix.fx22724.java.asm04.dao.AccountDao;
 import vn.funix.fx22724.java.asm04.dao.CustomerDao;
+import vn.funix.fx22724.java.asm04.dao.TransactionDao;
 import vn.funix.fx22724.java.asm04.model.*;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -56,7 +59,10 @@ public class Asm4 {
                 handleTranfers(sc);
                 getScreen(sc);
             } else if (choice == 5) {
-//                handleTransaction(sc);
+                handleWithdraw(sc);
+                getScreen(sc);
+            } else if (choice == 6) {
+                handleWithdraw(sc);
                 getScreen(sc);
             } else {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
@@ -93,6 +99,7 @@ public class Asm4 {
             String maKH = sc.nextLine();
 
             if (CommonValid.isValidCustomerId(maKH)) {
+                DigitalBank.addSavingAccount(sc, maKH);
                 customer.setCustomerId(maKH);
                 boolean isCheckCustomer = activeBank.isCustomerExisted(lstCustomers, customer);
                 if (isCheckCustomer) {
@@ -110,19 +117,14 @@ public class Asm4 {
     private static void handleAccountNumber(Scanner sc, Customer customer) {
         while (true) {
             Account newAccount = new Account();
-                List<Account> lstAccount = AccountDao.list();
-                newAccount.setCustomerId(customer.getCustomerId());
-                newAccount.input(sc);
-                lstAccount.add(newAccount);
-                try {
-                    AccountDao.save(lstAccount);
-                    System.out.println("tạo tài khoản thành công");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
+            newAccount.input(sc);
+            customer.addAccount(newAccount);
+            String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
+            newAccount.createTransaction(newAccount.getBalance(), date, true, "DEPOSIT");
+            break;
         }
     }
+
     //Chức năng 4
     private static void handleTranfers(Scanner sc) {
         do {
@@ -146,67 +148,50 @@ public class Asm4 {
         } while (true);
     }
 
-    public static void handleEnterAccountNumberSend(Scanner sc, Customer customer) {
-        while (true) {
-            System.out.print("Nhập số tài khoản: ");
-            String stk = sc.nextLine().trim();
-            if (CommonValid.isValidAccountNumber(stk)) {
-                Account newAccount = new Account();
-                newAccount.setAccountNumber(stk);
-                if (activeBank.isAccountExisted(customer.getAccounts(), newAccount)) {
-                    handleEnterRecipientAccountNumber(sc, stk, customer);
+    //Chức năng 5
+    private static void handleWithdraw(Scanner sc) {
+        do {
+            List<Customer> lstCustomers = CustomerDao.list();
+            Customer customer = new Customer();
+            System.out.print("Nhập mã số của khách hàng: ");
+            String maKH = sc.nextLine();
+
+            if (CommonValid.isValidCustomerId(maKH)) {
+                customer.setCustomerId(maKH);
+                boolean isCheckCustomer = activeBank.isCustomerExisted(lstCustomers, customer);
+                if (isCheckCustomer) {
+                    activeBank.withdraw(sc, customer.getCustomerId());
                     break;
                 } else {
-                    System.out.println("Số tài khoản chưa có trong hệ thống. Vui lòng nhập lại: ");
+                    System.out.println("Mã số khách hàng chưa có trong hệ thống. Vui lòng nhập lại. ");
                 }
             } else {
-                System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
+                System.out.println("Mã số khách hàng không hơp lệ. Vui lòng nhập lại");
             }
-        }
+        } while (true);
     }
 
-    private static void handleEnterRecipientAccountNumber(Scanner sc, String sendStk, Customer customer) {
-        while (true) {
-            System.out.print("Nhập số tài khoản nhận( exit để thoát): ");
-            String recipientStk = sc.nextLine().trim();
-            if (recipientStk.equalsIgnoreCase("exit")) {
-                System.out.println("Thoát chương trình!");
-                break;
-            }
+    //Chức năng 6
+    private static void transactionHistory(Scanner sc) {
+        do {
+            List<Customer> lstCustomers = CustomerDao.list();
+            Customer customer = new Customer();
+            System.out.print("Nhập mã số của khách hàng: ");
+            String maKH = sc.nextLine();
 
-            if (CommonValid.isValidAccountNumber(recipientStk)) {
-                Account newAccount = new Account();
-                newAccount.setAccountNumber(recipientStk);
-                if (activeBank.isAccountExisted(customer.getAccounts(), newAccount)) {
-                    handleEnterMoneyTranfers(sc, recipientStk, sendStk, customer);
+            if (CommonValid.isValidCustomerId(maKH)) {
+                customer.setCustomerId(maKH);
+                boolean isCheckCustomer = activeBank.isCustomerExisted(lstCustomers, customer);
+                if (isCheckCustomer) {
+                    activeBank.withdraw(sc, customer.getCustomerId());
                     break;
                 } else {
-                    System.out.println("Số tài khoản chưa có trong hệ thống. Vui lòng nhập lại: ");
+                    System.out.println("Mã số khách hàng chưa có trong hệ thống. Vui lòng nhập lại. ");
                 }
             } else {
-                System.out.println("Số tài khoản không hơp lệ. Vui lòng nhập lại. ");
+                System.out.println("Mã số khách hàng không hơp lệ. Vui lòng nhập lại");
             }
-        }
-    }
-
-    private static void handleEnterMoneyTranfers(Scanner sc, String reveiveAccount, String sendStk, Customer customer) {
-        while (true) {
-            System.out.print("Nhập số tiền chuyển ");
-            String amount = sc.nextLine();
-            if (CommonValid.isValidMoneyTranfers(amount)) {
-                System.out.println("Xác nhận thực hiện chuyển " + (String.format("%,.2f", Double.parseDouble(amount)) + "đ") + "từ tài khoản [" + sendStk + "] đến tài khoản [" + reveiveAccount + "] (Y/N): ");
-                String status = sc.nextLine().trim();
-                if (status.equalsIgnoreCase("Y")) {
-//                    boolean isTransfers = activeBank.transfers(customer, reveiveAccount, sendStk, Double.parseDouble(amount));
-                } else if (status.equalsIgnoreCase("N")) {
-                    getScreen(sc);
-                } else {
-                    System.out.println("Dữ liệu không hơp lệ. Vui lòng nhập lại.");
-                }
-            } else {
-                System.out.println("Số dư không hơp lệ. Vui lòng nhập lại. ");
-            }
-        }
+        } while (true);
     }
 
 }

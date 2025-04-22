@@ -54,16 +54,15 @@ public class DigitalBank extends Bank {
         }
     }
 
-    public void addSavingAccount(Scanner sc, String customerId) {
+    public static void addSavingAccount(Scanner sc, String customerId) {
 
     }
 
     public void withdraw(Scanner sc, String customerId) {
         List<Customer> lstCustomers = CustomerDao.list();
         Customer customer = getCustomerById(lstCustomers, customerId);
-        if (customer == null) {
-            System.out.println("Khách hàng không tồn tại!");
-        }
+        customer.displayInformation();
+        customer.withdraw(sc);
     }
 
     public void tranfers(Scanner sc, String customerId) {

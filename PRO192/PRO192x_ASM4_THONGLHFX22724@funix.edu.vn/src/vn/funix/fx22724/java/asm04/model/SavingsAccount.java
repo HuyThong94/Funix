@@ -3,16 +3,21 @@ package vn.funix.fx22724.java.asm04.model;
 //import
 
 import vn.funix.fx22724.java.asm04.dao.AccountDao;
+import vn.funix.fx22724.java.asm04.dao.TransactionDao;
 import vn.funix.fx22724.java.asm04.service.ITransfer;
 import vn.funix.fx22724.java.asm04.service.Withdraw;
 import vn.funix.fx22724.java.asm04.service.IReport;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class SavingsAccount extends Account implements Withdraw, IReport, ITransfer {
     private static final double MAX_WITHDRAW = 5000000;
     private static final double MIN_WITHDRAW = 50000;
 
-    public SavingsAccount(String accountNumber, double balance, String typeAccount) {
-        super(accountNumber, balance, typeAccount);
+    public SavingsAccount() {
+        super();
     }
 
     @Override
@@ -21,10 +26,12 @@ public class SavingsAccount extends Account implements Withdraw, IReport, ITrans
         boolean isWithdraw = false;
         if (isAccepted(amount)) {
             setBalance(getBalance() - amount);
-            getTransactions().add(new Transaction(getAccountNumber(), amount, true));
+            AccountDao.update(this);
+            String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
+            createTransaction(0-amount, date, true, "WITHDRAW");
             isWithdraw = true;
             System.out.println("Rút tiền thành công!");
-            log(amount, "DEPOSIT", account);
+            log(amount, "WITHDRAW", account);
         } else {
             System.out.println("Rút tiền thất bại!");
         }
@@ -39,10 +46,12 @@ public class SavingsAccount extends Account implements Withdraw, IReport, ITrans
             reveiveAccount.setBalance(reveiveAccount.getBalance() + amount);
             AccountDao.update(reveiveAccount);
             AccountDao.update(this);
-            getTransactions().add(new Transaction(getAccountNumber(), amount, true));
+            String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
+            createTransaction(0-amount, date, true, "TRANSFER");
+            reveiveAccount.createTransaction(amount, date, true, "TRANSFER");
             isTransfers = true;
             System.out.println("Chuyển tiền thành công, biên lai gia dịch");
-            log(amount, "DEPOSIT", reveiveAccount);
+            log(amount, "TRANSFERS", reveiveAccount);
         } else {
             System.out.println("Chuyển tiền thất bại!");
         }
@@ -87,11 +96,11 @@ public class SavingsAccount extends Account implements Withdraw, IReport, ITrans
         System.out.printf("ATM ID: %30s%n", "DIGITAL-BANK-ATM 2022");
         System.out.printf("SO TK: %31s%n", getAccountNumber());
         if (type.equals("WITHDRAW")) {
-            System.out.printf("SO TIEN RUT: %29s%n", String.format("%,.2f", amount) + "đ");
+            System.out.printf("SO TIEN RUT: %25s%n", String.format("%,.2f", amount) + "đ");
         } else if (type.equals("DEPOSIT")) {
             System.out.printf("SO TIEN: %29s%n", String.format("%,.2f", amount) + "đ");
         } else {
-            System.out.printf("SO TIEN CHUYEN: %29s%n", String.format("%,.2f", amount) + "đ");
+            System.out.printf("SO TIEN CHUYEN: %22s%n", String.format("%,.2f", amount) + "đ");
         }
         System.out.printf("SO DU: %31s%n", String.format("%,.2f", balance) + "đ");
         System.out.printf("PHI + VAT: %27s%n", String.format("%,.2f", 0.0f) + "đ");
