@@ -62,7 +62,7 @@ public class Asm4 {
                 handleWithdraw(sc);
                 getScreen(sc);
             } else if (choice == 6) {
-                handleWithdraw(sc);
+                transactionHistory(sc);
                 getScreen(sc);
             } else {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
@@ -183,7 +183,8 @@ public class Asm4 {
                 customer.setCustomerId(maKH);
                 boolean isCheckCustomer = activeBank.isCustomerExisted(lstCustomers, customer);
                 if (isCheckCustomer) {
-                    activeBank.withdraw(sc, customer.getCustomerId());
+                    customer = activeBank.getCustomerById(lstCustomers, customer.getCustomerId());
+                    customer.displayTransactionInformation();
                     break;
                 } else {
                     System.out.println("Mã số khách hàng chưa có trong hệ thống. Vui lòng nhập lại. ");

@@ -87,7 +87,7 @@ public class Account implements Serializable {
     }
 
     public void displayTransactions(Transaction transaction) {
-        System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", getAccountNumber(), String.format("%,.2f", transaction.getAmount()) + "đ", transaction.getTime(), transaction.getId());
+        System.out.printf("%-5s %-5s | %20s  | %19s %", "[GD]", getAccountNumber(), String.format("%,.2f", transaction.getAmount()) + "đ", transaction.getTime());
     }
 
     public void displayTransactionsList() {
@@ -98,7 +98,7 @@ public class Account implements Serializable {
 
     public void createTransaction(double amount, String time, boolean status, String type) {
         Transaction transaction = new Transaction(getAccountNumber(), amount, time, status, type);
-        List<Transaction> transactions = getTransactions();
+        List<Transaction> transactions = TransactionDao.list();
         transactions.add(transaction);
         try {
             TransactionDao.save(transactions);
