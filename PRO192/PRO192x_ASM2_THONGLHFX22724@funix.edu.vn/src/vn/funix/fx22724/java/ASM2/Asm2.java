@@ -34,15 +34,14 @@ public class Asm2 {
         menuScreen();
         int choice = getUserChoice(sc);
         while (true) {
-            Customer customer = new Customer();
             if (choice == 0) {
                 System.out.println("Chương trình kết thúc.");
-                break;
+                System.exit(0);
             } else if (choice == 1) {
-                handleCCCDInput(sc, customer);
+                handleCCCDInput(sc);
                 getScreen(sc);
             } else if (choice == 2) {
-                handleAccount(sc, customer);
+                handleAccount(sc);
                 getScreen(sc);
             } else if (choice == 3) {
                 handleListCustomer();
@@ -61,7 +60,8 @@ public class Asm2 {
     }
 
     //Chức năng 1
-    private static void handleCCCDInput(Scanner scanner, Customer customer) {
+    private static void handleCCCDInput(Scanner scanner) {
+        Customer customer = new Customer();
         System.out.print("Nhập tên khách hàng: ");
         String name = scanner.nextLine();
         customer.setName(name);
@@ -77,14 +77,7 @@ public class Asm2 {
 
             if (isValidCCCD(cccd)) {
                 // Nếu CCCD hợp lệ, thực hiện các chức năng tiếp theo
-                boolean isCheckCustomer = false;
-                for (Customer cus : bank.getCustomers()) {
-                    if (cus.getCustomerId().equals(cccd)) {
-                        isCheckCustomer = true;
-                        break;
-                    }
-                }
-                if (!isCheckCustomer) {
+                if (bank.isCustomerExisted(cccd)) {
                     customer.setCustomerId(cccd);
                     System.out.println("Đã thêm khách hàng " + customer.getCustomerId() + " vào danh sách");
                     bank.addCustomer(customer);
@@ -99,19 +92,12 @@ public class Asm2 {
     }
 
     //chức năng 2
-    private static void handleAccount(Scanner sc, Customer customer) {
+    private static void handleAccount(Scanner sc) {
         while (true) {
             System.out.print("Nhập CCCD khách hàng: ");
             String checkCCCD = sc.nextLine();
-            boolean isCheckCustomer = false;
-            for (Customer cus : bank.getCustomers()) {
-                if (cus.getCustomerId().equals(checkCCCD)) {
-                    isCheckCustomer = true;
-                    customer = cus;
-                    break;
-                }
-            }
-            if (isCheckCustomer) {
+            if (!bank.isCustomerExisted(checkCCCD)) {
+                Customer customer = bank.getCustomerById(checkCCCD);
                 handleAccountNumber(sc, customer);
                 break;
             } else {
@@ -187,15 +173,9 @@ public class Asm2 {
         while (true) {
             System.out.print("Nhập CCCD khách hàng: ");
             String checkCCCD = sc.nextLine();
-            boolean isCheckCustomer = false;
-            for (Customer cus : bank.getCustomers()) {
-                if (cus.getCustomerId().equals(checkCCCD)) {
-                    isCheckCustomer = true;
-                    cus.displayInformation();
-                    break;
-                }
-            }
-            if (isCheckCustomer) {
+            if (!bank.isCustomerExisted(checkCCCD)) {
+                Customer customer = bank.getCustomerById(checkCCCD);
+                customer.displayInformation();
                 break;
             } else {
                 System.out.println("Số CCCD chưa có trong hệ thống. Vui lòng nhập lại. ");

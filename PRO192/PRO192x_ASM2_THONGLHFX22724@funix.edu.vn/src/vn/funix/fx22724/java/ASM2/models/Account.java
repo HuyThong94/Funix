@@ -33,7 +33,8 @@ public class Account {
 
     @Override
     public String toString() {
-        return accountNumber + " | " + String.format("%,.0f", balance) + "đ";
+        String balanceFormatted = String.format("%,.0f", getBalance()) + "đ";
+        return String.format(" %-5s | %32s %20s%n", getAccountNumber(), "", balanceFormatted);
     }
 }
 

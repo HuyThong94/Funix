@@ -18,7 +18,7 @@ public class Asm3 {
 
     public static void main(String[] args) {
         activeBank.addCustomer(CUSTOMER_ID, CUSTOMER_NAME, accounts);
-        getScreen(sc);
+        getScreen();
     }
 
     public static void menuScreen() {
@@ -32,34 +32,34 @@ public class Asm3 {
         System.out.print("Chọn chức năng: ");
     }
 
-    public static void getScreen(Scanner sc) {
+    public static void getScreen() {
         System.out.println("+----------+--------------------+----------+");
         System.out.println("|  NGÂN HÀNG SỐ | " + AUTHOR + "@" + VERSION + "           |");
         System.out.println("+----------+--------------------+----------+");
         menuScreen();
-        int choice = getUserChoice(sc);
+        int choice = getUserChoice();
         while (true) {
             if (choice == 0) {
                 System.out.println("Chương trình kết thúc.");
-                break;
+                System.exit(0);
             } else if (choice == 1) {
                 showCustomer();
-                getScreen(sc);
+                getScreen();
             } else if (choice == 2) {
-                handleAddAccount(sc, "SAVINGS");
-                getScreen(sc);
+                handleAddAccount("SAVINGS");
+                getScreen();
             } else if (choice == 3) {
-                handleAddAccount(sc, "LOAN");
-                getScreen(sc);
+                handleAddAccount("LOAN");
+                getScreen();
             } else if (choice == 4) {
-                handleWithdrawMoney(sc);
-                getScreen(sc);
+                handleWithdrawMoney();
+                getScreen();
             } else if (choice == 5) {
-                handleTransaction(sc);
-                getScreen(sc);
+                handleTransaction();
+                getScreen();
             } else {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
-                getScreen(sc);
+                getScreen();
             }
         }
     }
@@ -73,7 +73,7 @@ public class Asm3 {
     }
 
     //chức năng 2, 3
-    private static void handleAddAccount(Scanner sc, String type) {
+    private static void handleAddAccount(String type) {
         while (true) {
             System.out.print("Nhập mã số tài khoản gồm 6 chữ số: ");
             String accountNumber = sc.nextLine().trim();
@@ -88,7 +88,7 @@ public class Asm3 {
                     }
                 }
                 if (!ischeckAccountNumber) {
-                    handleEnterMoney(sc, accountNumber, type);
+                    handleEnterMoney(accountNumber, type);
                     break;
                 } else {
                     System.out.println("Số tài khoản đã có trong hệ thống. Vui lòng nhập lại: ");
@@ -99,11 +99,11 @@ public class Asm3 {
         }
     }
 
-    private static void handleEnterMoney(Scanner sc, String accountNumber, String type) {
+    private static void handleEnterMoney(String accountNumber, String type) {
         while (true) {
             DigitalCustomer customer = activeBank.getCustomerById(CUSTOMER_ID);
             System.out.print("Nhập số tiền: ");
-            String balance = getBalance(sc);
+            String balance = getBalance();
 
             if (isValidMoney(balance)) {
                 if (type.equals("LOAN")) {
@@ -120,7 +120,7 @@ public class Asm3 {
     }
 
     //chức năng 4
-    private static void handleWithdrawMoney(Scanner sc) {
+    private static void handleWithdrawMoney() {
         boolean isWithdraw;
         DigitalCustomer digitalCustomer = activeBank.getCustomerById(CUSTOMER_ID);
         List<Account> acc = digitalCustomer.getAccounts();
@@ -129,10 +129,10 @@ public class Asm3 {
             while (true) {
                 showCustomer();
                 System.out.print("Chọn tài khoản: ");
-                int idx = getSTK(sc);
+                int idx = getSTK();
                 if ((idx - 1) < acc.size()) {
                     System.out.print("Nhập số tiền: ");
-                    double amount = Double.parseDouble(getBalance(sc));
+                    double amount = Double.parseDouble(getBalance());
 
                     activeBank.withdraw(CUSTOMER_ID, acc.get(idx - 1).getAccountNumber(), amount);
 //                    if (isWithdraw) {
@@ -148,7 +148,7 @@ public class Asm3 {
     }
 
     //chức năng 5
-    private static void handleTransaction(Scanner sc) {
+    private static void handleTransaction() {
         System.out.println("+----------+--------------------+----------+");
         customer = activeBank.getCustomerById(CUSTOMER_ID);
         if (customer != null) {
@@ -159,10 +159,10 @@ public class Asm3 {
 
     }
 
-    private static int getUserChoice(Scanner scanner) {
+    private static int getUserChoice() {
         while (true) {
             try {
-                return Integer.parseInt(scanner.nextLine());
+                return Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
                 System.out.print("Chọn chức năng: ");
@@ -170,10 +170,10 @@ public class Asm3 {
         }
     }
 
-    private static int getSTK(Scanner scanner) {
+    private static int getSTK() {
         while (true) {
             try {
-                return Integer.parseInt(scanner.nextLine());
+                return Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
                 System.out.print("Chọn tài khoản: ");
@@ -181,10 +181,10 @@ public class Asm3 {
         }
     }
 
-    private static String getBalance(Scanner scanner) {
+    private static String getBalance() {
         while (true) {
             try {
-                return scanner.nextLine();
+                return sc.nextLine();
             } catch (NumberFormatException e) {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
                 System.out.print("Chọn chức năng: ");

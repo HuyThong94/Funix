@@ -25,7 +25,7 @@ public class Asm1 {
         while (true) {
             if (choice == 0) {
                 System.out.println("Chương trình kết thúc.");
-                break;
+                System.exit(0);
             } else if (choice == 1) {
                 System.out.print("Choose mode (EASY or HARD): ");
                 String mode = sc.nextLine().toUpperCase();
@@ -104,7 +104,8 @@ public class Asm1 {
                     System.out.println("Số ngẫu nhiên: " + cccd.substring(6));
                     break;
                 case 0:
-                    return;
+                    System.out.println("Chương trình kết thúc.");
+                    System.exit(0);
                 default:
                     System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
                     break;

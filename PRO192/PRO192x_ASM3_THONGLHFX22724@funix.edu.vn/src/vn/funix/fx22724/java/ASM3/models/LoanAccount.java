@@ -25,9 +25,9 @@ public class LoanAccount extends Account implements Withdraw, ResportService {
         if (isAccepted(amount)) {
             double withdrawAmount = amount + amount * fee;
             setBalance(getBalance() - withdrawAmount);
-            getTransactions().add(new Transaction(getAccountNumber(), amount, true));
             isWithdrawn = true;
             System.out.println("Rút tiền thành công!");
+            logTransaction(amount, true);
             log(amount);
         } else {
             System.out.println("Rút tiền thất bại!");

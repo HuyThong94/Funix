@@ -25,13 +25,13 @@ public class DigitalBank extends Bank {
         return null;
     }
 
-    public boolean withdraw(String customerId, String accountNumber, double amount) {
+    public void withdraw(String customerId, String accountNumber, double amount) {
         DigitalCustomer customer = getCustomerById(customerId);
         if (customer == null) {
             System.out.println("Khách hàng không tồn tại!");
-            return false;
+            return;
         }
-        return customer.withdraw(accountNumber, amount);
+        customer.withdraw(accountNumber, amount);
     }
 
 }

@@ -22,7 +22,7 @@ public class DigitalCustomer extends Customer {
             System.out.println("Tài khoản đã tồn tại!");
             return;
         }
-        List<Account> accountList = new ArrayList<>();
+        List<Account> accountList = getAccounts();
         accountList.add(account);
         setAccounts(accountList);
         System.out.println("Thêm tài khoản thành công!");
@@ -70,7 +70,8 @@ public class DigitalCustomer extends Customer {
         int idx = 1;
         if (!getAccounts().isEmpty()) {
             for (Account account : getAccounts()) {
-                System.out.printf("%-5s %-5s | %12s %7s | %9s %" + (String.format("%,.0f", getTotalAccountBalance()) + "đ").length() + "s%n", idx + ".", account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.0f", account.getBalance()) + "đ"));
+                System.out.printf("%-5s", idx);
+                System.out.printf(account.toString());
                 idx++;
             }
         }
@@ -83,7 +84,7 @@ public class DigitalCustomer extends Customer {
             for (Account account : getAccounts()) {
                 for (Transaction transaction : account.getTransactions()) {
                     if (idx <= 5) {
-                        System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", account.getAccountNumber(), String.format("%,.0f", transaction.getAmount()) + "đ", transaction.getTime(), transaction.getId());
+                        System.out.printf("%-5s %-5s | %20s  | %19s | %36s%n", "[GD]", account.getAccountNumber()+" ", String.format("%,.0f", transaction.getAmount()) + "đ", transaction.getTime(), transaction.getId());
                         idx++;
                     }
                 }

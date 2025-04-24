@@ -17,9 +17,10 @@ public class SavingsAccount extends Account implements Withdraw, ResportService 
         boolean isWithdrawn = false;
         if (isAccepted(amount)) {
             setBalance(getBalance() - amount);
-            getTransactions().add(new Transaction(getAccountNumber(), amount, true));
+//            getTransactions().add(new Transaction(getAccountNumber(), amount, true));
             isWithdrawn = true;
             System.out.println("Rút tiền thành công!");
+            logTransaction(amount, true);
             log(amount);
         } else {
             System.out.println("Rút tiền thất bại!");

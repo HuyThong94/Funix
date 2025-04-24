@@ -2,14 +2,10 @@ package vn.funix.fx22724.java.asm04;
 
 
 import vn.funix.fx22724.java.asm04.common.CommonValid;
-import vn.funix.fx22724.java.asm04.dao.AccountDao;
 import vn.funix.fx22724.java.asm04.dao.CustomerDao;
-import vn.funix.fx22724.java.asm04.dao.TransactionDao;
 import vn.funix.fx22724.java.asm04.model.*;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -21,7 +17,7 @@ public class Asm4 {
     private static final DigitalBank activeBank = new DigitalBank();
 
     public static void main(String[] args) {
-        getScreen(sc);
+        getScreen();
     }
 
     public static void menuScreen() {
@@ -36,45 +32,45 @@ public class Asm4 {
         System.out.print("Chọn chức năng: ");
     }
 
-    public static void getScreen(Scanner sc) {
+    public static void getScreen() {
         System.out.println("+----------+--------------------+----------+");
         System.out.println("|  NGÂN HÀNG SỐ | " + AUTHOR + "@" + VERSION + "           |");
         System.out.println("+----------+--------------------+----------+");
         menuScreen();
-        int choice = getUserChoice(sc);
+        int choice = getUserChoice();
         while (true) {
             if (choice == 0) {
                 System.out.println("Chương trình kết thúc.");
-                break;
+                System.exit(0);
             } else if (choice == 1) {
                 DigitalBank.showCustomers();
-                getScreen(sc);
+                getScreen();
             } else if (choice == 2) {
-                handleAddCustomers(sc);
-                getScreen(sc);
+                handleAddCustomers();
+                getScreen();
             } else if (choice == 3) {
-                handleAddAccount(sc);
-                getScreen(sc);
+                handleAddAccount();
+                getScreen();
             } else if (choice == 4) {
-                handleTranfers(sc);
-                getScreen(sc);
+                handleTranfers();
+                getScreen();
             } else if (choice == 5) {
-                handleWithdraw(sc);
-                getScreen(sc);
+                handleWithdraw();
+                getScreen();
             } else if (choice == 6) {
-                transactionHistory(sc);
-                getScreen(sc);
+                transactionHistory();
+                getScreen();
             } else {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
-                getScreen(sc);
+                getScreen();
             }
         }
     }
 
-    private static int getUserChoice(Scanner scanner) {
+    private static int getUserChoice() {
         while (true) {
             try {
-                return Integer.parseInt(scanner.nextLine());
+                return Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
                 System.out.print("Chọn chức năng: ");
@@ -83,7 +79,7 @@ public class Asm4 {
     }
 
     //chuc nang 2
-    private static void handleAddCustomers(Scanner scanner) {
+    private static void handleAddCustomers() {
         System.out.println("+----------+--------------------+----------+");
         System.out.println("Nhập đường dẫn đến tệp:");
         String fileName = sc.nextLine();
@@ -91,7 +87,7 @@ public class Asm4 {
     }
 
     //chức năng 3
-    private static void handleAddAccount(Scanner sc) {
+    private static void handleAddAccount() {
         while (true) {
             List<Customer> lstCustomers = CustomerDao.list();
             Customer customer = new Customer();
@@ -103,7 +99,7 @@ public class Asm4 {
                 customer.setCustomerId(maKH);
                 boolean isCheckCustomer = activeBank.isCustomerExisted(lstCustomers, customer);
                 if (isCheckCustomer) {
-                    handleAccountNumber(sc, customer);
+                    handleAccountNumber(customer);
                     break;
                 } else {
                     System.out.println("Mã số khách hàng chưa có trong hệ thống. Vui lòng nhập lại. ");
@@ -114,7 +110,7 @@ public class Asm4 {
         }
     }
 
-    private static void handleAccountNumber(Scanner sc, Customer customer) {
+    private static void handleAccountNumber(Customer customer) {
         while (true) {
             Account newAccount = new Account();
             newAccount.input(sc);
@@ -126,7 +122,7 @@ public class Asm4 {
     }
 
     //Chức năng 4
-    private static void handleTranfers(Scanner sc) {
+    private static void handleTranfers() {
         do {
             List<Customer> lstCustomers = CustomerDao.list();
             Customer customer = new Customer();
@@ -149,7 +145,7 @@ public class Asm4 {
     }
 
     //Chức năng 5
-    private static void handleWithdraw(Scanner sc) {
+    private static void handleWithdraw() {
         do {
             List<Customer> lstCustomers = CustomerDao.list();
             Customer customer = new Customer();
@@ -172,7 +168,7 @@ public class Asm4 {
     }
 
     //Chức năng 6
-    private static void transactionHistory(Scanner sc) {
+    private static void transactionHistory() {
         do {
             List<Customer> lstCustomers = CustomerDao.list();
             Customer customer = new Customer();

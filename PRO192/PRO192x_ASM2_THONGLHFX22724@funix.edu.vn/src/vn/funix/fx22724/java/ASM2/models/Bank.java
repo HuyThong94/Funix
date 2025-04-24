@@ -20,12 +20,13 @@ public class Bank {
 
     public void addCustomer(Customer newCustomer) {
         // Chỉ thêm khách hàng nếu CCCD chưa tồn tại
-        if (!isCustomerExisted(newCustomer.getCustomerId())) {
+        if (isCustomerExisted(newCustomer.getCustomerId())) {
             customers.add(newCustomer);
         } else {
             System.out.println("Khách hàng với CCCD này đã tồn tại!");
         }
     }
+
     public void addAccount(String customerId, Account account) {
         for (Customer customer : customers) {
             if (customer.getCustomerId().equals(customerId)) {
@@ -33,13 +34,24 @@ public class Bank {
             }
         }
     }
+
     public boolean isCustomerExisted(String customerId) {
         for (Customer customer : customers) {
             if (customer.getCustomerId().equals(customerId)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
+    }
+
+    public Customer getCustomerById(String customerId) {
+        Customer customer = new Customer();
+        for (Customer cus : getCustomers()) {
+            if (cus.getCustomerId().equals(customerId)) {
+                customer = cus;
+            }
+        }
+        return customer;
     }
 
     public List<Customer> getCustomers() {

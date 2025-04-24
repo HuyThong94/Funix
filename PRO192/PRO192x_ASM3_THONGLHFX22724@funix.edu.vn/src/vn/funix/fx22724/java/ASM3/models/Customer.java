@@ -24,6 +24,7 @@ public class Customer extends User {
     public void setAccounts(List<Account> accountLst) {
         accounts = accountLst;
     }
+
     public static List<Account> getAccounts() {
         return accounts;
     }
@@ -31,9 +32,11 @@ public class Customer extends User {
     public static boolean isCustomerPremium() {
         // Kiểm tra nếu ít nhất một tài khoản của khách hàng là premium
         boolean isAccountPremium = false;
-        for (Account account : getAccounts()) {
-            if (account.isAccountPremium()) {
-                isAccountPremium = true;
+        if (accounts != null) {
+            for (Account account : accounts) {
+                if (account.isAccountPremium()) {
+                    isAccountPremium = true;
+                }
             }
         }
         return isAccountPremium;
@@ -59,11 +62,12 @@ public class Customer extends User {
     }
 
     public void displayInformation() {
-        System.out.printf("%-12s | %20s | %7s | %"+(String.format("%,.0f", getTotalAccountBalance()) + "đ").length()+"s%n", getCustomerId(), getName(), (isCustomerPremium() ? "Premium":"Normal" ), (String.format("%,.0f", getTotalAccountBalance()) + "đ"));
+        System.out.printf("%-12s | %20s | %7s | %20s%n", getCustomerId(), getName(), (isCustomerPremium() ? "Premium" : "Normal"), (String.format("%,.0f", getTotalAccountBalance()) + "đ"));
         System.out.println("Danh sách tài khoản:");
         int idx = 1;
         for (Account account : accounts) {
-            System.out.printf("%-5s %-5s | %20s %7s %"+(String.format("%,.0f", getTotalAccountBalance()) + "đ").length()+"s%n", idx, account.getAccountNumber(), "", "", (String.format("%,.0f", account.getBalance()) + "đ"));
+            System.out.printf("%-5s", idx);
+            System.out.printf(account.toString());
             idx++;
         }
     }

@@ -71,11 +71,6 @@ public class Account implements Serializable {
         return balance >= 10000000;
     }
 
-    @Override
-    public String toString() {
-        return accountNumber + " | " + String.format("%,.2f", balance) + "đ";
-    }
-
     public Customer getCustomer() {
         List<Customer> lstCustomer = CustomerDao.list();
         for (Customer customer : lstCustomer) {
@@ -152,5 +147,10 @@ public class Account implements Serializable {
         return LocalDateTime.now().format(formatter);
     }
 
+    @Override
+    public String toString() {
+        String balanceFormatted = String.format("%,.0f", getBalance()) + "đ";
+        return String.format(" %-5s | %32s %20s%n", getAccountNumber(), "", balanceFormatted);
+    }
 }
 

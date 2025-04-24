@@ -45,11 +45,12 @@ public class Customer extends User {
     }
 
     public void displayInformation() {
-        System.out.printf("%-12s | %20s | %7s | %"+(String.format("%,.0f", getBalance()) + "đ").length()+"s%n", getCustomerId(), getName(), (isPremiumCustomer() ? "Premium":"Normal" ), (String.format("%,.0f", getBalance()) + "đ"));
+        System.out.printf("%-12s | %20s | %7s | %20s%n", getCustomerId(), getName(), (isPremiumCustomer() ? "Premium":"Normal" ), (String.format("%,.0f", getBalance()) + "đ"));
         System.out.println("Danh sách tài khoản:");
         int idx = 1;
         for (Account account : accounts) {
-            System.out.printf("%-5s %-5s | %32s %"+(String.format("%,.0f", getBalance()) + "đ").length()+"s%n", idx, account.getAccountNumber(), "", (String.format("%,.0f", account.getBalance()) + "đ"));
+            System.out.printf("%-5s", idx);
+            System.out.printf(account.toString());
             idx++;
         }
     }

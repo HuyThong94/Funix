@@ -86,11 +86,12 @@ public class Customer extends User implements Serializable {
     }
 
     public void displayInformation() {
-        System.out.printf("%-12s | %20s | %7s | %" + (String.format("%,.2f", getTotalAccountBalance()) + "đ").length() + "s%n", getCustomerId(), getName(), (isCustomerPremium() ? "Premium" : "Normal"), (String.format("%,.2f", getTotalAccountBalance()) + "đ"));
+        System.out.printf("%-12s | %20s | %7s | %20s%n", getCustomerId(), getName(), (isCustomerPremium() ? "Premium" : "Normal"), (String.format("%,.2f", getTotalAccountBalance()) + "đ"));
         int idx = 1;
         if (!accounts.isEmpty()) {
             for (Account account : accounts) {
-                System.out.printf("%-5s %-5s | %12s %7s | %9s %" + (String.format("%,.2f", getTotalAccountBalance()) + "đ").length() + "s%n", idx + ".", account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.2f", account.getBalance()) + "đ"));
+                System.out.printf("%-5s", idx);
+                System.out.printf(account.toString());
                 idx++;
             }
         }
@@ -110,10 +111,11 @@ public class Customer extends User implements Serializable {
 
     public void displayTransactionInformation() {
         int idx = 1;
-        System.out.printf("%-12s | %20s | %7s | %" + (String.format("%,.2f", getTotalAccountBalance()) + "đ").length() + "s%n", getCustomerId(), getName(), (isCustomerPremium() ? "Premium" : "Normal"), (String.format("%,.2f", getTotalAccountBalance()) + "đ"));
+        System.out.printf("%-12s | %20s | %7s | %20s%n", getCustomerId(), getName(), (isCustomerPremium() ? "Premium" : "Normal"), (String.format("%,.2f", getTotalAccountBalance()) + "đ"));
         if (!accounts.isEmpty()) {
             for (Account account : accounts) {
-                System.out.printf("%-5s %-5s | %12s %7s | %9s %" + (String.format("%,.2f", getTotalAccountBalance()) + "đ").length() + "s%n", idx + ".", account.getAccountNumber(), "", account.getTypeAccount(), "", (String.format("%,.2f", account.getBalance()) + "đ"));
+                System.out.printf("%-5s", idx);
+                System.out.printf(account.toString());
                 idx++;
             }
             for (Account account : accounts) {
