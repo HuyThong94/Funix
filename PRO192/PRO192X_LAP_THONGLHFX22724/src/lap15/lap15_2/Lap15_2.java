@@ -1,11 +1,8 @@
 package lap15.lap15_2;
 
 import java.io.FileNotFoundException;
-import java.util.InputMismatchException;
-import java.util.List;
+import java.util.*;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Lap15_2 {
     public static void main(String[] args) {
@@ -35,22 +32,21 @@ public class Lap15_2 {
         }
     }
 
-    public static String getWinner(List<Integer> bobDices, List<Integer> aliceDices) {
-        if (bobDices.size() != aliceDices.size()) {
+    public static String getWinner(List<Integer> bobDices, List<Integer> aliceDices){
+        if (bobDices.size() != aliceDices.size()){
             throw new NumberRollDiceNotEqualException("Number of dice rolls not equal");
         }
-
-        Integer sumBob = sumOfDice(bobDices);
+        Integer subBob = sumOfDice(bobDices);
         Integer sumAlice = sumOfDice(aliceDices);
-
-        if (Objects.equals(sumBob, sumAlice)) {
+        if (Objects.equals(subBob, sumAlice)) {
             return null;
-        } else if (sumBob > sumAlice) {
-            return "Bob";
+        } else if (subBob > sumAlice){
+            return "bob";
         } else {
-            return "Alice";
+            return "alice";
         }
     }
+
 
     public static Integer sumOfDice(List<Integer> dices) {
         int sum = 0;
@@ -60,21 +56,32 @@ public class Lap15_2 {
         return sum;
     }
 
-    public static List<Integer> readDices(String fileName) throws FileNotFoundException, InputMismatchException {
+    public static List<Integer> readDices(String fileName) throws FileNotFoundException , InputMismatchException {
         System.out.println("Read file: " + fileName);
+        Scanner scanner = null;
         List<Integer> dices = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new FileReader(fileName))) {
+        try {
+            scanner = new Scanner(new FileReader(fileName));
             while (scanner.hasNextLine()) {
                 int dice = scanner.nextInt();
-                if (dice < 1 || dice > 6) {
-                    throw new InvalidDiceException("Dice value must be between 1 and 6: " + dice);
+                if (dice <= 0 ) {
+                    throw new InvalidDiceException("Dice value must greater than 0 ");
+                } else if (dice > 6) {
+                    throw new InvalidDiceException("Dice value must less than or equal to 6");
+                } else {
+                    dices.add(dice);
                 }
-                dices.add(dice);
+            }
+        } finally {
+            if (scanner != null) {
+                scanner.close();
             }
         }
         return dices;
     }
+
 }
+
 
 
 
