@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1743576721 source:c:\users\luong\onedrive\documents\lab\iot301x_asm1_thonglhfx22724@funix.edu.vn\main.c
+	<stdio.h>
+	<math.h>
+	<stdbool.h>
+

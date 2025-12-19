@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1743267830 source:c:\users\luong\downloads\bai3_lap8\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+
