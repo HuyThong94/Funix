@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="lap_3.1" />
+		<Option title="Bai3.1_Lab3" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
