@@ -18,17 +18,21 @@ public class Main_Sort {
             System.out.println("|      7. Search = value                  |");
             System.out.println("|      0. Exit                            |");
             System.out.println("+----------------------------------------+");
-            System.out.print("Choice: ");
-            int choice = scanner.nextInt();
+            int choice = inputInt(scanner, "Choice: ");
 
             switch (choice) {
                 case 1:
-                    System.out.print("Input number of elements: ");
-                    int n = scanner.nextInt();
+                    int n;
+                    do {
+                        n = inputInt(scanner, "Input number of elements: ");
+                        if (n <= 0 || n > 20) {
+                            System.out.println("n phải trong khoảng 1 đến 20!");
+                        }
+                    } while (n <= 0 || n > 20);
                     arr = new float[n];
                     System.out.println("Input elements:");
                     for (int i = 0; i < n; i++) {
-                        arr[i] = scanner.nextFloat();
+                        arr[i] = inputFloat(scanner, "a[" + i + "] = ");
                     }
                     try {
                         algo.writeFile("INPUT.TXT", arr);
@@ -49,24 +53,11 @@ public class Main_Sort {
                     }
                     break;
                 case 3:
-                    algo.bubbleSort(arr);
-                    break;
                 case 4:
-                    algo.selectionSort(arr);
-                    break;
                 case 5:
-                    algo.insertionSort(arr);
-                    break;
                 case 6:
-                    System.out.print("Input value: ");
-                    float value = scanner.nextFloat();
-                    algo.linearSearch(arr, value);
-                    break;
                 case 7:
-                    System.out.print("Input value: ");
-                    value = scanner.nextFloat();
-                    int result = algo.binarySearch(algo.bubbleSort(arr), value);
-                    System.out.println("Index of first element: " + result);
+                    algoSort(scanner, algo,choice, arr);
                     break;
                 case 0:
                     System.out.println("Thanks!!!");
@@ -76,4 +67,55 @@ public class Main_Sort {
             }
         }
     }
+    public static int inputInt(Scanner scanner, String message) {
+        while (true) {
+            System.out.print(message);
+            if (scanner.hasNextInt()) {
+                return scanner.nextInt();
+            } else {
+                System.out.println("Chỉ được nhập số nguyên!");
+                scanner.next();
+            }
+        }
+    }
+    public static void algoSort(Scanner scanner,Algorithm algo, int caseChoice, float[] arr){
+        float value = 0;
+        if (arr == null || arr.length == 0) {
+            System.out.println("Chưa có dữ liệu! Vui lòng chọn 1 hoặc 2 trước.");
+            return;
+        }
+        switch (caseChoice){
+            case 3:
+                algo.bubbleSort(arr);
+                break;
+            case 4:
+                algo.selectionSort(arr);
+                break;
+            case 5:
+                algo.insertionSort(arr);
+                break;
+            case 6:
+                value = inputFloat(scanner, "Input value: ");
+                algo.linearSearch(arr, value);
+                break;
+            case 7:
+                value = inputFloat(scanner, "Input value: ");
+                float[] b = algo.bubbleSort(arr);
+                int result = algo.binarySearch(b, value);
+                System.out.println("Index of first element: " + result);
+                break;
+        }
+    }
+    public static float inputFloat(Scanner scanner, String message) {
+        while (true) {
+            System.out.print(message);
+            if (scanner.hasNextFloat()) {
+                return scanner.nextFloat();
+            } else {
+                System.out.println("Chỉ được nhập số!");
+                scanner.next();
+            }
+        }
+    }
+
 }

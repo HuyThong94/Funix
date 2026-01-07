@@ -15,7 +15,9 @@ public class Algorithm {
     // Đọc dữ liệu từ file
     public float[] readFile(String fileName) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String[] data = reader.readLine().split(" ");
+            String line = reader.readLine();
+            if (line == null || line.isEmpty()) return new float[0];
+            String[] data = line.split(" ");
             float[] arr = new float[data.length];
             for (int i = 0; i < data.length; i++) {
                 arr[i] = Float.parseFloat(data[i]);
@@ -25,23 +27,50 @@ public class Algorithm {
     }
 
     // Thuật toán Bubble Sort
-    public float[] bubbleSort(float[] arr) {
-        float[] sortedArr = arr.clone();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("OUTPUT1.TXT"))) {
-            for (int i = 0; i < sortedArr.length - 1; i++) {
-                for (int j = 0; j < sortedArr.length - i - 1; j++) {
-                    if (sortedArr[j] > sortedArr[j + 1]) {
-                        float temp = sortedArr[j];
-                        sortedArr[j] = sortedArr[j + 1];
-                        sortedArr[j + 1] = temp;
+//    public float[] bubbleSort(float[] arr) {
+//        float[] sortedArr = arr.clone();
+//        try (BufferedWriter writer = new BufferedWriter(new FileWriter("OUTPUT1.TXT"))) {
+//            for (int i = 0; i < sortedArr.length - 1; i++) {
+//                for (int j = 0; j < sortedArr.length - i - 1; j++) {
+//                    if (sortedArr[j] > sortedArr[j + 1]) {
+//                        float temp = sortedArr[j];
+//                        sortedArr[j] = sortedArr[j + 1];
+//                        sortedArr[j + 1] = temp;
+//                    }
+//                }
+//                writeArrayStep(writer, sortedArr);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return sortedArr;
+//    }
+
+    public float[] bubbleSort(float[] a){
+        float[] arr = a.clone();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("OUTPUT1.TXT"))) {
+            for (int i = 0; i < arr.length - 1; i++) {
+                for (int j = 0; j < arr.length - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        float temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
                     }
                 }
-                writeArrayStep(writer, sortedArr);
+                bw.write("Step " + (i + 1) + ": ");
+                for (float x : arr) bw.write(x + " ");
+                bw.newLine();
             }
+
+            bw.close();
+
+            System.out.print("Bubble sort result: ");
+            for (float x : arr) System.out.print(x + " ");
+            System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return sortedArr;
+        return arr;
     }
 
     // Thuật toán Selection Sort
@@ -108,24 +137,26 @@ public class Algorithm {
     // Binary Search
     public int binarySearch(float[] arr, float value) {
         int left = 0, right = arr.length - 1;
+        int result = -1;
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("OUTPUT5.TXT"))) {
             while (left <= right) {
-                int mid = left + (right - left) / 2;
+                int mid = (left + right) / 2;
+
                 if (arr[mid] == value) {
-                    writer.write(mid + "\n");
-                    return mid;
-                }
-                if (arr[mid] < value) {
+                    result = mid;
+                    right = mid - 1; // tìm tiếp bên trái
+                } else if (arr[mid] < value) {
                     left = mid + 1;
                 } else {
                     right = mid - 1;
                 }
             }
-            writer.write("-1\n");
+            writer.write(result + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return -1;
+        return result;
     }
 
     private void writeArrayStep(BufferedWriter writer, float[] arr) throws IOException {
