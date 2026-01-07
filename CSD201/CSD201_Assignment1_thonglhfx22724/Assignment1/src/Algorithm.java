@@ -48,6 +48,7 @@ public class Algorithm {
 
     public float[] bubbleSort(float[] a){
         float[] arr = a.clone();
+        int step = 1;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("OUTPUT1.TXT"))) {
             for (int i = 0; i < arr.length - 1; i++) {
                 for (int j = 0; j < arr.length - i - 1; j++) {
@@ -55,11 +56,12 @@ public class Algorithm {
                         float temp = arr[j];
                         arr[j] = arr[j + 1];
                         arr[j + 1] = temp;
+                        bw.write("Step " + step + ": ");
+                        for (float x : arr) bw.write(x + " ");
+                        bw.newLine();
+                        step++;
                     }
                 }
-                bw.write("Step " + (i + 1) + ": ");
-                for (float x : arr) bw.write(x + " ");
-                bw.newLine();
             }
 
             bw.close();
@@ -131,7 +133,11 @@ public class Algorithm {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Indices: " + indices);
+        if (indices.isEmpty()) {
+            System.out.println("Không có phần tử nào > " + value);
+        } else {
+            System.out.println("Các vị trí có giá trị > " + value + ": " + indices);
+        }
     }
 
     // Binary Search

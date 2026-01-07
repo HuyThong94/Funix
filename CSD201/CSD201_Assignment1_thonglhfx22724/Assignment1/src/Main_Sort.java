@@ -32,7 +32,7 @@ public class Main_Sort {
                     arr = new float[n];
                     System.out.println("Input elements:");
                     for (int i = 0; i < n; i++) {
-                        arr[i] = inputFloat(scanner, "a[" + i + "] = ");
+                        arr[i] = inputFloat(scanner, "a[" + (i+1) + "] = ");
                     }
                     try {
                         algo.writeFile("INPUT.TXT", arr);
