@@ -36,30 +36,31 @@ public class Asm3 {
         System.out.println("+----------+--------------------+----------+");
         System.out.println("|  NGÂN HÀNG SỐ | " + AUTHOR + "@" + VERSION + "           |");
         System.out.println("+----------+--------------------+----------+");
-        menuScreen();
-        int choice = getUserChoice();
         while (true) {
-            if (choice == 0) {
-                System.out.println("Chương trình kết thúc.");
-                System.exit(0);
-            } else if (choice == 1) {
-                showCustomer();
-                getScreen();
-            } else if (choice == 2) {
-                handleAddAccount("SAVINGS");
-                getScreen();
-            } else if (choice == 3) {
-                handleAddAccount("LOAN");
-                getScreen();
-            } else if (choice == 4) {
-                handleWithdrawMoney();
-                getScreen();
-            } else if (choice == 5) {
-                handleTransaction();
-                getScreen();
-            } else {
-                System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
-                getScreen();
+            menuScreen();
+            int choice = getUserChoice();
+            switch (choice){
+                case 1:
+                    showCustomer();
+                    break;
+                case 2:
+                    handleAddAccount("SAVINGS");
+                    break;
+                case 3:
+                    handleAddAccount("LOAN");
+                    break;
+                case 4:
+                    handleWithdrawMoney();
+                    break;
+                case 5:
+                    handleTransaction();
+                    break;
+                case 0:
+                    System.out.println("Chương trình kết thúc.");
+                    return;
+                default:
+                    System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
+                    break;
             }
         }
     }
@@ -78,16 +79,16 @@ public class Asm3 {
             System.out.print("Nhập mã số tài khoản gồm 6 chữ số: ");
             String accountNumber = sc.nextLine().trim();
             if (validateAccount(accountNumber)) {
-                boolean ischeckAccountNumber = false;
+                boolean isCheckAccountNumber = false;
                 DigitalCustomer cus = activeBank.getCustomerById(CUSTOMER_ID);
                 for (int j = 0; j < cus.getAccounts().size(); j++) {
                     Account acc = cus.getAccounts().get(j);
                     if (acc.getAccountNumber().equals(accountNumber)) {
-                        ischeckAccountNumber = true;
+                        isCheckAccountNumber = true;
                         break;
                     }
                 }
-                if (!ischeckAccountNumber) {
+                if (!isCheckAccountNumber) {
                     handleEnterMoney(accountNumber, type);
                     break;
                 } else {
