@@ -16,9 +16,14 @@ public class User {
         return customerId;
     }
     public void setCustomerId(String customerId) {
-        if(customerId.length() == 12 && customerId.matches("\\d{12}")){
-            this.customerId = customerId;
-        }else{
+        try {
+            if(customerId.length() == 12 && customerId.matches("\\d{12}"))
+
+            {
+                this.customerId = customerId;
+            }
+        }
+        catch(Exception e) {
             System.out.println("Mã CCCD không hợp lệ! Phải là chuỗi 12 ký tự số.");
         }
     }

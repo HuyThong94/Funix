@@ -31,30 +31,31 @@ public class Asm2 {
         System.out.println("+----------+--------------------+----------+");
         System.out.println("|  NGÂN HÀNG SỐ | " + AUTHOR + "@" + VERSION + "           |");
         System.out.println("+----------+--------------------+----------+");
-        menuScreen();
-        int choice = getUserChoice(sc);
         while (true) {
-            if (choice == 0) {
-                System.out.println("Chương trình kết thúc.");
-                System.exit(0);
-            } else if (choice == 1) {
-                handleCCCDInput(sc);
-                getScreen(sc);
-            } else if (choice == 2) {
-                handleAccount(sc);
-                getScreen(sc);
-            } else if (choice == 3) {
-                handleListCustomer();
-                getScreen(sc);
-            } else if (choice == 4) {
-                handleCustomerByCCCD(sc);
-                getScreen(sc);
-            } else if (choice == 5) {
-                handleCustomerByName(sc);
-                getScreen(sc);
-            } else {
-                System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
-                getScreen(sc);
+
+            menuScreen();
+            int choice = getUserChoice(sc);
+            switch (choice) {
+                case 1:
+                    handleCCCDInput(sc);
+                    break;
+                case 2:
+                    handleAccount(sc);
+                    break;
+                case 3:
+                    handleListCustomer();
+                    break;
+                case 4:
+                    handleCustomerByCCCD(sc);
+                    break;
+                case 5:
+                    handleCustomerByName(sc);
+                    break;
+                case 0:
+                    System.out.println("Chương trình kết thúc.");
+                    return;
+                default:
+                    System.out.println("Dữ liệu không hợp lệ. Vui lòng nhập lại.");
             }
         }
     }
@@ -83,7 +84,7 @@ public class Asm2 {
                     bank.addCustomer(customer);
                     break;
                 } else {
-                    System.out.println("Số CCCD đã có trong hệ thống. Vui lòng nhập lại hoặc 'No' để thoát:");
+                    System.out.println("Số CCCD đã có trong hệ thống. Vui lòng nhập lại hoặc 'No' để thoát.");
                 }
             } else {
                 System.out.println("Số CCCD không hơp lệ. Vui lòng nhập lại hoặc ‘No’ để thoát:");
@@ -96,12 +97,16 @@ public class Asm2 {
         while (true) {
             System.out.print("Nhập CCCD khách hàng: ");
             String checkCCCD = sc.nextLine();
+            if (checkCCCD.equalsIgnoreCase("No")) {
+                System.out.println("Thoát chương trình!");
+                break;
+            }
             if (!bank.isCustomerExisted(checkCCCD)) {
                 Customer customer = bank.getCustomerById(checkCCCD);
                 handleAccountNumber(sc, customer);
                 break;
             } else {
-                System.out.println("Số CCCD chưa có trong hệ thống. Vui lòng nhập lại. ");
+                System.out.println("Số CCCD chưa có trong hệ thống. Vui lòng nhập lại hoặc 'No' để thoát. ");
             }
         }
     }
